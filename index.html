@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeanette Gasseling Deco & Design</title>
+    <!-- Favicon Implementation -->
+    <link rel="icon" type="image/png" href="assets/images/logo jeanette.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/logo jeanette.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/images/logo jeanette.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/logo jeanette.png">
+    <meta name="msapplication-TileColor" content="#8f6027">
+    <meta name="theme-color" content="#8f6027">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Revans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sticky Header that appears on scroll -->
+    <header class="sticky-header" id="stickyHeader">
+        <div class="sticky-header-content">
+            <div class="sticky-logo-section">
+                <img src="assets/images/logo jeanette.png" alt="Jeanette Gasseling Logo" class="sticky-logo">
+                <div class="sticky-title-section">
+                    <h1 class="sticky-main-title">Jeanette Gasseling</h1>
+                    <h2 class="sticky-subtitle">Deco & Design</h2>
+                </div>
+            </div>
+            <nav class="sticky-nav">
+                <ul class="sticky-nav-list">
+                    <li><a href="#home" data-translate="menu.home">Home</a></li>
+                    <li><a href="#projects" data-translate="menu.projects">Projecten</a></li>
+                    <li><a href="#about" data-translate="menu.about">Over mij</a></li>
+                    <li><a href="#specialities" data-translate="menu.specialities">Specialiteiten</a></li>
+                    <li><a href="#contact" data-translate="menu.contact">Contact</a></li>
+                </ul>
+                <!-- Mobile Menu Button in Sticky Header -->
+                <button class="sticky-menu-toggle" id="stickyMenuToggle" aria-label="Toggle navigation menu">
+                    <span class="sticky-menu-line sticky-menu-line-top"></span>
+                    <span class="sticky-menu-line sticky-menu-line-middle"></span>
+                    <span class="sticky-menu-line sticky-menu-line-bottom"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Creative Off-Canvas Menu Button -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation menu">
+        <span class="menu-line menu-line-top"></span>
+        <span class="menu-line menu-line-middle"></span>
+        <span class="menu-line menu-line-bottom"></span>
+    </button>
+
+    <!-- Off-Canvas Navigation Menu -->
+    <nav class="off-canvas-menu" id="offCanvasMenu">
+        <div class="menu-content">
+            <!-- Close Button -->
+            <button class="menu-close-btn" id="menuCloseBtn" aria-label="Close navigation menu">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            
+            <!-- Logo and Title in Off-Canvas Menu -->
+            <div class="menu-header">
+                <img src="assets/images/logo jeanette.png" alt="Jeanette Gasseling Logo" class="menu-logo">
+                <div class="menu-title-section">
+                    <h1 class="menu-main-title">Jeanette Gasseling</h1>
+                    <h2 class="menu-subtitle">Deco & Design</h2>
+                </div>
+            </div>
+            <ul class="menu-list">
+                <li><a href="#home" data-translate="menu.home">Home</a></li>
+                <li><a href="#projects" data-translate="menu.projects">Projecten</a></li>
+                <li><a href="#about" data-translate="menu.about">Over mij</a></li>
+                <li><a href="#specialities" data-translate="menu.specialities">Specialiteiten</a></li>
+                <li><a href="#contact" data-translate="menu.contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Language Selector -->
+    <div class="language-selector" id="languageSelector">
+        <button class="lang-toggle" aria-label="Change language">
+            <span class="current-lang">NL</span>
+            <svg class="lang-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                <path d="M2 12h20"></path>
+            </svg>
+        </button>
+        <div class="lang-options">
+            <button class="lang-option" data-lang="nl">
+                <span class="lang-flag">🇳🇱</span>
+                <span>Nederlands</span>
+            </button>
+            <button class="lang-option" data-lang="en">
+                <span class="lang-flag">🇬🇧</span>
+                <span>English</span>
+            </button>
+            <button class="lang-option" data-lang="de">
+                <span class="lang-flag">🇩🇪</span>
+                <span>Deutsch</span>
+            </button>
+            <button class="lang-option" data-lang="pt">
+                <span class="lang-flag">🇵🇹</span>
+                <span>Português</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" aria-label="Back to top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="18,15 12,9 6,15"></polyline>
+        </svg>
+    </button>
+
+    <main class="container">
+        <!-- Hero Section with Logo/Title -->
+        <header class="hero-header" id="home">
+            <div class="logo-container">
+                <img src="assets/images/logo jeanette.png" alt="Jeanette Gasseling Logo" class="logo-image">
+                <div class="title-section">
+                    <h1 class="main-title">Jeanette Gasseling</h1>
+                    <h2 class="subtitle">Deco & Design</h2>
+                    <p class="tagline" data-translate="hero.tagline">Tijdloze elegantie & verfijnde stijl</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Projects Section Title -->
+        <section class="projects-header" id="projects">
+            <h2 class="projects-title" data-translate="projects.title">Mijn Projecten</h2>
+            <p class="projects-slogan" data-translate="projects.slogan">voor alle budgetten en gelegenheden</p>
+        </section>
+
+        <!-- Image Grid Section with Before/After -->
+        <section class="gallery-grid">
+            <div class="grid-container">
+                <!-- Row 1 -->
+                <!-- PROJECT 1: MEETING ROOM - Before & After Transformation -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Meeting Room transformation - After -->
+                            <div class="project-image-wrapper">
+                                <img src="assets/images/meetingroom.jpg" alt="Meeting Room - After Transformation" class="grid-image">
+                                <div class="project-overlay">
+                                    <div class="project-overlay-content">
+                                        <span class="project-overlay-title">Meeting Room</span>
+                                        <span class="project-overlay-subtitle">After</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Meeting Room transformation - Before -->
+                            <div class="project-image-wrapper">
+                                <img src="assets/images/meetingroom before.jpg" alt="Meeting Room - Before Transformation" class="grid-image">
+                                <div class="project-overlay">
+                                    <div class="project-overlay-content">
+                                        <span class="project-overlay-title">Meeting Room</span>
+                                        <span class="project-overlay-subtitle">Before</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: OFFICE - Before & After Transformation -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Office transformation - After -->
+                            <div class="project-image-wrapper">
+                                <img src="assets/images/office.jpg" alt="Office - After Transformation" class="grid-image">
+                                <div class="project-overlay">
+                                    <div class="project-overlay-content">
+                                        <span class="project-overlay-title">Office</span>
+                                        <span class="project-overlay-subtitle">After</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Office transformation - Before -->
+                            <div class="project-image-wrapper">
+                                <img src="assets/images/office before.jpg" alt="Office - Before Transformation" class="grid-image">
+                                <div class="project-overlay">
+                                    <div class="project-overlay-content">
+                                        <span class="project-overlay-title">Office</span>
+                                        <span class="project-overlay-subtitle">Before</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3 - Replace the src paths below with your actual image paths -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Replace the data URI below with your actual after image path: assets/images/project3-after.jpg (supports .jpg, .jpeg, .png) -->
+                            <div class="project-image-wrapper">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='afterGrad3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f8f9fa;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23afterGrad3)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%238f6027' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%238f6027' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%238f6027'%3EAFTER%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 3%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 3 After" class="grid-image">
+                                <div class="project-overlay">
+                                    <div class="project-overlay-content">
+                                        <span class="project-overlay-title">Project 3</span>
+                                        <span class="project-overlay-subtitle">After</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Replace the data URI below with your actual before image path: assets/images/project3-before.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='beforeGrad3' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23dee2e6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23beforeGrad3)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23666' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%23666' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%23666'%3EBEFORE%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 3%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 3 Before" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2 with center CTA -->
+                <!-- PROJECT 4 - Replace the src paths below with your actual image paths -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Replace the data URI below with your actual after image path: assets/images/project4-after.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='afterGrad4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f8f9fa;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23afterGrad4)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%238f6027' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%238f6027' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%238f6027'%3EAFTER%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 4%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 4 After" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Replace the data URI below with your actual before image path: assets/images/project4-before.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='beforeGrad4' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23dee2e6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23beforeGrad4)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23666' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%23666' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%23666'%3EBEFORE%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 4%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 4 Before" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid-item cta-container">
+                    <div class="cta-content">
+                        <h3 class="cta-title" data-translate="cta.title">Ontdek onze</h3>
+                        <h4 class="cta-subtitle" data-translate="cta.subtitle">Unieke Stijl</h4>
+                        <button class="cta-button" id="discoverBtn">
+                            <span class="btn-text" data-translate="cta.button">Meer Info</span>
+                            <div class="btn-gradient"></div>
+                        </button>
+                        <p class="cta-description" data-translate="cta.description">Laat je inspireren door onze styling en design tips!</p>
+                    </div>
+                </div>
+                
+                <!-- PROJECT 5 - Replace the src paths below with your actual image paths -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Replace the data URI below with your actual after image path: assets/images/project5-after.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='afterGrad5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f8f9fa;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23afterGrad5)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%238f6027' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%238f6027' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%238f6027'%3EAFTER%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 5%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 5 After" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Replace the data URI below with your actual before image path: assets/images/project5-before.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='beforeGrad5' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23dee2e6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23beforeGrad5)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23666' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%23666' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%23666'%3EBEFORE%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 5%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 5 Before" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 3 -->
+                <!-- PROJECT 6 - Replace the src paths below with your actual image paths -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Replace the data URI below with your actual after image path: assets/images/project6-after.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='afterGrad6' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f8f9fa;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23afterGrad6)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%238f6027' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%238f6027' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%238f6027'%3EAFTER%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 6%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 6 After" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Replace the data URI below with your actual before image path: assets/images/project6-before.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='beforeGrad6' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23dee2e6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23beforeGrad6)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23666' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%23666' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%23666'%3EBEFORE%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 6%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 6 Before" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 7 - Replace the src paths below with your actual image paths -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Replace the data URI below with your actual after image path: assets/images/project7-after.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='afterGrad7' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f8f9fa;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23afterGrad7)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%238f6027' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%238f6027' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%238f6027'%3EAFTER%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 7%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 7 After" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Replace the data URI below with your actual before image path: assets/images/project7-before.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='beforeGrad7' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23dee2e6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23beforeGrad7)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23666' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%23666' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%23666'%3EBEFORE%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 7%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 7 Before" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 8 - Replace the src paths below with your actual image paths -->
+                <div class="grid-item flip-card">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <!-- AFTER IMAGE: Replace the data URI below with your actual after image path: assets/images/project8-after.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='afterGrad8' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23f8f9fa;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23afterGrad8)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%238f6027' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%238f6027' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%238f6027'%3EAFTER%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 8%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 8 After" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see before image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="flip-card-back">
+                            <!-- BEFORE IMAGE: Replace the data URI below with your actual before image path: assets/images/project8-before.jpg (supports .jpg, .jpeg, .png) -->
+                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3ClinearGradient id='beforeGrad8' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e9ecef;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23dee2e6;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='400' height='400' fill='url(%23beforeGrad8)'/%3E%3Ccircle cx='200' cy='150' r='60' fill='%23666' opacity='0.1'/%3E%3Crect x='100' y='180' width='200' height='120' fill='%23666' opacity='0.05' rx='10'/%3E%3Ctext x='200' y='220' text-anchor='middle' font-family='Arial, sans-serif' font-size='24' font-weight='bold' fill='%23666'%3EBEFORE%3C/text%3E%3Ctext x='200' y='250' text-anchor='middle' font-family='Arial, sans-serif' font-size='16' fill='%23666'%3EProject 8%3C/text%3E%3Ctext x='200' y='280' text-anchor='middle' font-family='Arial, sans-serif' font-size='14' fill='%23999'%3EReplace with your photo%3C/text%3E%3C/svg%3E" alt="Interior Design Project 8 Before" class="grid-image">
+                            <button class="flip-arrow-btn" aria-label="Flip to see after image">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section class="about-section" id="about">
+            <div class="about-container">
+                <h2 class="about-title" data-translate="about.title">Over mij</h2>
+                <div class="about-layout">
+                    <div class="about-image-container">
+                        <div class="about-image-wrapper">
+                            <img src="assets/images/aboutimage.jpg" alt="Jeanette Gasseling" class="about-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <span class="overlay-title">Jeanette Gasseling</span>
+                                    <span class="overlay-subtitle">Interior Designer</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-decoration"></div>
+                    </div>
+                    <div class="about-content" data-translate="about.content">
+                        <p>Interieur en styling is mijn passie. Wat ooit begon als een leuke hobby – schuiven met meubels, kleuren combineren en speuren naar unieke vondsten – is inmiddels uitgegroeid tot een mooie en veelzijdige onderneming. Onder andere het creëren van sfeervolle en persoonlijke ruimtes.</p>
+                        
+                        <p>Door middel van het inrichten van ons eigen huis, vakantiewoningen en het helpen van vrienden en familie met hun interieurs.</p>
+                        
+                        <p>Enkele jaren heb ik met veel plezier een gezellige bloemen- en cadeauwinkel gerund. Hier kwam mijn gevoel voor kleur, stijl en harmonie volledig tot bloei. De liefde voor mooie dingen, en het combineren van oud en nieuw, kreeg daar een plek.</p>
+                        
+                        <p>Samen met mijn echtgenoot, dochters en schoonzoon hebben wij een goedlopend familiebedrijf in de schilders en bouw branche opgebouwd. Deze samenwerking bracht niet alleen vakmanschap in kleur en afwerking samen, maar ook oog voor detail en sfeer.</p>
+                        
+                        <p>Tegenwoordig richt ik mij op het inrichten en decoreren van soms een enkele kamer, gehele woning, afgewisseld met kantoren en vakantiewoningen – altijd met oog voor de wensen van de klant en met een warm hart voor karaktervolle kringloopvondsten. Juist die mix van stijlen, materialen en verhalen maakt een ruimte uniek.</p>
+                        
+                        <p>Of je nu op zoek bent naar wat nieuwe sfeer een compleet nieuw interieur of enkel een frisse touch. Door bijvoorbeeld een mooi kunstbloemstuk of een ander kleurtje op de wand, dan help ik je graag om jouw ruimte tot jou sfeervolle eigen woon, werk of vakantie plek te maken.</p>
+                        
+                        <div class="about-signature">
+                            <span class="signature-dash">—</span>
+                            <span class="signature-name">Jeanette Gasseling Deco & Design</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Specialities Section -->
+        <section class="specialities-section" id="specialities">
+            <div class="specialities-container">
+                <h2 class="specialities-title" data-translate="specialities.title">Mijn Specialiteiten</h2>
+                <div class="specialities-layout">
+                    <div class="specialities-image-container">
+                        <div class="specialities-image-wrapper">
+                            <img src="assets/images/flower_piecesimage.jpg" alt="Beautiful Flower Pieces by Jeanette" class="specialities-image">
+                            <div class="image-overlay">
+                                <div class="overlay-content">
+                                    <span class="overlay-title">Flower Pieces</span>
+                                    <span class="overlay-subtitle">Handgemaakt met Passie</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="image-decoration"></div>
+                    </div>
+                    <div class="specialities-content" data-translate="specialities.content">
+                        <h3 class="specialty-highlight">Flower Pieces</h3>
+                        <p>Handgemaakte kunstbloemen met aandacht voor detail en tijdloze elegantie.</p>
+                        
+                        <p>Van klassieke boeketten tot moderne arrangementen - natuurgetrouw en onderhoudsvrij.</p>
+                        
+                        <p>Perfecte aanvullingen voor elk interieur, aangepast aan uw persoonlijke stijl.</p>
+                        
+                        <div class="specialities-features">
+                            <div class="feature-highlight">
+                                <span class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                                    </svg>
+                                </span>
+                                <div class="feature-text">
+                                    <strong>Handgemaakt</strong>
+                                    <span>Elk stuk uniek vervaardigd</span>
+                                </div>
+                            </div>
+                            <div class="feature-highlight">
+                                <span class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                    </svg>
+                                </span>
+                                <div class="feature-text">
+                                    <strong>Natuurgetrouw</strong>
+                                    <span>Realistische uitstraling</span>
+                                </div>
+                            </div>
+                            <div class="feature-highlight">
+                                <span class="feature-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                    </svg>
+                                </span>
+                                <div class="feature-text">
+                                    <strong>Premium Kwaliteit</strong>
+                                    <span>Duurzame materialen</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="specialities-signature">
+                            <span class="signature-dash">—</span>
+                            <span class="signature-name">Vakmanschap & Creativiteit</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="contact-container">
+                <h2 class="contact-title" data-translate="contact.title">Contact</h2>
+                <p class="contact-subtitle" data-translate="contact.subtitle">Laten we samen jouw droominterieur creëren</p>
+                
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h3 data-translate="contact.phone">Telefoon</h3>
+                                <a href="tel:+31612345678">+31 6 12 34 56 78</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h3 data-translate="contact.email">E-mail</h3>
+                                <a href="mailto:info@jeanettegasseling.nl">info@jeanettegasseling.nl</a>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item locations">
+                            <div class="contact-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="contact-details">
+                                <h3 data-translate="contact.location">Locaties</h3>
+                                <div class="location-container">
+                                    <div class="location-item">
+                                        <div class="location-header">
+                                            <span class="location-flag">PT</span>
+                                            <span class="location-country">Portugal</span>
+                                        </div>
+                                        <div class="location-address">
+                                            <p>Beco da Águia da cabeça branca 35</p>
+                                            <p>8200-373 Albufeira</p>
+                                        </div>
+                                    </div>
+                                    <div class="location-item">
+                                        <div class="location-header">
+                                            <span class="location-flag">NL</span>
+                                            <span class="location-country">Netherlands</span>
+                                        </div>
+                                        <div class="location-address">
+                                            <p>Kolenbergstraat 40</p>
+                                            <p>1695 CD Blokker</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <form class="contact-form" id="contactForm" action="https://formspree.io/f/xjkoyypb" method="POST">
+                        <div class="form-group">
+                            <input type="text" id="name" name="name" required placeholder=" ">
+                            <label for="name" data-translate="contact.form.name">Naam</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="email" id="email" name="email" required placeholder=" ">
+                            <label for="email" data-translate="contact.form.email">E-mail</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <input type="tel" id="phone" name="phone" placeholder=" ">
+                            <label for="phone" data-translate="contact.form.phone">Telefoon</label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea id="message" name="message" rows="6" required placeholder=" "></textarea>
+                            <label for="message" data-translate="contact.form.message">Bericht</label>
+                        </div>
+                        
+                        <button type="submit" class="contact-submit">
+                            <span data-translate="contact.form.submit">Verstuur Bericht</span>
+                            <svg class="submit-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced Footer Section -->
+    <footer class="footer" id="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-brand">
+                    <img src="assets/images/logo jeanette.png" alt="Jeanette Gasseling Logo" class="footer-logo">
+                    <div class="footer-brand-text">
+                        <h3 class="footer-title">Jeanette Gasseling</h3>
+                        <p class="footer-subtitle">Deco & Design</p>
+                        <p class="footer-tagline" data-translate="footer.tagline">Tijdloze elegantie voor uw interieur</p>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4 data-translate="footer.navigation">Navigatie</h4>
+                        <ul>
+                            <li><a href="#home" data-translate="menu.home">Home</a></li>
+                            <li><a href="#projects" data-translate="menu.projects">Projecten</a></li>
+                            <li><a href="#about" data-translate="menu.about">Over mij</a></li>
+                            <li><a href="#specialities" data-translate="menu.specialities">Specialiteiten</a></li>
+                            <li><a href="#contact" data-translate="menu.contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 data-translate="footer.services">Diensten</h4>
+                        <ul>
+                            <li><span data-translate="footer.service1">Interieur Styling</span></li>
+                            <li><span data-translate="footer.service2">Kleuradvies</span></li>
+                            <li><span data-translate="footer.service3">Ruimte Inrichting</span></li>
+                            <li><span data-translate="footer.service4">Decoratie</span></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4 data-translate="contact.title">Contact</h4>
+                        <div class="footer-contact">
+                            <p>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                                <span class="footer-locations">
+                                    <span class="footer-location">🇵🇹 Albufeira, Portugal</span>
+                                    <span class="footer-location">🇳🇱 Blokker, Netherlands</span>
+                                </span>
+                            </p>
+                            <p>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                                </svg>
+                                <a href="tel:+31612345678">+31 6 12 34 56 78</a>
+                            </p>
+                            <p>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                    <polyline points="22,6 12,13 2,6"></polyline>
+                                </svg>
+                                <a href="mailto:info@jeanettegasseling.nl">info@jeanettegasseling.nl</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p class="footer-copyright">
+                        &copy; <span id="currentYear">2025</span> Jeanette Gasseling Deco & Design. 
+                        <span data-translate="footer.rights">Alle rechten voorbehouden.</span>
+                    </p>
+                    <div class="footer-social">
+                        <span data-translate="footer.follow">Volg ons:</span>
+                        <a href="#" aria-label="Instagram" class="social-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Facebook" class="social-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Pinterest" class="social-link">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M8 11.5c0-1.38.5-2.5 2-2.5s2 1.12 2 2.5-.5 2.5-2 2.5"></path>
+                                <path d="M12 14v6"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
