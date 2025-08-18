@@ -1,2115 +1,807 @@
 /**
- * Jeanette Gasseling Deco & Design - Enhanced Interactive Interface
- * 
- * Enhanced Features:
- * - German language support
- * - Sticky header with scroll detection
- * - Back to top button
- * - Advanced scroll animations
- * - Enhanced mobile/tablet optimization
- * - Improved accessibility
- * - Enhanced flip card functionality
- * - Comprehensive footer functionality
+ * Jeanette Gasseling Deco & Design - Simple Working Interface
  */
 
-class EnhancedInteriorDesignInterface {
-  constructor() {
-    this.isInitialized = false;
-    this.throttleDelay = 16; // 60fps optimization
-    this.animationQueue = [];
-    this.performanceMetrics = {
-      loadTime: performance.now(),
-      interactionCount: 0,
-      flipInteractionCount: 0
-    };
-    this.currentLanguage = 'nl'; // Default to Dutch
-    this.translations = this.initializeTranslations();
-    this.deviceCapabilities = this.analyzeDeviceCapabilities();
-    this.flipCardStates = new Map(); // Track flip states
-    this.scrollPosition = 0;
-    this.isScrolling = false;
-    this.animationObserver = null;
-    this.initializeInterface();
-  }
-
-  /**
-   * Throttle function for performance optimization
-   */
-  throttle(func, delay) {
-    let timeoutId;
-    let lastExecTime = 0;
-    return function (...args) {
-      const currentTime = Date.now();
-      
-      if (currentTime - lastExecTime > delay) {
-        func.apply(this, args);
-        lastExecTime = currentTime;
-      } else {
-        clearTimeout(timeoutId);
-        timeoutId = setTimeout(() => {
-          func.apply(this, args);
-          lastExecTime = Date.now();
-        }, delay - (currentTime - lastExecTime));
-      }
-    };
-  }
-
-  /**
-   * Professional device capability analysis for optimal experience delivery
-   */
-  analyzeDeviceCapabilities() {
-    return {
-      touch: 'ontouchstart' in window || navigator.maxTouchPoints > 0,
-      highDPI: window.devicePixelRatio > 1,
-      reducedMotion: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
-      connectionSpeed: navigator.connection?.effectiveType || 'unknown',
-      isMobile: window.innerWidth <= 768,
-      isTablet: window.innerWidth > 768 && window.innerWidth <= 1024,
-      isDesktop: window.innerWidth > 1024
-    };
-  }
-
-  /**
-   * Enhanced multi-language support with German translation
-   */
-  initializeTranslations() {
-    return {
-      nl: {
-        hero: {
-          tagline: 'Tijdloze elegantie & verfijnde stijl'
-        },
-        menu: {
-          home: 'Home',
-          projects: 'Projecten',
-          about: 'Over mij',
-          contact: 'Contact'
-        },
-        projects: {
-          title: 'Mijn Projecten',
-          slogan: 'voor alle budgetten en gelegenheden'
-        },
-        cta: {
-          title: 'Ontdek onze',
-          subtitle: 'Unieke Stijl',
-          button: 'Meer Info',
-          description: 'Laat je inspireren door onze styling en design tips!'
-        },
-        about: {
-          title: 'Over mij',
-          content: [
-            'Interieur en styling is mijn passie. Wat ooit begon als een leuke hobby – schuiven met meubels, kleuren combineren en speuren naar unieke vondsten – is inmiddels uitgegroeid tot een mooie en veelzijdige onderneming. Onder andere het creëren van sfeervolle en persoonlijke ruimtes.',
-            'Door middel van het inrichten van ons eigen huis, vakantiewoningen en het helpen van vrienden en familie met hun interieurs.',
-            'Enkele jaren heb ik met veel plezier een gezellige bloemen- en cadeauwinkel gerund. Hier kwam mijn gevoel voor kleur, stijl en harmonie volledig tot bloei. De liefde voor mooie dingen, en het combineren van oud en nieuw, kreeg daar een plek.',
-            'Samen met mijn echtgenoot, dochters en schoonzoon hebben wij een goedlopend familiebedrijf in de schilders en bouw branche opgebouwd. Deze samenwerking bracht niet alleen vakmanschap in kleur en afwerking samen, maar ook oog voor detail en sfeer.',
-            'Tegenwoordig richt ik mij op het inrichten en decoreren van soms een enkele kamer, gehele woning, afgewisseld met kantoren en vakantiewoningen – altijd met oog voor de wensen van de klant en met een warm hart voor karaktervolle kringloopvondsten. Juist die mix van stijlen, materialen en verhalen maakt een ruimte uniek.',
-            'Of je nu op zoek bent naar wat nieuwe sfeer een compleet nieuw interieur of enkel een frisse touch. Door bijvoorbeeld een mooi kunstbloemstuk of een ander kleurtje op de wand, dan help ik je graag om jouw ruimte tot jou sfeervolle eigen woon, werk of vakantie plek te maken.'
-          ]
-        },
-        contact: {
-          title: 'Contact',
-          subtitle: 'Laten we samen jouw droominterieur creëren',
-          phone: 'Telefoon',
-          email: 'E-mail',
-          location: 'Locatie',
-          form: {
-            name: 'Naam',
-            email: 'E-mail',
-            phone: 'Telefoon',
-            message: 'Bericht',
-            submit: 'Verstuur Bericht'
-          }
-        },
-        footer: {
-          tagline: 'Tijdloze elegantie voor uw interieur',
-          navigation: 'Navigatie',
-          services: 'Diensten',
-          service1: 'Interieur Styling',
-          service2: 'Kleuradvies',
-          service3: 'Ruimte Inrichting',
-          service4: 'Decoratie',
-          rights: 'Alle rechten voorbehouden.',
-          follow: 'Volg ons:'
-        },
-        interactions: {
-          ctaClick: 'Service consultatie aanvraag gestart',
-          gridClick: 'Portfolio item geopend',
-          flipCard: 'Voor/Na weergave gewisseld',
-          logoClick: 'Merk betrokkenheid geregistreerd',
-          keyboardNav: 'Professionele toetsenbordnavigatie actief'
-        }
-      },
-      en: {
-        hero: {
-          tagline: 'Timeless elegance & sophisticated style'
-        },
-        menu: {
-          home: 'Home',
-          projects: 'Projects',
-          about: 'About Me',
-          contact: 'Contact'
-        },
-        projects: {
-          title: 'My Projects',
-          slogan: 'for all budgets and occasions'
-        },
-        cta: {
-          title: 'Discover our',
-          subtitle: 'Unique Style',
-          button: 'Learn More',
-          description: 'Get inspired by our styling and design tips!'
-        },
-        about: {
-          title: 'About Me',
-          content: [
-            'Interior design and styling is my passion. What once began as a fun hobby – moving furniture, combining colors and searching for unique finds – has now grown into a beautiful and versatile business. Including creating atmospheric and personal spaces.',
-            'Through furnishing our own home, vacation homes and helping friends and family with their interiors.',
-            'For several years I ran a cozy flower and gift shop with great pleasure. Here my feeling for color, style and harmony came into full bloom. The love for beautiful things, and combining old and new, found a place there.',
-            'Together with my husband, daughters and son-in-law, we have built a successful family business in the painting and construction industry. This collaboration brought together not only craftsmanship in color and finishing, but also an eye for detail and atmosphere.',
-            'Nowadays I focus on furnishing and decorating sometimes a single room, entire home, alternated with offices and vacation homes – always with an eye for the customer\'s wishes and with a warm heart for characterful thrift store finds. It is precisely that mix of styles, materials and stories that makes a space unique.',
-            'Whether you are looking for some new atmosphere, a completely new interior or just a fresh touch. For example, through a beautiful artificial flower arrangement or a different color on the wall, I would be happy to help you turn your space into your own atmospheric living, working or vacation place.'
-          ]
-        },
-        contact: {
-          title: 'Contact',
-          subtitle: 'Let\'s create your dream interior together',
-          phone: 'Phone',
-          email: 'Email',
-          location: 'Location',
-          form: {
-            name: 'Name',
-            email: 'Email',
-            phone: 'Phone',
-            message: 'Message',
-            submit: 'Send Message'
-          }
-        },
-        footer: {
-          tagline: 'Timeless elegance for your interior',
-          navigation: 'Navigation',
-          services: 'Services',
-          service1: 'Interior Styling',
-          service2: 'Color Advice',
-          service3: 'Space Design',
-          service4: 'Decoration',
-          rights: 'All rights reserved.',
-          follow: 'Follow us:'
-        },
-        interactions: {
-          ctaClick: 'Service consultation inquiry initiated',
-          gridClick: 'Portfolio item accessed',
-          flipCard: 'Before/After view toggled',
-          logoClick: 'Brand engagement recorded',
-          keyboardNav: 'Professional keyboard navigation active'
-        }
-      },
-      de: {
-        hero: {
-          tagline: 'Zeitlose Eleganz & raffinierter Stil'
-        },
-        menu: {
-          home: 'Startseite',
-          projects: 'Projekte',
-          about: 'Über mich',
-          contact: 'Kontakt'
-        },
-        projects: {
-          title: 'Meine Projekte',
-          slogan: 'für alle Budgets und Anlässe'
-        },
-        cta: {
-          title: 'Entdecken Sie unseren',
-          subtitle: 'Einzigartigen Stil',
-          button: 'Mehr Erfahren',
-          description: 'Lassen Sie sich von unseren Styling- und Design-Tipps inspirieren!'
-        },
-        about: {
-          title: 'Über mich',
-          content: [
-            'Innenarchitektur und Styling ist meine Leidenschaft. Was einst als lustiges Hobby begann – Möbel verschieben, Farben kombinieren und nach einzigartigen Fundstücken suchen – ist inzwischen zu einem schönen und vielseitigen Unternehmen gewachsen. Einschließlich der Schaffung atmosphärischer und persönlicher Räume.',
-            'Durch die Einrichtung unseres eigenen Hauses, von Ferienhäusern und die Hilfe für Freunde und Familie bei ihren Innenräumen.',
-            'Mehrere Jahre lang führte ich mit großer Freude einen gemütlichen Blumen- und Geschenkeladen. Hier kam mein Gefühl für Farbe, Stil und Harmonie voll zur Geltung. Die Liebe zu schönen Dingen und die Kombination von Alt und Neu fand dort ihren Platz.',
-            'Zusammen mit meinem Mann, meinen Töchtern und meinem Schwiegersohn haben wir ein erfolgreiches Familienunternehmen in der Maler- und Baubranche aufgebaut. Diese Zusammenarbeit brachte nicht nur Handwerkskunst in Farbe und Verarbeitung zusammen, sondern auch ein Auge für Detail und Atmosphäre.',
-            'Heutzutage konzentriere ich mich auf die Einrichtung und Dekoration manchmal eines einzelnen Raums, ganzer Häuser, abwechselnd mit Büros und Ferienhäusern – immer mit einem Auge für die Wünsche des Kunden und mit einem warmen Herzen für charaktervolle Second-Hand-Funde. Genau diese Mischung aus Stilen, Materialien und Geschichten macht einen Raum einzigartig.',
-            'Egal, ob Sie nach etwas neuer Atmosphäre, einem völlig neuen Interieur oder nur einem frischen Touch suchen. Zum Beispiel durch ein schönes Kunstblumenarrangement oder eine andere Farbe an der Wand – ich helfe Ihnen gerne dabei, Ihren Raum zu Ihrem eigenen atmosphärischen Wohn-, Arbeits- oder Urlaubsort zu machen.'
-          ]
-        },
-        contact: {
-          title: 'Kontakt',
-          subtitle: 'Lassen Sie uns gemeinsam Ihr Trauminterieur schaffen',
-          phone: 'Telefon',
-          email: 'E-Mail',
-          location: 'Standort',
-          form: {
-            name: 'Name',
-            email: 'E-Mail',
-            phone: 'Telefon',
-            message: 'Nachricht',
-            submit: 'Nachricht Senden'
-          }
-        },
-        footer: {
-          tagline: 'Zeitlose Eleganz für Ihr Interieur',
-          navigation: 'Navigation',
-          services: 'Dienstleistungen',
-          service1: 'Innenraum Styling',
-          service2: 'Farbberatung',
-          service3: 'Raumgestaltung',
-          service4: 'Dekoration',
-          rights: 'Alle Rechte vorbehalten.',
-          follow: 'Folgen Sie uns:'
-        },
-        interactions: {
-          ctaClick: 'Service-Beratungsanfrage gestartet',
-          gridClick: 'Portfolio-Element aufgerufen',
-          flipCard: 'Vorher/Nachher-Ansicht umgeschaltet',
-          logoClick: 'Markenengagement registriert',
-          keyboardNav: 'Professionelle Tastaturnavigation aktiv'
-        }
-      },
-      pt: {
-        hero: {
-          tagline: 'Elegância atemporal & estilo sofisticado'
-        },
-        menu: {
-          home: 'Início',
-          projects: 'Projetos',
-          about: 'Sobre Mim',
-          contact: 'Contacto'
-        },
-        projects: {
-          title: 'Meus Projetos',
-          slogan: 'para todos os orçamentos e ocasiões'
-        },
-        cta: {
-          title: 'Descubra o nosso',
-          subtitle: 'Estilo Único',
-          button: 'Saiba Mais',
-          description: 'Inspire-se com as nossas dicas de styling e design!'
-        },
-        about: {
-          title: 'Sobre Mim',
-          content: [
-            'Design de interiores e styling é a minha paixão. O que começou como um hobby divertido – mover móveis, combinar cores e procurar achados únicos – cresceu agora para um negócio bonito e versátil. Incluindo a criação de espaços atmosféricos e pessoais.',
-            'Através da decoração da nossa própria casa, casas de férias e ajudando amigos e família com os seus interiores.',
-            'Durante vários anos, geri uma acolhedora loja de flores e presentes com grande prazer. Aqui o meu sentido para cor, estilo e harmonia floresceu completamente. O amor por coisas bonitas, e combinando o antigo e o novo, encontrou ali um lugar.',
-            'Juntamente com o meu marido, filhas e genro, construímos um negócio familiar de sucesso na indústria de pintura e construção. Esta colaboração reuniu não apenas artesanato em cor e acabamento, mas também um olho para detalhe e atmosfera.',
-            'Hoje em dia concentro-me em mobilar e decorar às vezes um único quarto, casa inteira, alternado com escritórios e casas de férias – sempre com um olho para os desejos do cliente e com um coração caloroso para achados característicos de lojas de segunda mão. É precisamente essa mistura de estilos, materiais e histórias que torna um espaço único.',
-            'Quer esteja à procura de uma nova atmosfera, um interior completamente novo ou apenas um toque fresco. Por exemplo, através de um belo arranjo de flores artificiais ou uma cor diferente na parede, terei todo o prazer em ajudá-lo a transformar o seu espaço no seu próprio lugar atmosférico para viver, trabalhar ou passar férias.'
-          ]
-        },
-        contact: {
-          title: 'Contacto',
-          subtitle: 'Vamos criar o seu interior de sonho juntos',
-          phone: 'Telefone',
-          email: 'E-mail',
-          location: 'Localização',
-          form: {
-            name: 'Nome',
-            email: 'E-mail',
-            phone: 'Telefone',
-            message: 'Mensagem',
-            submit: 'Enviar Mensagem'
-          }
-        },
-        footer: {
-          tagline: 'Elegância atemporal para o seu interior',
-          navigation: 'Navegação',
-          services: 'Serviços',
-          service1: 'Styling de Interiores',
-          service2: 'Consultoria de Cores',
-          service3: 'Design de Espaços',
-          service4: 'Decoração',
-          rights: 'Todos os direitos reservados.',
-          follow: 'Siga-nos:'
-        },
-        interactions: {
-          ctaClick: 'Consulta de serviço iniciada',
-          gridClick: 'Item do portfólio acedido',
-          flipCard: 'Vista Antes/Depois alternada',
-          logoClick: 'Envolvimento com a marca registado',
-          keyboardNav: 'Navegação profissional por teclado ativa'
-        }
-      }
-    };
-  }
-
-  /**
-   * Primary initialization orchestrator
-   */
-  initializeInterface() {
-    // Ensure DOM readiness before execution
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => this.executeInitialization());
-    } else {
-      this.executeInitialization();
-    }
-  }
-
-  /**
-   * Core initialization sequence with error handling
-   */
-  executeInitialization() {
-    try {
-      this.cacheDOM();
-      this.bindEventHandlers();
-      this.initializeFlipCards();
-      this.initializeLanguageSelector();
-      this.initializeOffCanvasMenu();
-      this.initializeStickyHeader();
-      this.initializeBackToTop();
-      this.implementScrollAnimations();
-      this.initializeAccessibilityFeatures();
-      this.optimizeImageLoading();
-      this.initializeTouchInteractions();
-      this.initializeContactForm();
-      this.initializePageLoadAnimation();
-      this.setupFooterFunctionality();
-      this.isInitialized = true;
-      
-      console.log('✅ Enhanced interface initialization completed successfully');
-    } catch (error) {
-      console.error('❌ Enhanced interface initialization failed:', error);
-      this.fallbackInitialization();
-    }
-  }
-
-  /**
-   * Enhanced DOM element caching with comprehensive element coverage
-   */
-  cacheDOM() {
-    this.elements = {
-      ctaButton: document.getElementById('discoverBtn'),
-      gridItems: document.querySelectorAll('.grid-item'),
-      gridImages: document.querySelectorAll('.grid-image'),
-      logoImage: document.querySelector('.logo-image'),
-      container: document.querySelector('.container'),
-      flipCards: document.querySelectorAll('.flip-card'),
-      flipArrowButtons: document.querySelectorAll('.flip-arrow-btn'),
-      aboutSection: document.querySelector('.about-section'),
-      contactSection: document.querySelector('.contact-section'),
-      languageSelector: document.getElementById('languageSelector'),
-      langToggle: document.querySelector('.lang-toggle'),
-      langOptions: document.querySelectorAll('.lang-option'),
-      currentLang: document.querySelector('.current-lang'),
-      menuToggle: document.getElementById('menuToggle'),
-      offCanvasMenu: document.getElementById('offCanvasMenu'),
-      menuCloseBtn: document.getElementById('menuCloseBtn'),
-      menuLinks: document.querySelectorAll('.menu-list a'),
-      contactForm: document.getElementById('contactForm'),
-      translatableElements: document.querySelectorAll('[data-translate]'),
-      
-      // Enhanced elements for sophisticated functionality
-      stickyHeader: document.getElementById('stickyHeader'),
-      stickyNavLinks: document.querySelectorAll('.sticky-nav-list a'),
-      stickyMenuToggle: document.getElementById('stickyMenuToggle'),
-      backToTop: document.getElementById('backToTop'),
-      footer: document.getElementById('footer'),
-      socialLinks: document.querySelectorAll('.social-link'),
-      currentYearElement: document.getElementById('currentYear'),
-      heroHeader: document.querySelector('.hero-header'),
-      projectsHeader: document.querySelector('.projects-header'),
-      menuHeader: document.querySelector('.menu-header'),
-      menuLogo: document.querySelector('.menu-logo'),
-      stickyLogo: document.querySelector('.sticky-logo')
-    };
-
-    // Validate critical elements existence with enhanced error handling
-    this.validateCriticalElements();
-  }
-
-  /**
-   * Critical element validation with graceful degradation
-   */
-  validateCriticalElements() {
-    const requiredElements = ['ctaButton', 'gridItems'];
-    
-    requiredElements.forEach(elementKey => {
-      if (!this.elements[elementKey]) {
-        console.warn(`⚠️ Critical element missing: ${elementKey}`);
-      }
-    });
-  }
-
-  /**
-   * Initialize page load animations
-   */
-  initializePageLoadAnimation() {
-    // Add loading class to body
-    document.body.classList.add('loading');
-    
-    // Remove loading class and add loaded class after a short delay
-    setTimeout(() => {
-      document.body.classList.remove('loading');
-      document.body.classList.add('loaded');
-    }, 100);
-  }
-
-  /**
-   * Enhanced sticky header with intelligent directional scroll detection
-   */
-  initializeStickyHeader() {
-    if (!this.elements.stickyHeader) return;
-
-    const stickyHeaderHeight = 80;
-    let lastScrollTop = 0;
-    let scrollDirection = 'down';
-    let ticking = false;
-
-    const handleSmartScroll = () => {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      
-      // Determine scroll direction
-      if (currentScroll > lastScrollTop && currentScroll > stickyHeaderHeight) {
-        // Scrolling down
-        if (scrollDirection !== 'down') {
-          scrollDirection = 'down';
-          this.hideHeader();
-        }
-      } else if (currentScroll < lastScrollTop || currentScroll <= stickyHeaderHeight) {
-        // Scrolling up or at top
-        if (scrollDirection !== 'up' && currentScroll > stickyHeaderHeight) {
-          scrollDirection = 'up';
-          this.showHeader();
-        } else if (currentScroll <= stickyHeaderHeight) {
-          this.hideHeader();
-        }
-      }
-
-      lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
-      ticking = false;
-    };
-
-    const requestTick = () => {
-      if (!ticking) {
-        requestAnimationFrame(handleSmartScroll);
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', requestTick);
-
-    // Initialize sticky header menu integration
-    this.initializeStickyHeaderMenu();
-
-    // Handle sticky nav clicks
-    if (this.elements.stickyNavLinks) {
-      this.elements.stickyNavLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const targetId = link.getAttribute('href');
-          const targetElement = document.querySelector(targetId);
-          
-          if (targetElement) {
-            const offsetTop = targetElement.offsetTop - 100;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
+// Analytics tracking functions
+function trackEvent(eventName, eventCategory, eventAction, eventLabel = null) {
+    if (typeof gtag !== 'undefined') {
+        try {
+            gtag('event', eventName, {
+                event_category: eventCategory,
+                event_action: eventAction,
+                event_label: eventLabel
             });
-          }
-        });
-      });
+            console.log(`Analytics: ${eventCategory} - ${eventAction}${eventLabel ? ' - ' + eventLabel : ''}`);
+        } catch (error) {
+            console.warn('Analytics tracking error:', error);
+        }
+    } else {
+        console.log(`Analytics (disabled): ${eventCategory} - ${eventAction}${eventLabel ? ' - ' + eventLabel : ''}`);
     }
-  }
+}
 
-  /**
-   * Show sticky header with smooth animation
-   */
-  showHeader() {
-    if (this.elements.stickyHeader) {
-      this.elements.stickyHeader.classList.add('visible');
-      this.elements.stickyHeader.classList.remove('hidden');
-      
-      // Hide floating menu button when header appears
-      if (this.elements.menuToggle) {
-        this.elements.menuToggle.classList.add('hidden');
-      }
+function trackPageView(pageName) {
+    if (typeof gtag !== 'undefined') {
+        try {
+            gtag('config', 'GA_MEASUREMENT_ID', {
+                page_title: pageName,
+                page_location: window.location.href
+            });
+            console.log(`Analytics: Page view - ${pageName}`);
+        } catch (error) {
+            console.warn('Analytics page view error:', error);
+        }
+    } else {
+        console.log(`Analytics (disabled): Page view - ${pageName}`);
     }
-  }
+}
 
-  /**
-   * Hide sticky header with smooth animation
-   */
-  hideHeader() {
-    if (this.elements.stickyHeader) {
-      this.elements.stickyHeader.classList.remove('visible');
-      this.elements.stickyHeader.classList.add('hidden');
-      
-      // Show floating menu button when header hides
-      if (this.elements.menuToggle) {
-        this.elements.menuToggle.classList.remove('hidden');
-      }
-    }
-  }
-
-  /**
-   * Initialize sticky header menu integration
-   */
-  initializeStickyHeaderMenu() {
-    const stickyMenuToggle = document.getElementById('stickyMenuToggle');
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Initializing Jeanette Gasseling interface...');
     
-    if (stickyMenuToggle) {
-      stickyMenuToggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isActive = stickyMenuToggle.classList.contains('active');
-        
-        if (isActive) {
-          this.closeOffCanvasMenu();
-          stickyMenuToggle.classList.remove('active');
-        } else {
-          this.openOffCanvasMenu();
-          stickyMenuToggle.classList.add('active');
-        }
-      });
-
-      // Sync sticky menu button state with main menu state
-      const observer = new MutationObserver((mutations) => {
-        mutations.forEach((mutation) => {
-          if (mutation.attributeName === 'class') {
-            const isMenuActive = this.elements.offCanvasMenu.classList.contains('active');
-            if (isMenuActive) {
-              stickyMenuToggle.classList.add('active');
+    // Track initial page load
+    trackPageView('Home Page');
+    
+    // Initialize flip cards
+    initializeFlipCards();
+    
+    // Initialize project buttons
+    initializeProjectButtons();
+    
+    // Initialize project modal functionality
+    initializeProjectModal();
+    
+    // Initialize other basic functionality
+    initializeBasicFeatures();
+    
+    // Initialize analytics tracking
+    initializeAnalyticsTracking();
+    
+    // Initialize image error handling
+    initializeImageErrorHandling();
+    
+    // Initialize flower gallery
+    initializeFlowerGallery();
+    
+    console.log('Interface initialized successfully');
+    
+    // Mobile debugging - add a test button to check if modal works
+    if ('ontouchstart' in window) {
+        console.log('Mobile device detected, adding debug info');
+        // Test if modal can be opened manually
+        setTimeout(() => {
+            if (window.openProjectModal) {
+                console.log('openProjectModal function is available');
+                console.log('Modal element exists:', document.getElementById('projectModal'));
             } else {
-              stickyMenuToggle.classList.remove('active');
+                console.log('openProjectModal function is NOT available');
             }
-          }
-        });
-      });
-
-      observer.observe(this.elements.offCanvasMenu, { attributes: true });
+        }, 1000);
     }
-  }
+});
 
-  /**
-   * Initialize back to top button
-   */
-  initializeBackToTop() {
-    if (!this.elements.backToTop) return;
-
-    const showBackToTopThreshold = 300;
-
-    const handleScroll = this.throttle(() => {
-      const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-      
-      if (currentScroll > showBackToTopThreshold) {
-        this.elements.backToTop.classList.add('visible');
-      } else {
-        this.elements.backToTop.classList.remove('visible');
-      }
-    }, this.throttleDelay);
-
-    window.addEventListener('scroll', handleScroll);
-
-    // Handle back to top click
-    this.elements.backToTop.addEventListener('click', (e) => {
-      e.preventDefault();
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-
-      this.trackUserInteraction('back_to_top_clicked', {
-        scrollPosition: window.pageYOffset,
-        timestamp: Date.now()
-      });
-    });
-  }
-
-  /**
-   * Implement advanced scroll animations
-   */
-  implementScrollAnimations() {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
-
-    this.animationObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-in');
-          
-          // Special handling for grid items with staggered animation
-          if (entry.target.classList.contains('grid-item')) {
-            const delay = Array.from(this.elements.gridItems).indexOf(entry.target) * 100;
-            entry.target.style.animationDelay = `${delay}ms`;
-          }
+/**
+ * Initialize project buttons functionality
+ */
+function initializeProjectButtons() {
+    const projectButtons = document.querySelectorAll('.project-cta-button');
+    
+    console.log(`Found ${projectButtons.length} project buttons`);
+    
+    // Project ID mapping based on the order in HTML
+    const projectIds = [
+        'meeting-room',
+        'office',
+        'holiday-home',
+        'holiday-home-2',
+        'corcovada-home',
+        'torremolinos-home',
+        'borboleta-turquesa',
+        'youth-lounge'
+    ];
+    
+    projectButtons.forEach((button, index) => {
+        // Function to handle project button click/touch
+        const handleProjectAction = function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Get project title from the closest flip card
+            const flipCard = this.closest('.flip-card');
+            const projectTitle = flipCard ? 
+                flipCard.querySelector('.project-overlay-title')?.textContent || `Project ${index + 1}` :
+                `Project ${index + 1}`;
+            
+            const projectId = projectIds[index];
+            console.log(`Project button clicked: ${projectTitle} (ID: ${projectId})`);
+            
+            // Track the button click
+            trackEvent('project_button_click', 'Projects', 'View Details', projectTitle);
+            
+            // Open the project modal
+            if (window.openProjectModal && projectId) {
+                window.openProjectModal(projectId);
+            } else {
+                console.warn('Modal function not available or project ID missing');
+            }
+        };
+        
+        // Add click event listener
+        button.addEventListener('click', handleProjectAction);
+        
+        // Add touch events for mobile (without preventing default)
+        button.addEventListener('touchstart', function(e) {
+            // Don't prevent default on touchstart to allow click to fire
+            e.stopPropagation();
+            console.log('Touch start on project button');
+        }, { passive: true });
+        
+        // Add touchend event for mobile
+        button.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Touch end on project button, opening modal...');
+            // Small delay to ensure touch events complete
+            setTimeout(() => {
+                handleProjectAction.call(this, e);
+            }, 50);
+        }, { passive: false });
+        
+        // Add mousedown event for better mobile support
+        button.addEventListener('mousedown', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        
+        // Add additional mobile event listeners
+        button.addEventListener('touchcancel', function(e) {
+            console.log('Touch cancelled on project button');
+        });
+        
+        // Ensure the button is properly configured for mobile
+        button.style.touchAction = 'manipulation';
+        button.style.webkitTapHighlightColor = 'transparent';
+        
+        // Add a simple click fallback for mobile
+        button.addEventListener('pointerdown', function(e) {
+            console.log('Pointer down on project button');
+        });
+        
+        // Add a direct mobile click handler
+        if ('ontouchstart' in window) {
+            button.addEventListener('click', function(e) {
+                console.log('Mobile click detected, forcing modal open...');
+                // Force the modal to open even if other events fail
+                setTimeout(() => {
+                    if (window.openProjectModal && projectIds[index]) {
+                        window.openProjectModal(projectIds[index]);
+                    }
+                }, 100);
+            }, { passive: false });
         }
-      });
-    }, observerOptions);
-
-    // Observe elements for scroll animations
-    const elementsToAnimate = [
-      ...this.elements.gridItems,
-      this.elements.aboutSection,
-      this.elements.contactSection,
-      this.elements.projectsHeader
-    ].filter(el => el);
-
-    elementsToAnimate.forEach(element => {
-      if (element) {
-        this.animationObserver.observe(element);
-      }
     });
-  }
+}
 
-  /**
-   * Setup footer functionality
-   */
-  setupFooterFunctionality() {
-    // Set current year
-    if (this.elements.currentYearElement) {
-      this.elements.currentYearElement.textContent = new Date().getFullYear();
+/**
+ * Initialize project modal functionality
+ */
+function initializeProjectModal() {
+    const modal = document.getElementById('projectModal');
+    const modalClose = document.getElementById('modalClose');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const carouselTrack = document.getElementById('carouselTrack');
+    const carouselIndicators = document.getElementById('carouselIndicators');
+    const prevBtn = document.getElementById('carouselPrev');
+    const nextBtn = document.getElementById('carouselNext');
+    
+    if (!modal || !modalClose) {
+        console.warn('Modal elements not found');
+        return;
     }
-
-    // Handle social link interactions
-    if (this.elements.socialLinks) {
-      this.elements.socialLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const platform = link.getAttribute('aria-label');
-          
-          this.trackUserInteraction('social_link_clicked', {
-            platform: platform,
-            timestamp: Date.now()
-          });
-
-          console.log(`🔗 Social link clicked: ${platform}`);
+    
+    // Project data with descriptions and images
+    const projectData = {
+        'meeting-room': {
+            title: 'Meeting Room Transformation',
+            subtitle: 'Professional Office Space',
+            description: 'A complete transformation of a corporate meeting room, creating a modern and inspiring workspace that promotes creativity and productivity. The design incorporates elegant lighting, comfortable seating, and a sophisticated color palette that reflects the company\'s professional image.',
+            images: [
+                { src: 'assets/images/meetingroom.jpg', alt: 'Meeting Room After Transformation', caption: 'After Transformation' },
+                { src: 'assets/images/meetingroom before.jpg', alt: 'Meeting Room Before Transformation', caption: 'Before Transformation' },
+                { src: 'assets/images/meeting room/IMG_9897.jpg', alt: 'Meeting Room Transformation Photo 3', caption: 'Meeting Room Transformation' },
+                { src: 'assets/images/meeting room/IMG_9901.jpg', alt: 'Meeting Room Transformation Photo 4', caption: 'Meeting Room Transformation' }
+            ]
+        },
+        'office': {
+            title: 'Office Interior Design',
+            subtitle: 'Contemporary Workspace',
+            description: 'A comprehensive office redesign that transforms a traditional workspace into a modern, collaborative environment. Features include open-plan layouts, ergonomic furniture, and strategic use of natural light to create an inviting and productive atmosphere.',
+            images: [
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_6a131756.jpg', alt: 'Office Transformation Photo 1', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_b16fe8d4.jpg', alt: 'Office Transformation Photo 2', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_460ccea2.jpg', alt: 'Office Transformation Photo 3', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_9a538675.jpg', alt: 'Office Transformation Photo 4', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_9465d982.jpg', alt: 'Office Transformation Photo 5', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_3243caaa.jpg', alt: 'Office Transformation Photo 6', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_508bf942.jpg', alt: 'Office Transformation Photo 7', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_673571c1.jpg', alt: 'Office Transformation Photo 8', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_d475409e.jpg', alt: 'Office Transformation Photo 9', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.30_567460d9.jpg', alt: 'Office Transformation Photo 10', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.29_491fcc8d.jpg', alt: 'Office Transformation Photo 11', caption: 'Office Transformation' },
+                { src: 'assets/images/office/Imagem WhatsApp 2025-08-15 às 11.28.29_351f887a.jpg', alt: 'Office Transformation Photo 12', caption: 'Office Transformation' }
+            ]
+        },
+        'holiday-home': {
+            title: 'Holiday Home Kitchen',
+            subtitle: 'Modern Kitchen Renovation',
+            description: 'A stunning kitchen transformation that combines functionality with modern aesthetics. The new design features premium materials, smart storage solutions, and a layout that maximizes both space and style for the perfect holiday home experience.',
+            images: [
+                { src: 'assets/images/holidayHouse/after_kitchen.jpg', alt: 'Kitchen After Renovation', caption: 'After Transformation' },
+                { src: 'assets/images/holidayHouse/before_kitchen.jpg', alt: 'Kitchen Before Renovation', caption: 'Before Transformation' }
+            ]
+        },
+        'holiday-home-2': {
+            title: 'Holiday Home Living Room',
+            subtitle: 'Cozy Living Space',
+            description: 'A warm and inviting living room transformation that creates the perfect atmosphere for relaxation and entertainment. The design emphasizes comfort and style, making it an ideal space for memorable holiday experiences.',
+            images: [
+                { src: 'assets/images/holidayHome2/IMG_0144.jpg', alt: 'Holiday Home 2 Photo 1', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/IMG_0140.jpg', alt: 'Holiday Home 2 Photo 2', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/IMG_0139.jpg', alt: 'Holiday Home 2 Photo 3', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/IMG_0134.jpg', alt: 'Holiday Home 2 Photo 4', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/after_livbingroom.jpg', alt: 'Holiday Home 2 Photo 5', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/IMG_0127.jpg', alt: 'Holiday Home 2 Photo 6', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/IMG_0126.jpg', alt: 'Holiday Home 2 Photo 7', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/IMG_0117.jpg', alt: 'Holiday Home 2 Photo 8', caption: 'Holiday Home 2 Transformation' },
+                { src: 'assets/images/holidayHome2/IMG_0110.jpg', alt: 'Holiday Home 2 Photo 9', caption: 'Holiday Home 2 Transformation' }
+            ]
+        },
+        'corcovada-home': {
+            title: 'Corcovada Home',
+            subtitle: 'Luxury Living Space',
+            description: 'An elegant transformation of a premium residence, showcasing sophisticated design elements and luxurious finishes. This project demonstrates how thoughtful interior design can elevate everyday living to an extraordinary experience.',
+            images: [
+                { src: 'assets/images/corcovada_home/corcovada_after.jpeg', alt: 'Corcovada Home Photo 1', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/941d823c-7f7e-4ced-83f3-b172e7e4353f.avif', alt: 'Corcovada Home Photo 2', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/b82d2fa1-d785-454c-b558-9dd14f083d28.avif', alt: 'Corcovada Home Photo 3', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/e3c0d148-32cd-47b0-be63-e3f6fd503ceb.avif', alt: 'Corcovada Home Photo 4', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/e6367cc9-8b34-4bc0-8b6a-4d7bbd5f6eae.avif', alt: 'Corcovada Home Photo 5', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/25084ef4-319e-4335-9a03-3b07f6e31a9e.avif', alt: 'Corcovada Home Photo 6', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/ffaa7793-8a8d-4372-9c9c-e699c000379c.avif', alt: 'Corcovada Home Photo 7', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/6c9c911f-704f-43c6-8425-ee349f4fa583.avif', alt: 'Corcovada Home Photo 8', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/8432b8d6-0e0d-48ea-baf8-2ff9e637c388.jpeg', alt: 'Corcovada Home Photo 9', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/01d1c643-f38c-4ae9-a1e9-e9809d558598.avif', alt: 'Corcovada Home Photo 10', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/7a60c04f-5958-4222-a1bd-bd3098e869c5.avif', alt: 'Corcovada Home Photo 11', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/3da98542-56eb-4b78-82d5-19db08dd3c97.avif', alt: 'Corcovada Home Photo 12', caption: 'Corcovada Home Transformation' },
+                { src: 'assets/images/corcovada_home/aea8eea1-d9b2-414e-bbf1-27e09f1ff2a5.avif', alt: 'Corcovada Home Photo 13', caption: 'Corcovada Home Transformation' }
+            ]
+        },
+        'torremolinos-home': {
+            title: 'Torremolinos Home',
+            subtitle: 'Spanish Villa Transformation',
+            description: 'A beautiful transformation of a Spanish villa that captures the essence of Mediterranean living. The design incorporates local materials, warm colors, and outdoor-indoor living concepts for the perfect holiday retreat.',
+            images: [
+                { src: 'assets/images/spain/after2.jpg', alt: 'Torremolinos Home Photo 1', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/Imagem WhatsApp 2025-07-24 às 07.30.34_2a49d176.jpg', alt: 'Torremolinos Home Photo 2', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/Imagem WhatsApp 2025-07-24 às 07.30.34_ae397f12.jpg', alt: 'Torremolinos Home Photo 3', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/Imagem WhatsApp 2025-07-24 às 07.30.33_e921d2ee.jpg', alt: 'Torremolinos Home Photo 4', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/Imagem WhatsApp 2025-07-24 às 07.30.33_fa0a71f7.jpg', alt: 'Torremolinos Home Photo 5', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/Imagem WhatsApp 2025-07-24 às 07.30.33_dc5f1a37.jpg', alt: 'Torremolinos Home Photo 6', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/Imagem WhatsApp 2025-07-24 às 07.30.33_8f828c5d.jpg', alt: 'Torremolinos Home Photo 7', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/after.jpg', alt: 'Torremolinos Home Photo 8', caption: 'Torremolinos Home Transformation' },
+                { src: 'assets/images/spain/Imagem WhatsApp 2025-07-24 às 07.30.33_25a2a58c.jpg', alt: 'Torremolinos Home Photo 9', caption: 'Torremolinos Home Transformation' }
+            ]
+        },
+        'borboleta-turquesa': {
+            title: 'Borboleta Turquesa',
+            subtitle: 'Unique Design Project',
+            description: 'A distinctive design project that showcases creative thinking and unique aesthetic choices. This transformation demonstrates how bold design decisions can create spaces that are both functional and artistically inspiring.',
+            images: [
+                { src: 'assets/images/borboleta/2341234.jpeg', alt: 'Borboleta Turquesa Photo 1', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/e1a49c74-fd56-4a85-a445-b68005948893.avif', alt: 'Borboleta Turquesa Photo 2', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/8ac1a5bf-c13c-4541-88b1-a3fddd763626.avif', alt: 'Borboleta Turquesa Photo 3', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/b6ecffe4-f147-4ec2-b935-8166db3988b6.jpeg', alt: 'Borboleta Turquesa Photo 4', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/4cae95bf-0238-43ba-ae3e-fc9f722990d8.avif', alt: 'Borboleta Turquesa Photo 5', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/f846ed95-f0ec-4eab-9acd-9568aef468f3.avif', alt: 'Borboleta Turquesa Photo 6', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/ec89894e-c865-456b-b49c-c0824ebc7cf9.avif', alt: 'Borboleta Turquesa Photo 7', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/549b8cf5-4867-44bd-af17-451868d00f42.avif', alt: 'Borboleta Turquesa Photo 8', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/af566016-8255-4bc5-b5ed-d823f3585c2d.webp', alt: 'Borboleta Turquesa Photo 9', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/6fd32a74-8db6-4157-b59b-3367c3d444d9.avif', alt: 'Borboleta Turquesa Photo 10', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/92654966-0dcf-444f-91dd-e72407e0dcb0.avif', alt: 'Borboleta Turquesa Photo 11', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/eb4229f7-5626-4d91-b390-2754ad74220a.jpeg', alt: 'Borboleta Turquesa Photo 12', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/3994f3c4-9948-42f8-aa53-09cb72bc90b0.avif', alt: 'Borboleta Turquesa Photo 13', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/8f19b503-15cc-440c-802a-20db7788dcfb.avif', alt: 'Borboleta Turquesa Photo 14', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/after2.jpeg', alt: 'Borboleta Turquesa Photo 15', caption: 'Borboleta Turquesa Transformation' },
+                { src: 'assets/images/borboleta/after.jpeg', alt: 'Borboleta Turquesa Photo 16', caption: 'Borboleta Turquesa Transformation' }
+            ]
+        },
+        'youth-lounge': {
+            title: 'Youth Lounge',
+            subtitle: 'Modern Youth Space',
+            description: 'A contemporary youth lounge design that creates an engaging and inspiring environment for young people. The space combines modern aesthetics with practical functionality, making it perfect for socializing and creative activities.',
+            images: [
+                { src: 'assets/images/correction_school/Imagem WhatsApp 2025-08-16 às 16.22.09_51d667f6.jpg', alt: 'Youth Lounge Transformation Photo 1', caption: 'Youth Lounge Transformation' },
+                { src: 'assets/images/correction_school/Imagem WhatsApp 2025-08-16 às 16.22.09_239fbe56.jpg', alt: 'Youth Lounge Transformation Photo 2', caption: 'Youth Lounge Transformation' },
+                { src: 'assets/images/correction_school/Imagem WhatsApp 2025-08-16 às 16.22.09_acec8ef7.jpg', alt: 'Youth Lounge Transformation Photo 3', caption: 'Youth Lounge Transformation' },
+                { src: 'assets/images/correction_school/Imagem WhatsApp 2025-08-16 às 16.22.09_b9873fc3.jpg', alt: 'Youth Lounge Transformation Photo 4', caption: 'Youth Lounge Transformation' },
+                { src: 'assets/images/correction_school/Imagem WhatsApp 2025-08-16 às 16.24.07_dcb07e18.jpg', alt: 'Youth Lounge Transformation Photo 5', caption: 'Youth Lounge Transformation' },
+                { src: 'assets/images/correction_school/Imagem WhatsApp 2025-08-16 às 16.29.08_0ae86d67.jpg', alt: 'Youth Lounge Transformation Photo 6', caption: 'Youth Lounge Transformation' },
+                { src: 'assets/images/correction_school/Imagem WhatsApp 2025-08-16 às 16.29.08_15d26a71.jpg', alt: 'Youth Lounge Transformation Photo 7', caption: 'Youth Lounge Transformation' }
+            ]
+        }
+    };
+    
+    let currentProjectId = null;
+    let currentPhotoIndex = 0;
+    
+    // Make modal functions globally accessible
+    window.openProjectModal = function(projectId) {
+        if (!projectData[projectId]) {
+            console.warn(`Project data not found for ID: ${projectId}`);
+            return;
+        }
+        
+        currentProjectId = projectId;
+        currentPhotoIndex = 0;
+        
+        const project = projectData[projectId];
+        
+        // Update modal content
+        modalTitle.textContent = project.title;
+        modalSubtitle.textContent = project.subtitle;
+        modalDescription.textContent = project.description;
+        
+        console.log(`Modal content updated:`, {
+            title: project.title,
+            subtitle: project.subtitle,
+            description: project.description
         });
-      });
+        
+        // Update carousel
+        updateCarousel(project.images);
+        
+            // Show modal with smooth animation
+    modal.setAttribute('aria-hidden', 'false');
+    
+    // Add entrance class for initial animation
+    modal.classList.add('entering');
+    
+    // Small delay to ensure smooth animation
+    requestAnimationFrame(() => {
+        modal.classList.remove('entering');
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Focus management
+        modalClose.focus();
+    });
+    
+    console.log(`Modal opened for project: ${project.title}`);
+    console.log(`Modal element:`, modal);
+    console.log(`Modal classes:`, modal.className);
+    console.log(`Modal active class added:`, modal.classList.contains('active'));
+    };
+    
+    window.closeProjectModal = function() {
+        // Add closing class for exit animation
+        modal.classList.add('closing');
+        modal.classList.remove('active');
+        
+        // Wait for animation to complete before hiding
+        setTimeout(() => {
+            modal.classList.remove('closing');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            
+            // Reset focus
+            document.querySelector('.project-cta-button').focus();
+        }, 600); // Match the CSS transition duration
+        
+        console.log('Modal closed');
+    };
+    
+    // Event listeners
+    modalClose.addEventListener('click', closeProjectModal);
+    
+    // Keyboard navigation
+    modal.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeProjectModal();
+        }
+    });
+    
+    // Carousel functionality
+    function updateCarousel(images) {
+        if (!carouselTrack || !carouselIndicators) return;
+        
+        // Clear existing content
+        carouselTrack.innerHTML = '';
+        carouselIndicators.innerHTML = '';
+        
+        // Add images to carousel
+        images.forEach((image, index) => {
+            const carouselItem = document.createElement('div');
+            carouselItem.className = 'carousel-item';
+            carouselItem.style.display = index === 0 ? 'block' : 'none';
+            
+            const img = document.createElement('img');
+            img.src = image.src;
+            img.alt = image.alt;
+            img.className = 'carousel-image';
+            
+            carouselItem.appendChild(img);
+            carouselTrack.appendChild(carouselItem);
+            
+            // Add indicator
+            const indicator = document.createElement('button');
+            indicator.className = 'carousel-indicator';
+            indicator.setAttribute('aria-label', `Go to photo ${index + 1}`);
+            indicator.addEventListener('click', () => goToPhoto(index));
+            carouselIndicators.appendChild(indicator);
+        });
+        
+        // Update indicators
+        updateIndicators();
     }
+    
+    function goToPhoto(index) {
+        const items = carouselTrack.querySelectorAll('.carousel-item');
+        const indicators = carouselIndicators.querySelectorAll('.carousel-indicator');
+        
+        if (index < 0 || index >= items.length) return;
+        
+        // Hide all items
+        items.forEach(item => item.style.display = 'none');
+        indicators.forEach(ind => ind.classList.remove('active'));
+        
+        // Show selected item
+        items[index].style.display = 'block';
+        indicators[index].classList.add('active');
+        
+        currentPhotoIndex = index;
+    }
+    
+    function nextPhoto() {
+        const items = carouselTrack.querySelectorAll('.carousel-item');
+        const nextIndex = (currentPhotoIndex + 1) % items.length;
+        goToPhoto(nextIndex);
+    }
+    
+    function prevPhoto() {
+        const items = carouselTrack.querySelectorAll('.carousel-item');
+        const prevIndex = (currentPhotoIndex - 1 + items.length) % items.length;
+        goToPhoto(prevIndex);
+    }
+    
+    function updateIndicators() {
+        const indicators = carouselIndicators.querySelectorAll('.carousel-indicator');
+        indicators.forEach((indicator, index) => {
+            if (index === currentPhotoIndex) {
+                indicator.classList.add('active');
+            } else {
+                indicator.classList.remove('active');
+            }
+        });
+    }
+    
+    // Carousel button event listeners
+    if (prevBtn) prevBtn.addEventListener('click', prevPhoto);
+    if (nextBtn) nextBtn.addEventListener('click', nextPhoto);
+    
+    // Touch gestures for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    if (carouselTrack) {
+        carouselTrack.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        carouselTrack.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+    }
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                nextPhoto();
+            } else {
+                prevPhoto();
+            }
+        }
+    }
+    
+    console.log('Project modal functionality initialized');
+}
+
+/**
+ * Initialize flip card functionality
+ */
+function initializeFlipCards() {
+    const flipCards = document.querySelectorAll('.flip-card');
+    const flipButtons = document.querySelectorAll('.flip-arrow-btn');
+    
+    console.log(`Found ${flipCards.length} flip cards and ${flipButtons.length} flip buttons`);
+    
+    // Add click event listeners to all flip buttons
+    flipButtons.forEach((button, index) => {
+        button.addEventListener('click', function(e) {
+          e.preventDefault();
+        e.stopPropagation();
+            
+            const flipCard = this.closest('.flip-card');
+            if (flipCard) {
+                flipCard.classList.toggle('flipped');
+                console.log(`Flip card ${index + 1} toggled`);
+        } else {
+                console.log('No flip card found for button');
+            }
+        });
+        
+        // Add touch events for mobile
+        button.addEventListener('touchstart', function(e) {
+      e.preventDefault();
+        }, { passive: false });
+    });
+    
+    // Also allow clicking on the entire flip card
+    flipCards.forEach((card, index) => {
+        card.addEventListener('click', function(e) {
+            // Only flip if clicking on the card itself, not on buttons
+            if (e.target === this || e.target.classList.contains('flip-card-inner')) {
+                this.classList.toggle('flipped');
+                console.log(`Flip card ${index + 1} toggled via card click`);
+            }
+        });
+    });
   }
 
   /**
-   * Initialize language selector functionality
-   */
-  initializeLanguageSelector() {
-    if (!this.elements.languageSelector || !this.elements.langToggle) return;
-
-    // Toggle language options visibility
-    this.elements.langToggle.addEventListener('click', (e) => {
+ * Initialize other basic features
+ */
+function initializeBasicFeatures() {
+    // CTA Button
+    const ctaButton = document.getElementById('discoverBtn');
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function(e) {
+          e.preventDefault();
+            const aboutSection = document.querySelector('.about-section');
+            if (aboutSection) {
+                aboutSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    }
+    
+    // Menu Toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const offCanvasMenu = document.getElementById('offCanvasMenu');
+    const menuCloseBtn = document.getElementById('menuCloseBtn');
+    
+    if (menuToggle && offCanvasMenu) {
+        menuToggle.addEventListener('click', function() {
+            offCanvasMenu.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+    }
+    
+    if (menuCloseBtn && offCanvasMenu) {
+        menuCloseBtn.addEventListener('click', function() {
+            offCanvasMenu.classList.remove('active');
+            if (menuToggle) menuToggle.classList.remove('active');
+            if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
+            if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
+        });
+    }
+    
+    // Language Selector
+    const languageSelector = document.getElementById('languageSelector');
+    const langToggle = document.querySelector('.lang-toggle');
+    const langOptions = document.querySelectorAll('.lang-option');
+    
+    if (langToggle && languageSelector) {
+        langToggle.addEventListener('click', function(e) {
       e.stopPropagation();
-      this.elements.languageSelector.classList.toggle('active');
-    });
-
-    // Handle language selection
-    this.elements.langOptions.forEach(option => {
-      option.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const newLang = option.getAttribute('data-lang');
-        this.changeLanguage(newLang);
-        this.elements.languageSelector.classList.remove('active');
+            languageSelector.classList.toggle('active');
+        });
+    }
+    
+    langOptions.forEach(option => {
+        option.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const lang = this.getAttribute('data-lang');
+            const currentLang = document.querySelector('.current-lang');
+            if (currentLang) {
+                currentLang.textContent = lang.toUpperCase();
+            }
+            document.documentElement.lang = lang;
+            languageSelector.classList.remove('active');
       });
     });
 
     // Close language selector when clicking outside
-    document.addEventListener('click', (e) => {
-      if (!this.elements.languageSelector.contains(e.target)) {
-        this.elements.languageSelector.classList.remove('active');
-      }
-    });
-  }
-
-  /**
-   * Change language with comprehensive content update
-   */
-  changeLanguage(newLang) {
-    this.currentLanguage = newLang;
-    
-    // Update current language display
-    if (this.elements.currentLang) {
-      this.elements.currentLang.textContent = newLang.toUpperCase();
-    }
-
-    // Update HTML lang attribute
-    document.documentElement.lang = newLang;
-
-    // Update all translatable elements
-    this.updateTranslations();
-
-    // Track language change
-    this.trackUserInteraction('language_change', {
-      previousLanguage: this.currentLanguage,
-      newLanguage: newLang,
-      timestamp: Date.now()
-    });
-
-    console.log(`🌍 Language changed to: ${newLang}`);
-  }
-
-  /**
-   * Update all translatable content based on current language
-   */
-  updateTranslations() {
-    this.elements.translatableElements.forEach(element => {
-      const translationKey = element.getAttribute('data-translate');
-      const translation = this.getNestedTranslation(translationKey);
-      
-      if (translation) {
-        if (Array.isArray(translation)) {
-          // Handle about content paragraphs
-          if (element.classList.contains('about-content')) {
-            const paragraphs = element.querySelectorAll('p:not(.about-signature *)');
-            translation.forEach((text, index) => {
-              if (paragraphs[index]) {
-                paragraphs[index].textContent = text;
-              }
-            });
-          }
-        } else {
-          element.textContent = translation;
+    document.addEventListener('click', function(e) {
+        if (languageSelector && !languageSelector.contains(e.target)) {
+            languageSelector.classList.remove('active');
         }
-      }
-    });
-  }
-
-  /**
-   * Get nested translation from key path
-   */
-  getNestedTranslation(keyPath) {
-    const keys = keyPath.split('.');
-    let translation = this.translations[this.currentLanguage];
-    
-    for (const key of keys) {
-      if (translation && translation[key]) {
-        translation = translation[key];
-      } else {
-        return null;
-      }
-    }
-    
-    return translation;
-  }
-
-  /**
-   * Enhanced off-canvas menu with sophisticated mobile integration
-   */
-  initializeOffCanvasMenu() {
-    if (!this.elements.menuToggle || !this.elements.offCanvasMenu) return;
-
-    // Main floating menu toggle functionality
-    this.elements.menuToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      this.toggleOffCanvasMenu();
-    });
-
-    // Close button functionality
-    if (this.elements.menuCloseBtn) {
-      this.elements.menuCloseBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        this.closeOffCanvasMenu();
-      });
-    }
-
-    // Enhanced menu link handling with smooth navigation
-    this.elements.menuLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
         
-        // Close menu with enhanced animation timing
-        this.closeOffCanvasMenu();
-        
-        // Navigate to target with intelligent offset calculation
-        if (targetElement) {
-          setTimeout(() => {
-            const headerOffset = this.calculateDynamicHeaderOffset();
-            const offsetTop = targetElement.offsetTop - headerOffset;
-            window.scrollTo({
-              top: offsetTop,
-              behavior: 'smooth'
-            });
-          }, 300);
+        // Close off-canvas menu when clicking outside
+        if (offCanvasMenu && offCanvasMenu.classList.contains('active') && !offCanvasMenu.contains(e.target) && 
+            !menuToggle?.contains(e.target) && !stickyMenuToggle?.contains(e.target) && !headerMobileMenuToggle?.contains(e.target)) {
+            offCanvasMenu.classList.remove('active');
+            if (menuToggle) menuToggle.classList.remove('active');
+            if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
+            if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
         }
-
-        // Track navigation interaction
-        this.trackUserInteraction('menu_navigation', {
-          target: targetId,
-          timestamp: Date.now()
-        });
-      });
     });
-
-    // Intelligent outside click detection
-    document.addEventListener('click', (e) => {
-      if (this.isMenuOpen() && 
-          !this.elements.offCanvasMenu.contains(e.target) && 
-          !this.elements.menuToggle.contains(e.target) &&
-          !this.elements.stickyMenuToggle?.contains(e.target)) {
-        this.closeOffCanvasMenu();
-      }
+    
+    // Close off-canvas menu with ESC key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && offCanvasMenu && offCanvasMenu.classList.contains('active')) {
+            offCanvasMenu.classList.remove('active');
+            if (menuToggle) menuToggle.classList.remove('active');
+            if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
+            if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
+        }
     });
-
-    // Enhanced keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && this.isMenuOpen()) {
-        this.closeOffCanvasMenu();
-      }
-    });
-  }
-
-  /**
-   * Toggle off-canvas menu with state management
-   */
-  toggleOffCanvasMenu() {
-    if (this.isMenuOpen()) {
-      this.closeOffCanvasMenu();
+    
+    // Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
     } else {
-      this.openOffCanvasMenu();
-    }
-  }
-
-  /**
-   * Check if menu is currently open
-   */
-  isMenuOpen() {
-    return this.elements.offCanvasMenu.classList.contains('active');
-  }
-
-  /**
-   * Calculate dynamic header offset for navigation
-   */
-  calculateDynamicHeaderOffset() {
-    const stickyHeaderVisible = this.elements.stickyHeader?.classList.contains('visible');
-    return stickyHeaderVisible ? 100 : 20;
-  }
-
-  /**
-   * Enhanced menu opening with sophisticated animation sequencing
-   */
-  openOffCanvasMenu() {
-    // Activate menu states
-    this.elements.menuToggle.classList.add('active');
-    this.elements.offCanvasMenu.classList.add('active');
-    
-    // Sync sticky menu button if present
-    if (this.elements.stickyMenuToggle) {
-      this.elements.stickyMenuToggle.classList.add('active');
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
     }
     
-    // Prevent body scroll with enhanced mobile handling
-    document.body.style.overflow = 'hidden';
-    
-    // Add mobile-specific enhancements
-    if (this.deviceCapabilities.isMobile) {
-      this.elements.offCanvasMenu.style.height = '100vh';
-      this.elements.offCanvasMenu.style.overflowY = 'auto';
-    }
-    
-    this.trackUserInteraction('menu_opened', {
-      method: 'enhanced_click',
-      deviceType: this.detectDeviceType(),
-      timestamp: Date.now()
-    });
-  }
-
-  /**
-   * Enhanced menu closing with state cleanup
-   */
-  closeOffCanvasMenu() {
-    // Deactivate menu states
-    this.elements.menuToggle.classList.remove('active');
-    this.elements.offCanvasMenu.classList.remove('active');
-    
-    // Sync sticky menu button if present
-    if (this.elements.stickyMenuToggle) {
-      this.elements.stickyMenuToggle.classList.remove('active');
-    }
-    
-    // Restore body scroll
-    document.body.style.overflow = '';
-    
-    // Reset mobile-specific styles
-    if (this.deviceCapabilities.isMobile) {
-      this.elements.offCanvasMenu.style.height = '';
-      this.elements.offCanvasMenu.style.overflowY = '';
-    }
-    
-    this.trackUserInteraction('menu_closed', {
-      timestamp: Date.now()
-    });
-  }
-
-  /**
-   * Initialize flip card functionality
-   */
-  initializeFlipCards() {
-    this.elements.flipCards.forEach((card, index) => {
-      // Initialize flip state tracking
-      this.flipCardStates.set(index, false);
-      
-      // Add unique identifier
-      card.setAttribute('data-flip-index', index);
-    });
-
-    // Bind flip arrow button handlers
-    this.elements.flipArrowButtons.forEach(button => {
-      button.addEventListener('click', this.handleFlipCardToggle.bind(this));
-      
-      // Touch optimization for mobile
-      if (this.deviceCapabilities.touch) {
-        button.addEventListener('touchstart', this.handleFlipCardTouchStart.bind(this), { passive: true });
-        button.addEventListener('touchend', this.handleFlipCardTouchEnd.bind(this), { passive: true });
-      }
-    });
-  }
-
-  /**
-   * Handle flip card toggle with smooth animation
-   */
-  handleFlipCardToggle(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    
-    const button = event.currentTarget;
-    const flipCard = button.closest('.flip-card');
-    
-    if (!flipCard) return;
-    
-    const flipIndex = parseInt(flipCard.getAttribute('data-flip-index'));
-    const isFlipped = this.flipCardStates.get(flipIndex);
-    
-    // Toggle flip state
-    this.flipCardStates.set(flipIndex, !isFlipped);
-    flipCard.classList.toggle('flipped');
-    
-    // Haptic feedback for mobile
-    if (this.deviceCapabilities.touch) {
-      this.triggerHapticFeedback();
-    }
-    
-    // Track interaction
-    this.trackUserInteraction('flip_card_interaction', {
-      cardIndex: flipIndex,
-      newState: !isFlipped ? 'before' : 'after',
-      interactionMethod: event.type
-    });
-    
-    console.log(`🔄 ${this.translations[this.currentLanguage].interactions.flipCard}: Card ${flipIndex + 1}`);
-  }
-
-  /**
-   * Touch handlers for flip cards
-   */
-  handleFlipCardTouchStart(event) {
-    this.flipTouchStartTime = performance.now();
-    event.currentTarget.style.opacity = '0.8';
-  }
-
-  handleFlipCardTouchEnd(event) {
-    const touchDuration = performance.now() - this.flipTouchStartTime;
-    event.currentTarget.style.opacity = '';
-    
-    if (touchDuration < 500) {
-      this.handleFlipCardToggle(event);
-    }
-  }
-
-  /**
-   * Initialize contact form functionality
-   */
-  initializeContactForm() {
-    if (!this.elements.contactForm) return;
-
-    this.elements.contactForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      this.handleContactFormSubmit();
-    });
-
-    // Add floating label effect
-    const formInputs = this.elements.contactForm.querySelectorAll('input, textarea');
-    formInputs.forEach(input => {
-      input.addEventListener('focus', () => {
-        input.parentElement.classList.add('focused');
-      });
-
-      input.addEventListener('blur', () => {
-        if (!input.value) {
-          input.parentElement.classList.remove('focused');
+    // Sticky Header with smooth hide/show
+    const stickyHeader = document.getElementById('stickyHeader');
+    if (stickyHeader) {
+        let lastScrollY = window.scrollY;
+        let ticking = false;
+        
+        function updateHeader() {
+            const currentScrollY = window.scrollY;
+            const isMobile = window.innerWidth <= 768;
+            const scrollThreshold = isMobile ? 40 : 80; // Lower threshold on mobile
+            
+            if (currentScrollY > scrollThreshold) {
+                // Show header when scrolling up, hide when scrolling down
+                if (currentScrollY < lastScrollY) {
+                    // Scrolling up - show header
+                    stickyHeader.classList.remove('hidden');
+                    stickyHeader.classList.add('visible');
+                    console.log('Header shown - scrolling up');
+                } else {
+                    // Scrolling down - hide header
+                    stickyHeader.classList.remove('visible');
+                    stickyHeader.classList.add('hidden');
+                    console.log('Header hidden - scrolling down');
+                }
+            } else {
+                // At top - hide header completely
+                stickyHeader.classList.remove('visible', 'hidden');
+                console.log('Header at top - hidden');
+            }
+            
+            lastScrollY = currentScrollY;
+            ticking = false;
         }
-      });
-
-      // Check if input has value on load
-      if (input.value) {
-        input.parentElement.classList.add('focused');
-      }
-    });
-  }
-
-  /**
-   * Handle contact form submission
-   */
-  handleContactFormSubmit() {
-    const formData = new FormData(this.elements.contactForm);
-    const data = Object.fromEntries(formData);
-    
-    console.log('📧 Contact form submitted:', data);
-    
-    // Track form submission
-    this.trackUserInteraction('contact_form_submitted', {
-      timestamp: Date.now(),
-      language: this.currentLanguage
-    });
-
-    // Show success message
-    this.showFormSuccessMessage();
-  }
-
-  /**
-   * Show form success message
-   */
-  showFormSuccessMessage() {
-    const submitButton = this.elements.contactForm.querySelector('.contact-submit');
-    const originalText = submitButton.querySelector('span').textContent;
-    
-    const successMessages = {
-      nl: '✓ Verzonden!',
-      en: '✓ Sent!',
-      de: '✓ Gesendet!',
-      pt: '✓ Enviado!'
-    };
-    
-    submitButton.querySelector('span').textContent = successMessages[this.currentLanguage] || successMessages.nl;
-    submitButton.disabled = true;
-    
-    setTimeout(() => {
-      submitButton.querySelector('span').textContent = originalText;
-      submitButton.disabled = false;
-      this.elements.contactForm.reset();
-      
-      // Remove focused classes
-      const formGroups = this.elements.contactForm.querySelectorAll('.form-group');
-      formGroups.forEach(group => group.classList.remove('focused'));
-    }, 3000);
-  }
-
-  /**
-   * Comprehensive event handler binding with performance optimization
-   */
-  bindEventHandlers() {
-    // CTA Button Enhancement
-    if (this.elements.ctaButton) {
-      this.elements.ctaButton.addEventListener('click', 
-        this.throttle(this.handleCTAInteraction.bind(this), 300)
-      );
-    }
-
-    // Grid Item Interaction Enhancement (excluding flip cards)
-    this.elements.gridItems.forEach((item, index) => {
-      if (!item.classList.contains('cta-container') && !item.classList.contains('flip-card')) {
-        item.addEventListener('click', 
-          () => this.handleGridItemInteraction(item, index)
-        );
         
-        item.addEventListener('mouseenter', 
-          () => this.handleGridItemHover(item, true)
-        );
-        
-        item.addEventListener('mouseleave', 
-          () => this.handleGridItemHover(item, false)
-        );
-      }
-    });
-
-    // Flip card hover effects
-    this.elements.flipCards.forEach((card) => {
-      card.addEventListener('mouseenter', () => this.handleFlipCardHover(card, true));
-      card.addEventListener('mouseleave', () => this.handleFlipCardHover(card, false));
-    });
-
-    // Logo Enhancement
-    if (this.elements.logoImage) {
-      this.elements.logoImage.addEventListener('click', 
-        this.handleLogoInteraction.bind(this)
-      );
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                requestAnimationFrame(updateHeader);
+                ticking = true;
+            }
+        });
     }
-
-    // Responsive behavior optimization
-    window.addEventListener('resize', 
-      this.throttle(this.handleResponsiveAdjustments.bind(this), this.throttleDelay)
-    );
-
-    // Keyboard navigation support
-    document.addEventListener('keydown', this.handleKeyboardNavigation.bind(this));
-
-    // Smooth scroll for navigation links
-    this.implementSmoothScroll();
-  }
-
-  /**
-   * Handle flip card hover effects
-   */
-  handleFlipCardHover(card, isHovering) {
-    if (this.deviceCapabilities.reducedMotion) return;
     
-    const button = card.querySelector('.flip-arrow-btn');
-    if (button) {
-      if (isHovering) {
-        button.style.transform = 'translateY(-2px)';
-      } else {
-        button.style.transform = '';
-      }
+    // Contact Form
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitButton = this.querySelector('.contact-submit');
+            const originalText = submitButton.querySelector('span').textContent;
+            
+            // Show loading state
+            submitButton.querySelector('span').textContent = 'Versturen...';
+            submitButton.disabled = true;
+            
+            // Submit form data
+            const formData = new FormData(this);
+            
+            fetch(this.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Success state
+                    submitButton.querySelector('span').textContent = '✓ Verzonden!';
+                    this.reset();
+                    
+                    // Track successful submission
+                    trackEvent('form_submit', 'Conversion', 'Contact Form Submit', 'Success');
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Form submission error:', error);
+                submitButton.querySelector('span').textContent = 'Fout opgetreden';
+                
+                // Track failed submission
+                trackEvent('form_submit', 'Conversion', 'Contact Form Submit', 'Error');
+            })
+            .finally(() => {
+                // Reset button after 3 seconds
+                setTimeout(() => {
+                    submitButton.querySelector('span').textContent = originalText;
+                    submitButton.disabled = false;
+                }, 3000);
+            });
+        });
     }
-  }
-
-  /**
-   * Implement smooth scrolling for navigation
-   */
-  implementSmoothScroll() {
-    const sections = ['home', 'projects', 'about', 'contact'].map(id => 
-      document.getElementById(id)
-    ).filter(el => el);
-
-    // Add scroll observer for section highlighting
-    const scrollObserver = new IntersectionObserver((entries) => {
+    
+    // Set current year in footer
+    const currentYearElement = document.getElementById('currentYear');
+    if (currentYearElement) {
+        currentYearElement.textContent = new Date().getFullYear();
+    }
+    
+    // Initialize scroll animations for sections
+    const sections = document.querySelectorAll('.about-section, .specialities-section, .contact-section');
+    
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          
-          // Update active navigation links
-          const sectionId = entry.target.id;
-          this.updateActiveNavLinks(sectionId);
-        }
-      });
-    }, { threshold: 0.3 });
+                entry.target.classList.add('animate-in');
+            }
+        });
+    }, { threshold: 0.1 });
     
     sections.forEach(section => {
-      scrollObserver.observe(section);
-    });
-  }
-
-  /**
-   * Update active navigation links
-   */
-  updateActiveNavLinks(activeId) {
-    // Update sticky header nav links
-    if (this.elements.stickyNavLinks) {
-      this.elements.stickyNavLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${activeId}`) {
-          link.classList.add('active');
-        }
-      });
-    }
-
-    // Update off-canvas menu links
-    this.elements.menuLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === `#${activeId}`) {
-        link.classList.add('active');
-      }
-    });
-  }
-
-  /**
-   * Enhanced keyboard navigation with flip card support
-   */
-  handleKeyboardNavigation(event) {
-    const focusedElement = document.activeElement;
-    
-    // Handle Enter/Space on flip cards
-    if ((event.key === 'Enter' || event.key === ' ') && 
-        focusedElement.classList.contains('flip-arrow-btn')) {
-      event.preventDefault();
-      this.handleFlipCardToggle({ 
-        currentTarget: focusedElement, 
-        type: 'keyboard',
-        preventDefault: () => {},
-        stopPropagation: () => {}
-      });
-    }
-    
-    // Arrow key navigation for flip cards
-    if (event.key.startsWith('Arrow') && focusedElement.closest('.flip-card')) {
-      this.handleArrowKeyNavigation(event);
-    }
-
-    // Escape key to close menu and language selector
-    if (event.key === 'Escape') {
-      if (this.elements.offCanvasMenu.classList.contains('active')) {
-        this.closeOffCanvasMenu();
-      }
-      if (this.elements.languageSelector.classList.contains('active')) {
-        this.elements.languageSelector.classList.remove('active');
-      }
-    }
-  }
-
-  /**
-   * Arrow key navigation for flip cards
-   */
-  handleArrowKeyNavigation(event) {
-    const flipCards = Array.from(this.elements.flipCards);
-    const currentCard = document.activeElement.closest('.flip-card');
-    const currentIndex = flipCards.indexOf(currentCard);
-    
-    let nextIndex;
-    switch (event.key) {
-      case 'ArrowRight':
-        nextIndex = (currentIndex + 1) % flipCards.length;
-        break;
-      case 'ArrowLeft':
-        nextIndex = (currentIndex - 1 + flipCards.length) % flipCards.length;
-        break;
-      case 'ArrowDown':
-        nextIndex = (currentIndex + 3) % flipCards.length;
-        break;
-      case 'ArrowUp':
-        nextIndex = (currentIndex - 3 + flipCards.length) % flipCards.length;
-        break;
-      default:
-        return;
-    }
-    
-    event.preventDefault();
-    const nextButton = flipCards[nextIndex].querySelector('.flip-arrow-btn');
-    if (nextButton) {
-      nextButton.focus();
-    }
-  }
-
-  /**
-   * Premium CTA interaction with sophisticated micro-animation orchestration
-   */
-  handleCTAInteraction(event) {
-    event.preventDefault();
-    
-    const button = event.currentTarget;
-    const buttonText = button.querySelector('.btn-text');
-    const originalText = buttonText.textContent;
-    
-    // Performance-optimized button interaction sequence
-    this.executePremiumButtonAnimation(button, () => {
-      // Advanced interaction feedback
-      this.triggerHapticFeedback();
-      
-      // Scroll to about section
-      const aboutSection = this.elements.aboutSection;
-      if (aboutSection) {
-        const offsetTop = aboutSection.offsetTop - 100;
-        window.scrollTo({ 
-          top: offsetTop,
-          behavior: 'smooth' 
-        });
-      }
-      
-      console.log('🌟 ' + this.translations[this.currentLanguage].interactions.ctaClick);
-      
-      this.trackUserInteraction('premium_cta_engagement', {
-        buttonText: originalText,
-        timestamp: Date.now(),
-        deviceCapabilities: this.deviceCapabilities,
-        interactionMethod: event.pointerType || 'unknown'
-      });
-    });
-  }
-
-  /**
-   * Advanced button animation with hardware-accelerated transforms
-   */
-  executePremiumButtonAnimation(button, callback) {
-    if (this.deviceCapabilities.reducedMotion) {
-      callback();
-      return;
-    }
-
-    const animationSequence = [
-      { 
-        transform: 'scale(0.95) translateY(-2px)', 
-        filter: 'brightness(1.1)',
-        duration: 150 
-      },
-      { 
-        transform: 'scale(1.02) translateY(-8px)', 
-        filter: 'brightness(1.2)',
-        duration: 100 
-      },
-      { 
-        transform: 'scale(1) translateY(-5px)', 
-        filter: 'brightness(1)',
-        duration: 150 
-      }
-    ];
-    
-    this.executeAnimationSequence(button, animationSequence, callback);
-  }
-
-  /**
-   * Optimized animation sequence processor with RAF optimization
-   */
-  executeAnimationSequence(element, sequence, callback) {
-    let currentStep = 0;
-    
-    const animate = () => {
-      if (currentStep < sequence.length) {
-        const step = sequence[currentStep];
-        
-        requestAnimationFrame(() => {
-          element.style.transform = step.transform;
-          element.style.filter = step.filter || '';
-          
-          setTimeout(() => {
-            currentStep++;
-            animate();
-          }, step.duration);
-        });
-      } else {
-        element.style.transform = '';
-        element.style.filter = '';
-        callback();
-      }
-    };
-    
-    animate();
-  }
-
-  /**
-   * Advanced grid item interaction with contextual intelligence
-   */
-  handleGridItemInteraction(item, index) {
-    // Performance-optimized grid interaction
-    this.executePremiumGridAnimation(item, () => {
-      console.log(`✨ ${this.translations[this.currentLanguage].interactions.gridClick}: Item ${index + 1}`);
-      
-      // Advanced interaction tracking with contextual data
-      this.trackUserInteraction('premium_portfolio_engagement', {
-        index: index,
-        gridPosition: { 
-          row: Math.floor(index / 3), 
-          col: index % 3 
-        },
-        viewportPosition: this.calculateViewportPosition(item),
-        interactionContext: this.analyzeInteractionContext(item)
-      });
-    });
-  }
-
-  /**
-   * Sophisticated grid animation with 3D transforms and luxury effects
-   */
-  executePremiumGridAnimation(item, callback) {
-    if (this.deviceCapabilities.reducedMotion) {
-      callback();
-      return;
-    }
-
-    const timeline = [
-      { 
-        transform: 'translateY(-5px) rotateX(2deg) rotateY(2deg) scale(0.98)', 
-        filter: 'brightness(1.1) contrast(1.1)',
-        duration: 200 
-      },
-      { 
-        transform: 'translateY(-15px) rotateX(5deg) rotateY(5deg) scale(1.02)', 
-        filter: 'brightness(1.2) contrast(1.2)',
-        duration: 150 
-      },
-      { 
-        transform: 'translateY(0) rotateX(0deg) rotateY(0deg) scale(1)', 
-        filter: 'brightness(1) contrast(1)',
-        duration: 250 
-      }
-    ];
-    
-    this.executeAnimationSequence(item, timeline, callback);
-  }
-
-  /**
-   * Advanced viewport position calculation for interaction analytics
-   */
-  calculateViewportPosition(element) {
-    const rect = element.getBoundingClientRect();
-    const viewport = {
-      width: window.innerWidth,
-      height: window.innerHeight
-    };
-    
-    return {
-      centerX: (rect.left + rect.width / 2) / viewport.width,
-      centerY: (rect.top + rect.height / 2) / viewport.height,
-      visibility: this.calculateElementVisibility(rect, viewport)
-    };
-  }
-
-  /**
-   * Element visibility calculation for advanced analytics
-   */
-  calculateElementVisibility(rect, viewport) {
-    const visibleWidth = Math.max(0, Math.min(rect.right, viewport.width) - Math.max(rect.left, 0));
-    const visibleHeight = Math.max(0, Math.min(rect.bottom, viewport.height) - Math.max(rect.top, 0));
-    const visibleArea = visibleWidth * visibleHeight;
-    const totalArea = rect.width * rect.height;
-    
-    return totalArea > 0 ? visibleArea / totalArea : 0;
-  }
-
-  /**
-   * Contextual interaction analysis for advanced user experience optimization
-   */
-  analyzeInteractionContext(item) {
-    const isFirstInteraction = this.performanceMetrics.interactionCount === 0;
-    const timeSinceLoad = performance.now() - this.performanceMetrics.loadTime;
-    const scrollPosition = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-    
-    return {
-      isFirstInteraction,
-      timeSinceLoad,
-      scrollPosition,
-      deviceType: this.detectDeviceType(),
-      interactionPattern: this.analyzeInteractionPattern()
-    };
-  }
-
-  /**
-   * Intelligent device type detection with enhanced accuracy
-   */
-  detectDeviceType() {
-    const viewport = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      ratio: window.innerWidth / window.innerHeight
-    };
-    
-    if (this.deviceCapabilities.touch) {
-      if (viewport.width <= 768) return 'mobile';
-      if (viewport.width <= 1024) return 'tablet';
-      return 'touch-desktop';
-    }
-    
-    if (viewport.width <= 1024) return 'small-desktop';
-    if (viewport.width <= 1440) return 'desktop';
-    if (viewport.width <= 2560) return 'large-desktop';
-    return 'ultrawide';
-  }
-
-  /**
-   * Advanced interaction pattern analysis for user behavior insights
-   */
-  analyzeInteractionPattern() {
-    this.performanceMetrics.interactionCount++;
-    
-    return {
-      interactionCount: this.performanceMetrics.interactionCount,
-      flipInteractionCount: this.performanceMetrics.flipInteractionCount,
-      averageInteractionTime: this.calculateAverageInteractionTime(),
-      preferredInteractionMethod: this.detectPreferredInteractionMethod(),
-      engagementLevel: this.calculateEngagementLevel()
-    };
-  }
-
-  /**
-   * Calculate average interaction time
-   */
-  calculateAverageInteractionTime() {
-    const currentTime = performance.now();
-    const totalTime = currentTime - this.performanceMetrics.loadTime;
-    return totalTime / Math.max(1, this.performanceMetrics.interactionCount);
-  }
-
-  /**
-   * Detect preferred interaction method
-   */
-  detectPreferredInteractionMethod() {
-    return this.deviceCapabilities.touch ? 'touch' : 'mouse';
-  }
-
-  /**
-   * Calculate engagement level
-   */
-  calculateEngagementLevel() {
-    const interactions = this.performanceMetrics.interactionCount;
-    const flipInteractions = this.performanceMetrics.flipInteractionCount;
-    const totalInteractions = interactions + flipInteractions;
-    
-    if (totalInteractions < 3) return 'low';
-    if (totalInteractions < 10) return 'medium';
-    return 'high';
-  }
-
-  /**
-   * Haptic feedback implementation for premium mobile experience
-   */
-  triggerHapticFeedback() {
-    if ('vibrate' in navigator && this.deviceCapabilities.touch) {
-      // Subtle, premium haptic pattern
-      navigator.vibrate([10, 20, 5]);
-    }
-  }
-
-  /**
-   * Handle grid item hover
-   */
-  handleGridItemHover(item, isHovering) {
-    if (this.deviceCapabilities.reducedMotion) return;
-    
-    if (isHovering) {
-      item.style.transform = 'translateY(-4px)';
-      item.style.transition = 'transform 0.3s ease-out';
-    } else {
-      item.style.transform = '';
-    }
-  }
-
-  /**
-   * Handle logo interaction
-   */
-  handleLogoInteraction(event) {
-    console.log('🏠 ' + this.translations[this.currentLanguage].interactions.logoClick);
-    
-    // Smooth scroll to top
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+        observer.observe(section);
     });
     
-    this.trackUserInteraction('logo_click', {
-      timestamp: Date.now()
-    });
-  }
-
-  /**
-   * Accessibility enhancement implementation
-   */
-  initializeAccessibilityFeatures() {
-    // Enhanced keyboard navigation for flip cards
-    this.elements.flipCards.forEach((card, index) => {
-      const button = card.querySelector('.flip-arrow-btn');
-      if (button) {
-        button.setAttribute('role', 'button');
-        button.setAttribute('aria-label', 
-          this.translations[this.currentLanguage].accessibility?.beforeAfterToggle || 
-          'Toggle before and after view'
-        );
-        button.setAttribute('aria-pressed', 'false');
-        button.setAttribute('tabindex', '0');
-      }
-    });
-
-    // Grid items accessibility
-    this.elements.gridItems.forEach((item, index) => {
-      if (!item.classList.contains('flip-card') && !item.classList.contains('cta-container')) {
-        item.setAttribute('tabindex', '0');
-        item.setAttribute('role', 'button');
-        item.setAttribute('aria-label', `View project ${index + 1}`);
-      }
-    });
-
-    // CTA button accessibility
-    if (this.elements.ctaButton) {
-      this.elements.ctaButton.setAttribute('aria-describedby', 'cta-description');
-    }
-
-    // Back to top accessibility
-    if (this.elements.backToTop) {
-      this.elements.backToTop.setAttribute('tabindex', '0');
-    }
-
-    // Focus management
-    this.implementFocusManagement();
-  }
-
-  /**
-   * Advanced focus management for keyboard users
-   */
-  implementFocusManagement() {
-    let focusableElements = [];
-    
-    const updateFocusableElements = () => {
-      focusableElements = Array.from(
-        this.elements.container.querySelectorAll(
-          'button, [tabindex="0"], a, input, select, textarea'
-        )
-      );
-    };
-    
-    updateFocusableElements();
-    
-    // Update on DOM changes
-    const focusObserver = new MutationObserver(updateFocusableElements);
-    focusObserver.observe(this.elements.container, {
-      childList: true,
-      subtree: true
-    });
-  }
-
-  /**
-   * Optimize image loading
-   */
-  optimizeImageLoading() {
-    const images = this.elements.gridImages;
-    
-    images.forEach(img => {
-      // Add mobile-specific loading attributes
-      if (this.deviceCapabilities.isMobile) {
-        img.setAttribute('loading', 'lazy');
-        img.setAttribute('decoding', 'async');
-      }
-      
-      img.addEventListener('load', () => {
-        img.classList.add('loaded');
-        img.parentElement.classList.remove('loading');
-      });
-      
-      img.addEventListener('error', () => {
-        img.parentElement.classList.remove('loading');
-        img.parentElement.classList.add('error');
-        console.warn('Failed to load image:', img.src);
-        
-        // Show fallback for mobile
-        if (this.deviceCapabilities.isMobile) {
-          this.showImageFallback(img);
-        }
-      });
-      
-      // Force load for placeholder images
-      if (img.complete) {
-        img.classList.add('loaded');
-      }
-      
-      // Add loading state
-      img.parentElement.classList.add('loading');
-    });
-    
-    // Mobile-specific optimizations
-    if (this.deviceCapabilities.isMobile) {
-      this.optimizeImagesForMobile();
-    }
-  }
-
-  /**
-   * Mobile-specific image optimizations
-   */
-  optimizeImagesForMobile() {
-    const images = this.elements.gridImages;
-    
-    images.forEach(img => {
-      // Optimize for mobile viewport
-      if (img.src && !img.src.includes('data:image/svg+xml')) {
-        // Add mobile-specific error handling
-        img.addEventListener('error', () => {
-          this.showImageFallback(img);
-        });
-      }
-    });
-  }
-
-  /**
-   * Show fallback for failed images on mobile
-   */
-  showImageFallback(img) {
-    const wrapper = img.closest('.project-image-wrapper');
-    if (wrapper) {
-      wrapper.innerHTML = `
-        <div style="
-          width: 100%; 
-          height: 100%; 
-          background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          color: #8f6027;
-          font-size: 1rem;
-          text-align: center;
-          padding: 1rem;
-          border-radius: var(--border-radius-medium);
-        ">
-          <div>
-            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🖼️</div>
-            <div>Afbeelding niet beschikbaar</div>
-          </div>
-        </div>
-      `;
-    }
-  }
-
-  /**
-   * Advanced touch interaction system optimized for premium mobile experience
-   */
-  initializeTouchInteractions() {
-    if (!this.deviceCapabilities.touch) return;
-
-    // Touch interactions for non-flip grid items
-    this.elements.gridItems.forEach((item, index) => {
-      if (item.classList.contains('cta-container') || item.classList.contains('flip-card')) return;
-
-      // Enhanced touch event handlers with gesture recognition
-      item.addEventListener('touchstart', (e) => this.handleTouchStart(e, item, index), { passive: true });
-      item.addEventListener('touchmove', (e) => this.handleTouchMove(e, item), { passive: true });
-      item.addEventListener('touchend', (e) => this.handleTouchEnd(e, item, index), { passive: true });
-    });
-
-    // Premium CTA touch interactions
-    if (this.elements.ctaButton) {
-      this.elements.ctaButton.addEventListener('touchstart', this.handleCTATouchStart.bind(this), { passive: true });
-      this.elements.ctaButton.addEventListener('touchend', this.handleCTATouchEnd.bind(this), { passive: true });
-    }
-  }
-
-  /**
-   * Enhanced touch start handler with premium interaction feedback
-   */
-  handleTouchStart(event, item, index) {
-    this.touchStartTime = performance.now();
-    
-    // Prevent default to avoid unwanted behaviors on mobile
-    event.preventDefault();
-    
-    // Immediate visual feedback for premium touch experience
-    requestAnimationFrame(() => {
-      item.style.transform = 'scale(0.98) translateY(-2px)';
-      item.style.transition = 'transform 0.1s ease-out';
-    });
-
-    // Haptic feedback for mobile devices
-    if (this.deviceCapabilities.touch && navigator.vibrate) {
-      navigator.vibrate(10);
-    }
-
-    this.trackUserInteraction('premium_touch_start', {
-      index,
-      timestamp: this.touchStartTime
-    });
-  }
-
-  /**
-   * Touch move handler for gesture recognition
-   */
-  handleTouchMove(event, item) {
-    // Implement swipe gesture detection for future enhancement
-    const touch = event.touches[0];
-    if (touch) {
-      this.lastTouchPosition = { x: touch.clientX, y: touch.clientY };
-    }
-  }
-
-  /**
-   * Enhanced touch end handler with interaction completion
-   */
-  handleTouchEnd(event, item, index) {
-    const touchDuration = performance.now() - this.touchStartTime;
-    
-    // Reset visual state with premium animation
-    requestAnimationFrame(() => {
-      item.style.transform = '';
-      item.style.transition = 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-    });
-
-    // Trigger interaction if touch duration indicates intent
-    if (touchDuration < 500) {
-      setTimeout(() => this.handleGridItemInteraction(item, index), 50);
-    }
-
-    this.trackUserInteraction('premium_touch_end', {
-      duration: touchDuration,
-      index,
-      wasQuickTap: touchDuration < 200
-    });
-  }
-
-  /**
-   * Premium CTA touch interaction handlers
-   */
-  handleCTATouchStart(event) {
-    this.touchStartTime = performance.now();
-    this.triggerHapticFeedback();
-  }
-
-  handleCTATouchEnd(event) {
-    const touchDuration = performance.now() - this.touchStartTime;
-    if (touchDuration < 500) {
-      this.handleCTAInteraction(event);
-    }
-  }
-
-  /**
-   * Professional responsive optimization with intelligent device adaptation
-   */
-  handleResponsiveAdjustments() {
-    const viewport = {
-      width: window.innerWidth,
-      height: window.innerHeight,
-      orientation: window.innerHeight > window.innerWidth ? 'portrait' : 'landscape'
-    };
-
-    // Update device capabilities
-    this.deviceCapabilities = this.analyzeDeviceCapabilities();
-
-    const deviceType = this.detectDeviceType();
-    this.applyResponsiveOptimizations(deviceType, viewport);
-    
-    console.log(`📱 Professional responsive optimization applied: ${deviceType}`, viewport);
-  }
-
-  /**
-   * Professional responsive optimization implementation
-   */
-  applyResponsiveOptimizations(deviceType, viewport) {
-    switch (deviceType) {
-      case 'mobile':
-        this.optimizeForMobile(viewport);
-        break;
-      case 'tablet':
-        this.optimizeForTablet(viewport);
-        break;
-      case 'desktop':
-      case 'large-desktop':
-        this.optimizeForDesktop(viewport);
-        break;
-    }
-  }
-
-  /**
-   * Mobile-first optimization for professional touch experience
-   */
-  optimizeForMobile(viewport) {
-    // Optimize grid items for mobile
-    this.elements.gridItems.forEach(item => {
-      item.style.minHeight = '220px';
-      item.style.touchAction = 'manipulation';
-      item.style.webkitTapHighlightColor = 'transparent';
-      item.style.userSelect = 'none';
-      item.style.webkitUserSelect = 'none';
-    });
-
-    // Optimize flip cards for mobile
-    this.elements.flipCards.forEach(card => {
-      card.style.touchAction = 'manipulation';
-      card.style.webkitTapHighlightColor = 'transparent';
-    });
-
-    // Optimize flip buttons for mobile
-    this.elements.flipArrowButtons.forEach(button => {
-      button.style.touchAction = 'manipulation';
-      button.style.webkitTapHighlightColor = 'transparent';
-      button.style.minWidth = '44px';
-      button.style.minHeight = '44px';
-    });
-
-    // Container optimization
-    if (this.elements.container) {
-      this.elements.container.style.padding = '8px';
-    }
-
-    // Optimize images for mobile
-    this.elements.gridImages.forEach(img => {
-      img.style.objectFit = 'cover';
-      img.style.objectPosition = 'center';
-    });
-
-    // Add mobile-specific classes
-    document.body.classList.add('mobile-device');
-    
-    console.log('📱 Mobile optimizations applied');
-  }
-
-  /**
-   * Tablet optimization for balanced interaction patterns
-   */
-  optimizeForTablet(viewport) {
-    this.elements.gridItems.forEach(item => {
-      item.style.minHeight = '200px';
-      item.style.touchAction = 'manipulation';
-    });
-  }
-
-  /**
-   * Desktop optimization for precision interactions
-   */
-  optimizeForDesktop(viewport) {
-    this.elements.gridItems.forEach(item => {
-      item.style.minHeight = '';
-      item.style.touchAction = '';
-    });
-  }
-
-  /**
-   * Professional analytics integration with comprehensive event tracking
-   */
-  trackUserInteraction(action, data = {}) {
-    const eventData = {
-      action,
-      timestamp: new Date().toISOString(),
-      sessionId: this.generateSessionId(),
-      language: this.currentLanguage,
-      userAgent: navigator.userAgent,
-      viewport: {
-        width: window.innerWidth,
-        height: window.innerHeight,
-        devicePixelRatio: window.devicePixelRatio,
-        orientation: window.innerHeight > window.innerWidth ? 'portrait' : 'landscape'
-      },
-      performance: {
-        loadTime: this.performanceMetrics.loadTime,
-        currentTime: performance.now(),
-        connectionType: navigator.connection?.effectiveType || 'unknown'
-      },
-      deviceCapabilities: this.deviceCapabilities,
-      ...data
-    };
-
-    console.log('📊 Professional user interaction analytics:', eventData);
-    
-    // Update flip interaction counter
-    if (action === 'flip_card_interaction') {
-      this.performanceMetrics.flipInteractionCount++;
-    }
-    
-    this.performanceMetrics.interactionCount++;
-  }
-
-  /**
-   * Session ID generation for analytics correlation
-   */
-  generateSessionId() {
-    if (!this.sessionId) {
-      this.sessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    }
-    return this.sessionId;
-  }
-
-  /**
-   * Professional fallback initialization with comprehensive error handling
-   */
-  fallbackInitialization() {
-    console.warn('🔄 Executing professional fallback initialization with error recovery');
-    
-    try {
-      const essentialElements = {
-        ctaButton: document.getElementById('discoverBtn'),
-        gridItems: document.querySelectorAll('.grid-item'),
-        container: document.querySelector('.container'),
-        flipCards: document.querySelectorAll('.flip-card'),
-        flipArrowButtons: document.querySelectorAll('.flip-arrow-btn'),
-        languageSelector: document.getElementById('languageSelector'),
-        menuToggle: document.getElementById('menuToggle'),
-        offCanvasMenu: document.getElementById('offCanvasMenu'),
-        backToTop: document.getElementById('backToTop'),
-        stickyHeader: document.getElementById('stickyHeader')
-      };
-      
-      // Professional CTA fallback
-      if (essentialElements.ctaButton) {
-        essentialElements.ctaButton.addEventListener('click', (e) => {
-          e.preventDefault();
-          const aboutSection = document.querySelector('.about-section');
-          if (aboutSection) {
-            aboutSection.scrollIntoView({ behavior: 'smooth' });
-          }
-          console.log('Professional CTA interaction - Fallback mode');
-        });
-      }
-      
-      // Professional grid interaction fallback
-      essentialElements.gridItems.forEach((item, index) => {
-        if (!item.classList.contains('cta-container') && !item.classList.contains('flip-card')) {
-          item.addEventListener('click', () => {
-            console.log(`Professional grid interaction - Item ${index + 1}`);
-          });
-        }
-      });
-
-      // Flip card fallback
-      essentialElements.flipArrowButtons.forEach((button, index) => {
-        button.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const flipCard = button.closest('.flip-card');
-          if (flipCard) {
-            flipCard.classList.toggle('flipped');
-            console.log(`Flip card interaction - Fallback mode - Card ${index + 1}`);
-          }
-        });
-      });
-
-      // Language selector fallback
-      this.initializeLanguageSelectorFallback(essentialElements);
-
-      // Menu toggle fallback
-      this.initializeMenuFallback(essentialElements);
-
-      // Back to top fallback
-      this.initializeBackToTopFallback(essentialElements);
-
-      // Sticky header fallback
-      this.initializeStickyHeaderFallback(essentialElements);
-
-      this.implementBasicAccessibility(essentialElements);
-      
-    } catch (error) {
-      console.error('❌ Critical fallback initialization failure:', error);
-      this.implementMinimalFunctionality();
-    }
-  }
-
-  /**
-   * Initialize language selector fallback
-   */
-  initializeLanguageSelectorFallback(elements) {
-    if (elements.languageSelector) {
-      const langToggle = elements.languageSelector.querySelector('.lang-toggle');
-      const langOptions = elements.languageSelector.querySelectorAll('.lang-option');
-      
-      if (langToggle) {
-        langToggle.addEventListener('click', () => {
-          elements.languageSelector.classList.toggle('active');
-        });
-      }
-      
-      langOptions.forEach(option => {
-        option.addEventListener('click', () => {
-          const lang = option.getAttribute('data-lang');
-          const currentLang = document.querySelector('.current-lang');
-          if (currentLang) {
-            currentLang.textContent = lang.toUpperCase();
-          }
-          document.documentElement.lang = lang;
-          elements.languageSelector.classList.remove('active');
-          console.log(`Language changed to: ${lang} - Fallback mode`);
-        });
-      });
-    }
-  }
-
-  /**
-   * Initialize menu fallback with comprehensive sticky header integration
-   */
-  initializeMenuFallback(elements) {
-    if (elements.menuToggle && elements.offCanvasMenu) {
-      // Main floating menu toggle
-      elements.menuToggle.addEventListener('click', () => {
-        this.toggleMenuFallback(elements);
-      });
-
-      // Sticky header menu toggle integration
-      const stickyMenuToggle = document.getElementById('stickyMenuToggle');
-      if (stickyMenuToggle) {
-        stickyMenuToggle.addEventListener('click', () => {
-          this.toggleMenuFallback(elements);
-          // Sync button states
-          if (elements.offCanvasMenu.classList.contains('active')) {
-            stickyMenuToggle.classList.add('active');
-          } else {
-            stickyMenuToggle.classList.remove('active');
-          }
-        });
-      }
-
-      // Enhanced menu links with intelligent navigation
-      const menuLinks = elements.offCanvasMenu.querySelectorAll('.menu-list a');
+    // Menu Links
+    const menuLinks = document.querySelectorAll('.menu-list a');
       menuLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', function(e) {
           e.preventDefault();
-          const targetId = link.getAttribute('href');
+            const targetId = this.getAttribute('href');
           const targetElement = document.querySelector(targetId);
           
-          // Close menu with state cleanup
-          this.closeMenuFallback(elements);
-          
-          // Navigate with dynamic offset calculation
+            // Close menu
+            if (offCanvasMenu) {
+                offCanvasMenu.classList.remove('active');
+                if (menuToggle) menuToggle.classList.remove('active');
+                if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
+                if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
+            }
+            
+            // Navigate to target
           if (targetElement) {
             setTimeout(() => {
-              const headerOffset = this.calculateFallbackHeaderOffset();
-              const offsetTop = targetElement.offsetTop - headerOffset;
+                    const offsetTop = targetElement.offsetTop - 100;
               window.scrollTo({
                 top: offsetTop,
                 behavior: 'smooth'
@@ -2118,349 +810,300 @@ class EnhancedInteriorDesignInterface {
           }
         });
       });
-    }
-  }
-
-  /**
-   * Toggle menu with comprehensive state management
-   */
-  toggleMenuFallback(elements) {
-    const isActive = elements.offCanvasMenu.classList.contains('active');
     
-    if (isActive) {
-      this.closeMenuFallback(elements);
-    } else {
-      this.openMenuFallback(elements);
-    }
-  }
-
-  /**
-   * Open menu with enhanced mobile experience
-   */
-  openMenuFallback(elements) {
-    elements.menuToggle.classList.add('active');
-    elements.offCanvasMenu.classList.add('active');
-    
-    // Sync sticky menu button
+    // Sticky Menu Toggle
     const stickyMenuToggle = document.getElementById('stickyMenuToggle');
-    if (stickyMenuToggle) {
-      stickyMenuToggle.classList.add('active');
+    if (stickyMenuToggle && offCanvasMenu) {
+        stickyMenuToggle.addEventListener('click', function() {
+            offCanvasMenu.classList.toggle('active');
+            this.classList.toggle('active');
+            if (menuToggle) menuToggle.classList.toggle('active');
+            
+            // Ensure only one menu button is active at a time
+            if (this.classList.contains('active')) {
+                menuToggle.classList.remove('active');
+            }
+        });
     }
     
-    // Enhanced body scroll prevention
-    document.body.style.overflow = 'hidden';
-    document.body.style.position = 'fixed';
-    document.body.style.width = '100%';
-    
-    console.log('Menu opened - Fallback mode with enhanced integration');
-  }
-
-  /**
-   * Close menu with complete state restoration
-   */
-  closeMenuFallback(elements) {
-    elements.menuToggle.classList.remove('active');
-    elements.offCanvasMenu.classList.remove('active');
-    
-    // Sync sticky menu button
-    const stickyMenuToggle = document.getElementById('stickyMenuToggle');
-    if (stickyMenuToggle) {
-      stickyMenuToggle.classList.remove('active');
+    // Ensure menu buttons don't conflict
+    if (menuToggle && stickyMenuToggle) {
+        menuToggle.addEventListener('click', function() {
+            if (stickyMenuToggle.classList.contains('active')) {
+                stickyMenuToggle.classList.remove('active');
+            }
+        });
     }
     
-    // Restore body scroll state
-    document.body.style.overflow = '';
-    document.body.style.position = '';
-    document.body.style.width = '';
-  }
-
-  /**
-   * Calculate fallback header offset for navigation
-   */
-  calculateFallbackHeaderOffset() {
-    const stickyHeader = document.getElementById('stickyHeader');
-    const isHeaderVisible = stickyHeader?.classList.contains('visible');
-    return isHeaderVisible ? 100 : 20;
-  }
-
-  /**
-   * Initialize back to top fallback
-   */
-  initializeBackToTopFallback(elements) {
-    if (elements.backToTop) {
-      // Show/hide based on scroll
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 300) {
-          elements.backToTop.classList.add('visible');
-        } else {
-          elements.backToTop.classList.remove('visible');
+    // Header Mobile Menu Toggle
+    const headerMobileMenuToggle = document.getElementById('headerMobileMenuToggle');
+    if (headerMobileMenuToggle && offCanvasMenu) {
+        headerMobileMenuToggle.addEventListener('click', function() {
+            offCanvasMenu.classList.toggle('active');
+            this.classList.toggle('active');
+            
+            // Ensure other menu buttons are not active
+            if (menuToggle) menuToggle.classList.remove('active');
+            if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
+        });
+    }
+    
+    // Ensure all menu buttons don't conflict
+    if (headerMobileMenuToggle) {
+        if (menuToggle) {
+            menuToggle.addEventListener('click', function() {
+                if (headerMobileMenuToggle.classList.contains('active')) {
+                    headerMobileMenuToggle.classList.remove('active');
+                }
+            });
         }
-      });
-
-      elements.backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-    }
-  }
-
-  /**
-   * Initialize sticky header fallback
-   */
-  initializeStickyHeaderFallback(elements) {
-    if (elements.stickyHeader) {
-      window.addEventListener('scroll', () => {
-        if (window.scrollY > 80) {
-          elements.stickyHeader.classList.add('visible');
-        } else {
-          elements.stickyHeader.classList.remove('visible');
+        if (stickyMenuToggle) {
+            stickyMenuToggle.addEventListener('click', function() {
+                if (headerMobileMenuToggle.classList.contains('active')) {
+                    headerMobileMenuToggle.classList.remove('active');
+                }
+            });
         }
-      });
-
-      // Handle sticky nav links
-      const stickyNavLinks = elements.stickyHeader.querySelectorAll('.sticky-nav-list a');
+    }
+    
+    // Sticky Nav Links
+    const stickyNavLinks = document.querySelectorAll('.sticky-nav-list a');
       stickyNavLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
+        link.addEventListener('click', function(e) {
           e.preventDefault();
-          const targetId = link.getAttribute('href');
+            const targetId = this.getAttribute('href');
           const targetElement = document.querySelector(targetId);
           
           if (targetElement) {
             const offsetTop = targetElement.offsetTop - 100;
-            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-          }
+                window.scrollTo({
+                    top: offsetTop,
+                    behavior: 'smooth'
+                });
+            }
         });
-      });
-    }
-  }
-
-  /**
-   * Basic accessibility implementation for fallback mode
-   */
-  implementBasicAccessibility(elements) {
-    elements.gridItems.forEach((item, index) => {
-      if (!item.classList.contains('flip-card') && !item.classList.contains('cta-container')) {
-        item.setAttribute('tabindex', '0');
-        item.setAttribute('role', 'button');
-        item.setAttribute('aria-label', `View portfolio item ${index + 1}`);
-      }
     });
-
-    elements.flipArrowButtons.forEach(button => {
-      button.setAttribute('role', 'button');
-      button.setAttribute('aria-label', 'Toggle before and after view');
-      button.setAttribute('tabindex', '0');
-    });
-
-    if (elements.ctaButton) {
-      elements.ctaButton.setAttribute('aria-describedby', 'cta-description');
-    }
-
-    if (elements.menuToggle) {
-      elements.menuToggle.setAttribute('aria-label', 'Toggle navigation menu');
-      elements.menuToggle.setAttribute('aria-expanded', 'false');
-    }
-
-    if (elements.backToTop) {
-      elements.backToTop.setAttribute('aria-label', 'Back to top');
-      elements.backToTop.setAttribute('tabindex', '0');
-    }
-  }
-
-  /**
-   * Minimal functionality for critical failure scenarios
-   */
-  implementMinimalFunctionality() {
-    document.addEventListener('click', (event) => {
-      const target = event.target;
-      
-      if (target.closest('#discoverBtn')) {
-        console.log('Minimal CTA interaction');
-        const aboutSection = document.querySelector('.about-section');
-        if (aboutSection) {
-          aboutSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else if (target.classList.contains('flip-arrow-btn')) {
-        const flipCard = target.closest('.flip-card');
-        if (flipCard) {
-          flipCard.classList.toggle('flipped');
-          console.log('Minimal flip card interaction');
-        }
-      } else if (target.closest('.grid-item')) {
-        console.log('Minimal grid interaction');
-      } else if (target.closest('#menuToggle')) {
-        const menuToggle = document.getElementById('menuToggle');
-        const offCanvasMenu = document.getElementById('offCanvasMenu');
-        if (menuToggle && offCanvasMenu) {
-          menuToggle.classList.toggle('active');
-          offCanvasMenu.classList.toggle('active');
-          console.log('Minimal menu toggle');
-        }
-      } else if (target.closest('.lang-toggle')) {
-        const languageSelector = document.getElementById('languageSelector');
-        if (languageSelector) {
-          languageSelector.classList.toggle('active');
-          console.log('Minimal language selector toggle');
-        }
-      } else if (target.classList.contains('lang-option')) {
-        const lang = target.getAttribute('data-lang');
-        console.log(`Minimal language change to: ${lang}`);
-        const languageSelector = document.getElementById('languageSelector');
-        if (languageSelector) {
-          languageSelector.classList.remove('active');
-        }
-      } else if (target.closest('#backToTop')) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        console.log('Minimal back to top');
-      }
-    });
-
-    // Basic form handling
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        console.log('Minimal contact form submission');
-        alert('Thank you for your message! We will get back to you soon.');
-      });
-    }
-
-    // Basic scroll handling
-    window.addEventListener('scroll', () => {
-      const backToTop = document.getElementById('backToTop');
-      const stickyHeader = document.getElementById('stickyHeader');
-      
-      if (backToTop) {
-        if (window.scrollY > 300) {
-          backToTop.classList.add('visible');
-        } else {
-          backToTop.classList.remove('visible');
-        }
-      }
-
-      if (stickyHeader) {
-        if (window.scrollY > 80) {
-          stickyHeader.classList.add('visible');
-        } else {
-          stickyHeader.classList.remove('visible');
-        }
-      }
-    });
-  }
-}
-
-// Initialize the enhanced professional interface system with comprehensive error handling
-try {
-  const enhancedDesignInterface = new EnhancedInteriorDesignInterface();
-  
-  // Global accessibility for development and integration
-  window.JeanetteGasselingInterface = enhancedDesignInterface;
-  
-} catch (error) {
-  console.error('❌ Enhanced professional interface initialization failed:', error);
-  
-  // Minimal fallback implementation
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('🔄 Minimal fallback mode activated');
     
-    // Basic click handling
-    document.addEventListener('click', (event) => {
-      if (event.target.closest('#discoverBtn')) {
-        console.log('Basic CTA interaction');
-        const aboutSection = document.querySelector('.about-section');
-        if (aboutSection) {
-          aboutSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      } else if (event.target.classList.contains('flip-arrow-btn')) {
-        const flipCard = event.target.closest('.flip-card');
-        if (flipCard) {
-          flipCard.classList.toggle('flipped');
-        }
-      } else if (event.target.closest('.grid-item')) {
-        console.log('Basic grid interaction');
-      } else if (event.target.closest('#menuToggle')) {
-        const menuToggle = document.getElementById('menuToggle');
-        const offCanvasMenu = document.getElementById('offCanvasMenu');
-        if (menuToggle && offCanvasMenu) {
-          menuToggle.classList.toggle('active');
-          offCanvasMenu.classList.toggle('active');
-        }
-      } else if (event.target.closest('.lang-toggle')) {
-        const languageSelector = document.getElementById('languageSelector');
-        if (languageSelector) {
-          languageSelector.classList.toggle('active');
-        }
-      } else if (event.target.classList.contains('lang-option')) {
-        const lang = event.target.getAttribute('data-lang');
-        document.documentElement.lang = lang;
-        const currentLang = document.querySelector('.current-lang');
-        if (currentLang) {
-          currentLang.textContent = lang.toUpperCase();
-        }
-        const languageSelector = document.getElementById('languageSelector');
-        if (languageSelector) {
-          languageSelector.classList.remove('active');
-        }
-      } else if (event.target.closest('#backToTop')) {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    });
-
-    // Basic form submission
-    const contactForm = document.getElementById('contactForm');
-    if (contactForm) {
-      contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const submitButton = contactForm.querySelector('.contact-submit');
-        const originalText = submitButton.querySelector('span').textContent;
-        submitButton.querySelector('span').textContent = '✓ Sent!';
-        submitButton.disabled = true;
-        
-        setTimeout(() => {
-          submitButton.querySelector('span').textContent = originalText;
-          submitButton.disabled = false;
-          contactForm.reset();
-        }, 3000);
-      });
-    }
-
-    // Basic scroll handling
-    window.addEventListener('scroll', () => {
-      const backToTop = document.getElementById('backToTop');
-      const stickyHeader = document.getElementById('stickyHeader');
-      
-      if (backToTop) {
-        if (window.scrollY > 300) {
-          backToTop.classList.add('visible');
-        } else {
-          backToTop.classList.remove('visible');
-        }
-      }
-
-      if (stickyHeader) {
-        if (window.scrollY > 80) {
-          stickyHeader.classList.add('visible');
-        } else {
-          stickyHeader.classList.remove('visible');
-        }
-      }
-    });
-
-    // Set current year in footer
-    const currentYearElement = document.getElementById('currentYear');
-    if (currentYearElement) {
-      currentYearElement.textContent = new Date().getFullYear();
-    }
-
     // Add page load animation
     document.body.classList.add('loading');
     setTimeout(() => {
       document.body.classList.remove('loading');
       document.body.classList.add('loaded');
     }, 100);
-  });
 }
 
-// Professional module export for integration flexibility
-if (typeof module !== 'undefined' && module.exports) {
-  module.exports = EnhancedInteriorDesignInterface;
+/**
+ * Initialize analytics tracking for user interactions
+ */
+function initializeAnalyticsTracking() {
+    // Track CTA button clicks
+    const ctaButton = document.getElementById('discoverBtn');
+    if (ctaButton) {
+        ctaButton.addEventListener('click', function() {
+            trackEvent('cta_click', 'Engagement', 'CTA Button Click', 'Discover Button');
+        });
+    }
+    
+    // Track contact form submissions
+    const contactForm = document.querySelector('.contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function() {
+            trackEvent('form_submit', 'Conversion', 'Contact Form Submit', 'Contact Form');
+        });
+    }
+    
+    // Track social media clicks
+    const socialLinks = document.querySelectorAll('a[href*="instagram"], a[href*="wa.me"]');
+    socialLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const platform = this.href.includes('instagram') ? 'Instagram' : 'WhatsApp';
+            trackEvent('social_click', 'Engagement', 'Social Media Click', platform);
+        });
+    });
+    
+    // Track navigation menu clicks
+    const navLinks = document.querySelectorAll('.menu-list a, .sticky-nav-list a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            const section = this.getAttribute('href').replace('#', '');
+            trackEvent('navigation', 'Engagement', 'Menu Navigation', section);
+        });
+    });
+    
+    // Track flip card interactions
+    const flipButtons = document.querySelectorAll('.flip-arrow-btn');
+    flipButtons.forEach((button, index) => {
+        button.addEventListener('click', function() {
+            trackEvent('card_flip', 'Engagement', 'Flip Card Interaction', `Card ${index + 1}`);
+        });
+    });
+    
+    // Track scroll depth (when user scrolls to different sections)
+    const sections = document.querySelectorAll('.about-section, .specialities-section, .contact-section');
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const sectionName = entry.target.className.split('-')[0];
+                trackEvent('scroll_depth', 'Engagement', 'Section View', sectionName);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+    
+    console.log('Analytics tracking initialized');
+}
+
+
+
+/**
+ * Initialize image error handling for better user experience
+ */
+function initializeImageErrorHandling() {
+    const images = document.querySelectorAll('img');
+    
+    images.forEach(img => {
+        img.addEventListener('error', function() {
+            console.warn(`Image failed to load: ${this.src}`);
+            
+            // Create a fallback placeholder for project images
+            if (this.classList.contains('grid-image')) {
+                this.style.display = 'none';
+                const placeholder = document.createElement('div');
+                placeholder.className = 'image-placeholder';
+                placeholder.innerHTML = `
+                    <div style="
+                        width: 100%; 
+                        height: 100%; 
+                        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+                        display: flex; 
+                        align-items: center; 
+                        justify-content: center; 
+                        color: #8f6027; 
+                        font-size: 1rem; 
+                        text-align: center; 
+                        padding: 1rem;
+                        border-radius: 8px;
+                    ">
+                        <div>
+                            <strong>Image Loading...</strong><br>
+                            <small>Please check image path</small>
+                        </div>
+                    </div>
+                `;
+                this.parentNode.appendChild(placeholder);
+            }
+        });
+        
+        // Add loading state
+        img.addEventListener('load', function() {
+            this.classList.add('loaded');
+        });
+    });
+    
+    console.log('Image error handling initialized');
+}
+
+/**
+ * Mobile Debug Functions - Test modal functionality
+ */
+// Add this to global scope for testing
+window.testModalOnMobile = function() {
+    console.log('Testing modal on mobile...');
+    if (window.openProjectModal) {
+        console.log('openProjectModal function exists');
+        window.openProjectModal('meeting-room');
+    } else {
+        console.log('openProjectModal function does not exist');
+    }
+};
+
+// Test if modal elements exist
+window.checkModalElements = function() {
+    console.log('Checking modal elements...');
+    console.log('Modal:', document.getElementById('projectModal'));
+
+    console.log('Modal Close:', document.getElementById('modalClose'));
+    console.log('Modal Title:', document.getElementById('modalTitle'));
+    console.log('Modal Subtitle:', document.getElementById('modalSubtitle'));
+    console.log('Modal Description:', document.getElementById('modalDescription'));
+};
+
+/**
+ * Initialize flower gallery functionality
+ */
+function initializeFlowerGallery() {
+    const mainImage = document.getElementById('mainImage');
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    
+    if (!mainImage || !thumbnails.length) {
+        console.log('Gallery elements not found');
+        return;
+    }
+    
+    console.log(`Initializing flower gallery with ${thumbnails.length} thumbnails`);
+    
+    // Function to update main image
+    function updateMainImage(imageSrc, title) {
+        if (mainImage) {
+            mainImage.src = imageSrc;
+            mainImage.alt = title;
+        }
+    }
+    
+    // Function to update active thumbnail
+    function updateActiveThumbnail(clickedThumbnail) {
+        // Remove active class from all thumbnails
+        thumbnails.forEach(thumb => {
+            thumb.classList.remove('active');
+        });
+        
+        // Add active class to clicked thumbnail
+        clickedThumbnail.classList.add('active');
+    }
+    
+    // Event listeners for thumbnails
+    thumbnails.forEach((thumbnail, index) => {
+        thumbnail.addEventListener('click', function() {
+            const imageSrc = this.getAttribute('data-image');
+            const title = this.getAttribute('data-title');
+            
+            if (imageSrc && title) {
+                updateMainImage(imageSrc, title);
+                updateActiveThumbnail(this);
+                
+                // Track interaction
+                trackEvent('gallery_interaction', 'Engagement', 'Thumbnail Click', `Image ${index + 1}`);
+                
+                console.log(`Switched to image ${index + 1}: ${title}`);
+            }
+        });
+        
+        // Add image load/error tracking
+        const img = thumbnail.querySelector('img');
+        if (img) {
+            img.addEventListener('load', function() {
+                console.log(`Thumbnail ${index + 1} loaded successfully:`, this.src);
+            });
+            
+            img.addEventListener('error', function() {
+                console.error(`Thumbnail ${index + 1} failed to load:`, this.src);
+            });
+        }
+    });
+    
+    // Check if main image loads properly
+    if (mainImage) {
+        mainImage.addEventListener('load', function() {
+            console.log('Main image loaded successfully:', this.src);
+        });
+        
+        mainImage.addEventListener('error', function() {
+            console.error('Main image failed to load:', this.src);
+        });
+    }
+    
+    console.log('Flower gallery initialized successfully');
 }
