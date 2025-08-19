@@ -2,6 +2,55 @@
  * Jeanette Gasseling Deco & Design - Simple Working Interface
  */
 
+// Translation function
+function translatePage(language) {
+    if (!window.TRANSLATIONS || !window.TRANSLATIONS[language]) {
+        console.warn(`Translations for language '${language}' not found`);
+        return;
+    }
+    
+    const translations = window.TRANSLATIONS[language];
+    
+    // Get all elements with data-translate attribute
+    const elements = document.querySelectorAll('[data-translate]');
+    
+    elements.forEach(element => {
+        const key = element.getAttribute('data-translate');
+        const keys = key.split('.');
+        
+        // Navigate through the translation object
+        let translation = translations;
+        for (const k of keys) {
+            if (translation && translation[k]) {
+                translation = translation[k];
+            } else {
+                console.warn(`Translation key '${key}' not found for language '${language}'`);
+                return;
+            }
+        }
+        
+        // Apply translation
+        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+            element.placeholder = translation;
+        } else if (element.hasAttribute('data-translate-html')) {
+            element.innerHTML = translation;
+        } else {
+            element.textContent = translation;
+        }
+    });
+    
+    // Update document language
+    document.documentElement.lang = language;
+    
+    // Update current language display
+    const currentLang = document.querySelector('.current-lang');
+    if (currentLang) {
+        currentLang.textContent = language.toUpperCase();
+    }
+    
+    console.log(`Page translated to ${language}`);
+}
+
 // Analytics tracking functions
 function trackEvent(eventName, eventCategory, eventAction, eventLabel = null) {
     if (typeof gtag !== 'undefined') {
@@ -41,6 +90,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Track initial page load
     trackPageView('Home Page');
+    
+    // Initialize translations with default language (Dutch)
+    translatePage('nl');
     
     // Initialize flip cards
     initializeFlipCards();
@@ -616,13 +668,16 @@ function initializeBasicFeatures() {
         option.addEventListener('click', function(e) {
             e.stopPropagation();
             const lang = this.getAttribute('data-lang');
-            const currentLang = document.querySelector('.current-lang');
-            if (currentLang) {
-                currentLang.textContent = lang.toUpperCase();
-            }
-            document.documentElement.lang = lang;
+            
+            // Translate the page to the selected language
+            translatePage(lang);
+            
+            // Close language selector
             languageSelector.classList.remove('active');
-      });
+            
+            // Track language change
+            trackEvent('language_change', 'User Interaction', 'Language Changed', lang);
+        });
     });
 
     // Close language selector when clicking outside
