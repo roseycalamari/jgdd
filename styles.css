@@ -296,10 +296,53 @@
     transition: var(--transition-standard);
   }
   
-  /* Show hamburger button when sticky header is visible */
+  /* Desktop: Keep hamburger button hidden even when sticky header is visible */
   .sticky-header.visible .sticky-menu-toggle {
-    display: flex;
+    display: none !important; /* Hidden on desktop with higher specificity */
   }
+
+  /* Additional specificity for desktop - hide hamburger when sticky header is visible */
+  body .sticky-header.visible .sticky-menu-toggle {
+    display: none !important;
+  }
+
+  /* ==========================================
+     Desktop Navigation Rules (769px and above)
+     ========================================== */
+  @media (min-width: 769px) {
+    /* Hide hamburger button on desktop with higher specificity than mobile */
+    body .sticky-header .sticky-menu-toggle,
+    body .sticky-header.visible .sticky-menu-toggle,
+    body .sticky-header.hidden .sticky-menu-toggle {
+      display: none !important;
+    }
+    
+    /* Hide main header hamburger button on desktop */
+    body .main-header-menu-toggle {
+      display: none !important;
+    }
+    
+    /* Hide circular floating hamburger button on desktop */
+    body .menu-toggle {
+      display: none !important;
+    }
+    
+    /* Show navigation list on desktop */
+    body .sticky-header .sticky-nav-list {
+      display: flex !important;
+    }
+  }
+
+  /* Ultra-specific desktop rule to override mobile rules */
+  @media (min-width: 769px) {
+    html body .sticky-header .sticky-menu-toggle,
+    html body .sticky-header.visible .sticky-menu-toggle,
+    html body .sticky-header.hidden .sticky-menu-toggle {
+      display: none !important;
+    }
+  }
+
+
   
   .sticky-menu-line {
     width: 20px;
@@ -308,6 +351,8 @@
     transition: var(--transition-menu);
     transform-origin: center;
   }
+
+
   
   .sticky-menu-toggle.active .sticky-menu-line-top {
     transform: translateY(6px) rotate(45deg);
@@ -846,63 +891,7 @@
     line-height: 1.6;
   }
   
-  /* ==========================================
-     Header Mobile Menu Button
-     ========================================== */
-  .header-mobile-menu-toggle {
-    display: none;
-    width: 44px;
-    height: 44px;
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 4px;
-    transition: var(--transition-standard);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-  
-  .header-mobile-menu-toggle:hover {
-    background: rgba(255, 255, 255, 1);
-    transform: scale(1.05);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  }
-  
-  .header-menu-line {
-    width: 20px;
-    height: 2px;
-    background: var(--primary-brown);
-    border-radius: 1px;
-    transition: var(--transition-standard);
-  }
-  
-  .header-menu-line-top {
-    transform-origin: center;
-  }
-  
-  .header-menu-line-middle {
-    transform-origin: center;
-  }
-  
-  .header-menu-line-bottom {
-    transform-origin: center;
-  }
-  
-  /* Header Mobile Menu Button Active State */
-  .header-mobile-menu-toggle.active .header-menu-line-top {
-    transform: rotate(45deg) translate(6px, 6px);
-  }
-  
-  .header-mobile-menu-toggle.active .header-menu-line-middle {
-    opacity: 0;
-  }
-  
-  .header-mobile-menu-toggle.active .header-menu-line-bottom {
-    transform: rotate(-45deg) translate(6px, -6px);
-  }
+
   
   /* ==========================================
      Projects Section Header
@@ -2767,11 +2756,12 @@
   
 
   
-  .modal-container {
-    position: relative;
-    width: 95%;
-    max-width: 1200px;
-    max-height: 85vh;
+      .modal-container {
+      position: relative;
+      width: 80%;
+      max-width: 1000px;
+      max-height: 95vh !important;
+      height: auto;
     background: #c9a876;
     border-radius: var(--border-radius-large);
     box-shadow: var(--shadow-elevated);
@@ -2807,20 +2797,24 @@
   
   .modal-close {
     position: absolute;
-    top: var(--spacing-md);
-    right: var(--spacing-md);
-    width: 48px;
-    height: 48px;
-    background: var(--white);
+    top: var(--spacing-lg);
+    right: var(--spacing-lg);
+    width: 52px;
+    height: 52px;
+    background: rgba(255, 255, 255, 0.95);
     border: 2px solid var(--primary-brown);
-    border-radius: var(--border-radius-circle);
+    border-radius: 50%;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 10;
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    box-shadow: var(--shadow-minimal);
+    box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.15),
+      0 4px 12px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     opacity: 0;
     transform: scale(0.8) rotate(90deg);
   }
@@ -2834,8 +2828,11 @@
   .modal-close:hover {
     background: var(--primary-brown);
     color: var(--white);
-    transform: scale(1.05) rotate(5deg);
-    box-shadow: var(--shadow-standard);
+    transform: scale(1.15) rotate(90deg);
+    box-shadow: 
+      0 12px 35px rgba(143, 96, 39, 0.3),
+      0 8px 20px rgba(0, 0, 0, 0.15);
+    border-color: var(--light-gold);
   }
   
   .modal-close:active {
@@ -2865,11 +2862,20 @@
   }
   
   .modal-content {
-    padding: 70px 40px 40px;
-    max-height: calc(90vh - 120px);
+    padding: 60px 80px 80px;
+    max-height: calc(99vh - 80px) !important;
+    height: auto;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-brown) var(--soft-cream);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+  }
+  
+  /* Prevent unnecessary scrolling when content fits */
+  .modal-content.no-scroll {
+    overflow-y: visible;
   }
   
   /* Modal content animation classes */
@@ -2993,34 +2999,52 @@
     text-align: center;
     margin-bottom: var(--spacing-xl);
     padding-bottom: var(--spacing-lg);
-    border-bottom: 2px solid var(--white);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
+    flex-shrink: 0;
+  }
+  
+  .modal-header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--light-gold), var(--muted-gold), var(--light-gold));
+    border-radius: 2px;
   }
   
 
   
   .modal-title {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: clamp(2.8rem, 4.5vw, 3.8rem);
     font-weight: 400;
     color: var(--white);
-    margin-bottom: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
     font-family: 'Revans', serif;
-    letter-spacing: 2px;
+    letter-spacing: -0.02em;
     line-height: 1.2;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    text-align: center;
   }
   
   .modal-subtitle {
-    font-size: clamp(1.1rem, 2vw, 1.4rem);
-    color: var(--white);
-    opacity: 0.9;
-    font-weight: 300;
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
     font-family: 'Revans', serif;
-    letter-spacing: 1px;
-    padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.8px;
+    padding: 12px 24px;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     display: inline-block;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-style: italic;
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
   }
   
   .modal-body {
@@ -3030,26 +3054,66 @@
   .project-description {
     margin-bottom: var(--spacing-xl);
     text-align: left;
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-    background: rgba(255, 255, 255, 0.1);
-    padding: var(--spacing-lg);
-    border-radius: var(--border-radius-medium);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: var(--shadow-minimal);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    max-width: 100%;
+    background: rgba(255, 255, 255, 0.12);
+    padding: var(--spacing-xl);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .project-description::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--light-gold), 
+      var(--muted-gold),
+      var(--light-gold),
+      transparent
+    );
+    opacity: 0.8;
+  }
+  
+  .project-description::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.05) 0%, 
+      transparent 50%, 
+      rgba(0, 0, 0, 0.03) 100%
+    );
+    pointer-events: none;
+    z-index: 1;
   }
   
   .project-description p {
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: var(--white);
-    margin-bottom: var(--spacing-md);
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
     font-family: 'Revans', serif;
     text-align: left;
     font-weight: 400;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.02em;
+    position: relative;
+    z-index: 2;
   }
   
   .project-description p:last-child {
@@ -3058,11 +3122,16 @@
   
   .gallery-section {
     text-align: center;
-    margin-top: var(--spacing-xl);
+    margin-top: var(--spacing-md);
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .gallery-title {
-    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    font-size: clamp(2.8rem, 5vw, 3.5rem);
     font-weight: 400;
     color: var(--white);
     margin-bottom: var(--spacing-lg);
@@ -3088,14 +3157,18 @@
      ========================================== */
   .photo-carousel {
     position: relative;
-    margin: 0 auto var(--spacing-lg);
-    max-width: 1000px;
+    margin: 0 auto;
+    max-width: 1200px;
     background: transparent;
     border-radius: 0;
     padding: 0;
     box-shadow: none;
     border: none;
     position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .photo-carousel::before {
@@ -3129,8 +3202,9 @@
   }
   
   .carousel-image {
-    width: 90%;
-    height: 600px;
+    width: 100%;
+    height: clamp(800px, 85vh, 1000px);
+    max-height: calc(99vh - 150px);
     object-fit: cover;
     display: block;
     border-radius: var(--border-radius-small);
@@ -3143,8 +3217,8 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 48px;
-    height: 48px;
+    width: 64px;
+    height: 64px;
     background: var(--white);
     border: 2px solid var(--primary-brown);
     border-radius: var(--border-radius-circle);
@@ -3184,8 +3258,8 @@
   }
   
   .carousel-btn svg {
-    width: 20px;
-    height: 20px;
+    width: 28px;
+    height: 28px;
     stroke: var(--primary-brown);
     stroke-width: 2;
     transition: var(--transition-standard);
@@ -3203,8 +3277,8 @@
   }
   
   .carousel-indicator {
-    width: 10px;
-    height: 10px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.5);
     transition: all 0.3s ease;
@@ -3270,8 +3344,60 @@
   }
   
   /* ==========================================
-     Modal Responsive Design - Mobile Optimized
+     Modal Responsive Design - Desktop & Mobile Optimized
      ========================================== */
+  
+  /* Desktop Optimizations - Enhanced modern design */
+  @media (min-width: 769px) {
+    .project-modal {
+      padding: var(--spacing-lg);
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+    }
+    
+          .modal-container {
+        max-height: 90vh;
+        width: 75%;
+        max-width: 900px;
+        background: linear-gradient(145deg, #d4b896 0%, #c9a876 50%, #b8956b 100%);
+        border-radius: 24px;
+      box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.35),
+        0 15px 35px rgba(0, 0, 0, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .modal-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      z-index: 1;
+    }
+    
+    .modal-content {
+      max-height: calc(92vh - 140px);
+      padding: 60px 60px 70px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xxl);
+      position: relative;
+      z-index: 2;
+    }
+    
+    /* Ensure content fits without scrolling on larger screens */
+    .modal-content:not(.overflowing) {
+      overflow-y: visible;
+    }
+  }
+  
   @media (max-width: 768px) {
     .project-modal {
       padding: var(--spacing-sm);
@@ -3398,7 +3524,53 @@
       padding: 50px var(--spacing-sm) var(--spacing-md);
       max-height: calc(98vh - 80px);
     }
+  }
+  
+  /* Large Desktop Screens - Enhanced layout */
+      @media (min-width: 1400px) {
+      .modal-container {
+        max-width: 950px;
+        max-height: 85vh;
+      }
     
+    .modal-content {
+      max-height: calc(88vh - 160px);
+      padding: 70px 80px 80px;
+      gap: var(--spacing-xxl);
+    }
+    
+    .modal-title {
+      font-size: clamp(3.2rem, 4vw, 4.2rem);
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      padding: 14px 32px;
+    }
+    
+    .project-description {
+      padding: var(--spacing-xxl);
+    }
+    
+    .project-description p {
+      font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+      line-height: 1.9;
+    }
+  }
+  
+  /* Extra Large Screens - Enhanced lengthy modal */
+      @media (min-width: 1920px) {
+      .modal-container {
+        max-width: 1100px;
+        max-height: 80vh;
+      }
+    
+    .modal-content {
+      max-height: calc(85vh - 200px);
+      padding: 80px 80px 90px;
+    }
+  }
+  
     .modal-close {
       top: var(--spacing-xs);
       right: var(--spacing-xs);
@@ -3471,8 +3643,8 @@
     .carousel-indicator {
       width: 6px;
       height: 6px;
-    }
   }
+
   
   @media (max-width: 360px) {
     .modal-content {
@@ -4421,24 +4593,39 @@
       z-index: calc(var(--z-navigation) + 10);
     }
     
-    /* Ensure hamburger button is visible when header appears on mobile */
-    .sticky-header.visible .sticky-menu-toggle {
+    /* Mobile: Show hamburger button when sticky header is visible */
+    body .sticky-header.visible .sticky-menu-toggle {
       display: flex !important;
       opacity: 1 !important;
       visibility: visible !important;
+      pointer-events: auto !important;
     }
     
-    /* Hide sticky header menu button when header is visible */
+
+    
+        /* Hide circular floating menu button when sticky header is visible */
     .sticky-header.visible ~ .menu-toggle {
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
+      transform: translateY(20px);
     }
-  
+
+    /* Show circular floating menu button when sticky header is hidden */
     .sticky-header.hidden ~ .menu-toggle {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
+      transform: translateY(0);
+    }
+    
+    /* At top of page - show circular button */
+    .menu-toggle {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+      transition: all 0.3s ease;
     }
   
     .sticky-header-content {
@@ -4458,16 +4645,14 @@
     }
   
     .sticky-menu-toggle {
+      display: flex !important; /* Force display on mobile */
       width: 40px;
       height: 40px;
-      display: flex !important;
       margin-left: auto;
       background: rgba(255, 255, 255, 0.95);
       border-radius: 8px;
       padding: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      /* Temporary debugging - make it very visible */
-      border: 2px solid #ff0000;
     }
   
     .sticky-menu-line {
@@ -5217,141 +5402,469 @@
      ========================================== */
   .flower-gallery-section {
     margin-top: var(--spacing-xxl);
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-xl) 0;
     text-align: center;
+    position: relative;
+    background: linear-gradient(135deg, 
+      rgba(201, 168, 118, 0.03) 0%, 
+      rgba(212, 184, 150, 0.05) 50%, 
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    border-radius: 30px;
+    margin: var(--spacing-xxl) var(--spacing-md) 0;
+    box-shadow: 
+      0 10px 40px rgba(143, 96, 39, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
   }
   
   .gallery-title {
     font-family: 'Revans', serif;
-    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    font-size: clamp(2.4rem, 4vw, 3.5rem);
     font-weight: 400;
     color: var(--primary-brown);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
     position: relative;
+    text-shadow: 0 2px 10px rgba(143, 96, 39, 0.15);
+    letter-spacing: -0.02em;
   }
   
   .gallery-title::after {
     content: '';
     position: absolute;
-    bottom: -8px;
+    bottom: -12px;
     left: 50%;
     transform: translateX(-50%);
-    width: 80px;
-    height: 2px;
-    background: var(--light-gold);
-    border-radius: 1px;
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      var(--light-gold), 
+      var(--muted-gold),
+      var(--light-gold), 
+      transparent
+    );
+    border-radius: 2px;
+    animation: shimmer 3s ease-in-out infinite;
+  }
+  
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
   }
   
   .gallery-subtitle {
     color: var(--muted-gold);
-    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
     margin-bottom: var(--spacing-xxl);
     font-style: italic;
-    opacity: 0.9;
+    opacity: 0.85;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    line-height: 1.6;
+    text-shadow: 0 1px 5px rgba(143, 96, 39, 0.1);
   }
   
   .flower-gallery {
-    max-width: 700px;
+    max-width: 900px;
     margin: 0 auto;
     padding: var(--spacing-lg);
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: var(--border-radius-large);
-    border: 1px solid rgba(143, 96, 39, 0.1);
+    background: linear-gradient(145deg, 
+      rgba(255, 255, 255, 0.08) 0%,
+      rgba(201, 168, 118, 0.05) 50%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    border-radius: 20px;
+    border: 1px solid rgba(143, 96, 39, 0.15);
+    box-shadow: 
+      0 12px 35px rgba(143, 96, 39, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+  }
+  
+  .flower-gallery::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, 
+      transparent, 
+      rgba(255, 255, 255, 0.3), 
+      transparent
+    );
   }
   
   .gallery-main {
-    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   
   .main-image-container {
     position: relative;
-    border-radius: var(--border-radius-large);
+    border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    background: var(--white);
+    box-shadow: 
+      0 15px 40px rgba(0, 0, 0, 0.12),
+      0 8px 20px rgba(143, 96, 39, 0.08);
+    background: transparent;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: inline-block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 450px;
+  }
+  
+  .main-image-container:hover {
+    transform: translateY(-5px);
+    box-shadow: 
+      0 25px 60px rgba(0, 0, 0, 0.2),
+      0 15px 35px rgba(143, 96, 39, 0.15);
   }
   
   .main-image {
     width: auto;
     height: auto;
     max-width: 100%;
-    max-height: 50vh;
-    object-fit: contain;
+    max-height: 400px;
+    object-fit: cover;
     object-position: center;
-    transition: transform 0.3s ease;
+    transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(1) contrast(1.05) saturate(1.1);
+    opacity: 1;
+    transform: scale(1);
+    display: block;
+    border-radius: 16px;
   }
   
   .main-image:hover {
-    transform: scale(1.02);
+    transform: scale(1.01);
+    filter: brightness(1.05) contrast(1.1) saturate(1.15);
+  }
+  
+  .main-image-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+      rgba(143, 96, 39, 0.05) 0%,
+      transparent 50%,
+      rgba(201, 168, 118, 0.03) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
+  }
+  
+  .main-image-container:hover::after {
+    opacity: 1;
+  }
+  
+  /* Image Info Overlay */
+  .image-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: var(--spacing-md);
+    background: linear-gradient(to top, 
+      rgba(0, 0, 0, 0.8) 0%,
+      rgba(0, 0, 0, 0.6) 50%,
+      transparent 100%
+    );
+    color: var(--white);
+    text-align: center;
+    z-index: 3;
+  }
+  
+  .image-title {
+    font-size: clamp(1rem, 1.8vw, 1.3rem);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+    color: var(--white);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+  }
+  
+  .image-description {
+    font-size: clamp(0.8rem, 1.3vw, 1rem);
+    opacity: 0.9;
+    margin: 0;
+    font-style: italic;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Loading state for main image */
+  .main-image-container.loading::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba(143, 96, 39, 0.2);
+    border-top: 3px solid var(--primary-brown);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    z-index: 10;
+  }
+  
+  @keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+  }
+  
+  /* Gallery Controls */
+  .gallery-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+    position: relative;
+    z-index: 3;
+  }
+  
+  .nav-btn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-brown), var(--muted-gold));
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    color: var(--white);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 
+      0 6px 20px rgba(143, 96, 39, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .nav-btn:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+      0 12px 35px rgba(143, 96, 39, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    background: linear-gradient(135deg, var(--muted-gold), var(--light-gold));
+  }
+  
+  .nav-btn:active {
+    transform: translateY(-1px) scale(1.02);
+  }
+  
+  .nav-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+  
+  .nav-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2.5;
+  }
+  
+  .pagination-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-weight: 600;
+    color: var(--primary-brown);
+    min-width: 70px;
+    justify-content: center;
+    font-size: 0.9rem;
+  }
+  
+  .current-page {
+    font-size: 1rem;
+    color: var(--primary-brown);
+  }
+  
+  .separator {
+    opacity: 0.6;
+    margin: 0 var(--spacing-xs);
+  }
+  
+  .total-pages {
+    opacity: 0.8;
   }
   
 
   
   .gallery-thumbnails {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    display: flex;
     gap: var(--spacing-sm);
+    justify-content: center;
+    flex-wrap: wrap;
     max-width: 100%;
+    padding: var(--spacing-md) 0 0;
+    position: relative;
+    z-index: 2;
   }
   
   .thumbnail {
     position: relative;
-    border-radius: var(--border-radius-medium);
+    border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border: 3px solid transparent;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    border: 2px solid rgba(143, 96, 39, 0.15);
     background: var(--white);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 
+      0 3px 12px rgba(0, 0, 0, 0.08),
+      0 1px 6px rgba(143, 96, 39, 0.06);
+    transform: translateY(0) scale(1);
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
   }
   
   .thumbnail:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-    border-color: var(--light-gold);
+    transform: translateY(-4px) scale(1.08);
+    box-shadow: 
+      0 8px 25px rgba(0, 0, 0, 0.15),
+      0 4px 15px rgba(143, 96, 39, 0.12);
+    border-color: var(--muted-gold);
   }
   
   .thumbnail.active {
     border-color: var(--light-gold);
-    box-shadow: 0 8px 25px rgba(143, 96, 39, 0.3);
+    border-width: 3px;
+    box-shadow: 
+      0 8px 25px rgba(143, 96, 39, 0.3),
+      0 4px 15px rgba(201, 168, 118, 0.25);
+    transform: translateY(-2px) scale(1.1);
+  }
+  
+  .thumbnail.active:hover {
+    transform: translateY(-3px) scale(1.1);
   }
   
   .thumbnail img {
     width: 100%;
-    height: 80px;
+    height: 70px;
     object-fit: cover;
     object-position: center;
-    transition: transform 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(1) contrast(1.02) saturate(1.05);
   }
   
   .thumbnail:hover img {
-    transform: scale(1.1);
+    transform: scale(1.08);
+    filter: brightness(1.05) contrast(1.08) saturate(1.1);
+  }
+  
+  .thumbnail.active img {
+    filter: brightness(1.03) contrast(1.05) saturate(1.08);
+  }
+  
+  .thumbnail::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(143, 96, 39, 0.1) 0%,
+      transparent 50%,
+      rgba(201, 168, 118, 0.05) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  .thumbnail:hover::before {
+    opacity: 1;
+  }
+  
+  .thumbnail.active::before {
+    opacity: 0.7;
+    background: linear-gradient(135deg, 
+      rgba(143, 96, 39, 0.15) 0%,
+      transparent 50%,
+      rgba(201, 168, 118, 0.08) 100%
+    );
   }
   
   /* Mobile Responsive Gallery */
   @media (max-width: 1024px) {
     .flower-gallery {
-      max-width: 700px;
-      padding: var(--spacing-lg);
+      max-width: 95%;
+      padding: var(--spacing-md);
+      gap: var(--spacing-md);
+    }
+    
+    .main-image-container {
+      max-height: 380px;
     }
     
     .main-image {
-      max-height: 70vh;
+      max-height: 350px;
+    }
+    
+    .gallery-controls {
+      gap: var(--spacing-sm);
+      padding: var(--spacing-xs) 0;
+    }
+    
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .nav-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .pagination-info {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: 0.85rem;
+      min-width: 60px;
     }
     
     .gallery-thumbnails {
-      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: var(--spacing-sm);
+      gap: 6px;
+    }
+    
+    .thumbnail {
+      width: 60px;
+      height: 60px;
     }
     
     .thumbnail img {
-      height: 80px;
+      height: 60px;
     }
   }
   
   @media (max-width: 768px) {
     .flower-gallery-section {
-      margin-top: var(--spacing-lg);
+      margin: var(--spacing-lg) var(--spacing-xs) 0;
       padding: var(--spacing-md) 0;
     }
     
@@ -5375,41 +5888,61 @@
     }
     
     .flower-gallery {
-      max-width: 95%;
+      max-width: 100%;
       padding: var(--spacing-md);
-      margin: 0 var(--spacing-sm);
-      border-radius: var(--border-radius-medium);
+      gap: var(--spacing-md);
+    }
+    
+    .main-image-container {
+      max-height: 320px;
     }
     
     .main-image {
-      max-height: 45vh;
-      border-radius: var(--border-radius-medium);
+      max-height: 300px;
+    }
+    
+    .gallery-controls {
+      gap: var(--spacing-sm);
+      padding: var(--spacing-xs) 0;
+    }
+    
+    .nav-btn {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .nav-btn svg {
+      width: 16px;
+      height: 16px;
+    }
+    
+    .pagination-info {
+      padding: var(--spacing-xs) var(--spacing-sm);
+      font-size: 0.85rem;
+      min-width: 60px;
     }
     
     .gallery-thumbnails {
-      grid-template-columns: repeat(4, 1fr);
-      gap: var(--spacing-sm);
-      margin-top: var(--spacing-md);
+      gap: 6px;
+      justify-content: center;
     }
     
     .thumbnail {
-      border-radius: var(--border-radius-small);
-      border-width: 2px;
+      width: 55px;
+      height: 55px;
+      border-radius: 8px;
     }
     
     .thumbnail img {
-      height: 70px;
-      border-radius: var(--border-radius-small);
+      height: 55px;
     }
     
     .thumbnail.active {
-      border-color: var(--light-gold);
-      border-width: 3px;
-      transform: scale(1.05);
+      transform: translateY(-1px) scale(1.05);
     }
     
     .thumbnail:hover {
-      transform: translateY(-2px) scale(1.02);
+      transform: translateY(-2px) scale(1.05);
     }
   }
   
@@ -5518,10 +6051,7 @@
       margin-bottom: var(--spacing-md);
     }
     
-    /* Header Mobile Menu Button - Show on mobile */
-    .header-mobile-menu-toggle {
-      display: flex;
-    }
+
     
     /* Navigation improvements */
     .sticky-header-content {
@@ -5925,3 +6455,838 @@
       font-size: clamp(0.7rem, 2vw, 0.8rem);
     }
   }
+  
+  /* ==========================================
+     FORCE OVERRIDE MODAL STYLES - HIGH PRIORITY
+     ========================================== */
+  
+     /* Force modal container to be optimal size */
+    .project-modal .modal-container {
+      width: 80% !important;
+      max-width: 1000px !important;
+      max-height: 95vh !important;
+      height: auto !important;
+  }
+  
+  /* Force modal content to be bigger and scrollable */
+  .project-modal .modal-content {
+    padding: 60px 40px 80px !important;
+    max-height: calc(99vh - 80px) !important;
+    height: auto !important;
+    overflow-y: auto !important;
+    gap: var(--spacing-xl) !important;
+    width: 100% !important;
+  }
+  
+  /* Force modal title to be much bigger */
+  .project-modal .modal-title {
+    font-size: clamp(3.5rem, 7vw, 5.5rem) !important;
+    margin-bottom: var(--spacing-lg) !important;
+  }
+  
+  /* Force modal subtitle to be bigger */
+  .project-modal .modal-subtitle {
+    font-size: clamp(1.6rem, 3vw, 2.2rem) !important;
+    padding: 16px 32px !important;
+    border-radius: 28px !important;
+  }
+  
+  /* Force project description to be bigger */
+  .project-modal .project-description {
+    max-width: 1400px !important;
+    padding: var(--spacing-lg) !important;
+    width: 100% !important;
+  }
+  
+  /* Force project description text to be bigger */
+  .project-modal .project-description p {
+    font-size: 1.6rem !important;
+  }
+  
+  /* Force gallery title to be bigger */
+  .project-modal .gallery-title {
+    font-size: clamp(2.8rem, 5vw, 3.5rem) !important;
+  }
+  
+  /* Force carousel images to be much bigger */
+  .project-modal .carousel-image {
+    width: 95% !important;
+    height: clamp(600px, 70vh, 800px) !important;
+    max-height: calc(99vh - 250px) !important;
+    max-width: 95% !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  /* Optimize carousel container for tidier layout */
+  .project-modal .carousel-container {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    padding: var(--spacing-sm) !important;
+  }
+  
+  /* Force carousel buttons to be bigger */
+  .project-modal .carousel-btn {
+    width: 64px !important;
+    height: 64px !important;
+  }
+  
+  /* Force carousel button icons to be bigger */
+  .project-modal .carousel-btn svg {
+    width: 28px !important;
+    height: 28px !important;
+  }
+  
+  /* Force carousel indicators to be bigger */
+  .project-modal .carousel-indicator {
+    width: 12px !important;
+    height: 12px !important;
+    margin: 0 6px !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  /* Active indicator styling */
+  .project-modal .carousel-indicator.active {
+    background: var(--white) !important;
+    transform: scale(1.2) !important;
+  }
+  
+  /* Force photo carousel to use more space */
+  .project-modal .photo-carousel {
+    max-width: 1400px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    padding: var(--spacing-md) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  /* Ensure modal takes up most of the screen */
+  .project-modal {
+    padding: var(--spacing-sm) !important;
+  }
+  
+  /* Force modal header spacing */
+  .project-modal .modal-header {
+    margin-bottom: var(--spacing-lg) !important;
+    padding-bottom: var(--spacing-md) !important;
+  }
+  
+  /* Force gallery section to use available space */
+  .project-modal .gallery-section {
+    margin-top: var(--spacing-md) !important;
+    flex: 1 !important;
+    padding: var(--spacing-md) !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  
+  /* ==========================================
+     Mobile Modal Improvements - Clean & Tidy
+     ========================================== */
+  
+  /* Mobile Modal Container - Full width with proper spacing */
+  .project-modal .modal-container {
+    width: 95% !important;
+    max-width: none !important;
+    max-height: 95vh !important;
+    margin: 2.5vh auto !important;
+    border-radius: 20px !important;
+  }
+  
+  /* Mobile Modal Content - Better padding and spacing */
+  .project-modal .modal-content {
+    padding: 30px 20px 40px !important;
+    max-height: calc(95vh - 60px) !important;
+    gap: var(--spacing-md) !important;
+  }
+  
+  /* Mobile Modal Header - Cleaner spacing */
+  .project-modal .modal-header {
+    text-align: center !important;
+    margin-bottom: var(--spacing-md) !important;
+    padding: 0 !important;
+  }
+  
+  /* Mobile Modal Title - Better sizing */
+  .project-modal .modal-title {
+    font-size: clamp(2.5rem, 8vw, 3.5rem) !important;
+    line-height: 1.1 !important;
+    margin-bottom: var(--spacing-sm) !important;
+  }
+  
+  /* Mobile Modal Subtitle - Cleaner appearance */
+  .project-modal .modal-subtitle {
+    font-size: clamp(1.2rem, 4vw, 1.6rem) !important;
+    padding: 12px 20px !important;
+    border-radius: 20px !important;
+    display: inline-block !important;
+  }
+  
+  /* Mobile Project Description - Better readability */
+  .project-modal .project-description {
+    max-width: none !important;
+    padding: var(--spacing-md) !important;
+    text-align: center !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  /* Mobile Project Description Text - Cleaner typography */
+  .project-modal .project-description p {
+    font-size: clamp(1rem, 4vw, 1.3rem) !important;
+    line-height: 1.6 !important;
+    margin-bottom: var(--spacing-sm) !important;
+  }
+  
+  /* Mobile: Hide entire gallery section */
+  .project-modal .gallery-section {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    opacity: 0 !important;
+  }
+  
+  /* Mobile: Hide all carousel elements completely */
+  .project-modal .carousel-container,
+  .project-modal .carousel-track,
+  .project-modal .carousel-item,
+  .project-modal .carousel-btn,
+  .project-modal .carousel-indicators,
+  .project-modal .gallery-title {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+  
+
+  
+  /* Mobile Gallery Title - Elegant & Clean */
+  .project-modal .gallery-title {
+    font-size: clamp(1.8rem, 5vw, 2.4rem) !important;
+    font-weight: 500 !important;
+    color: var(--white) !important;
+    margin-bottom: var(--spacing-lg) !important;
+    letter-spacing: 0.5px !important;
+    position: relative !important;
+  }
+  
+  /* Mobile Gallery Title - Subtle underline */
+  .project-modal .gallery-title::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -8px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 40px !important;
+    height: 2px !important;
+    background: var(--light-gold) !important;
+    border-radius: 1px !important;
+  }
+  
+  /* Mobile Carousel Images - Better sizing and spacing */
+  .project-modal .carousel-image {
+    width: 100% !important;
+    height: clamp(300px, 50vh, 500px) !important;
+    max-height: 50vh !important;
+    max-width: 100% !important;
+    object-fit: cover !important;
+    border-radius: 16px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  /* Mobile Carousel Container - Cleaner layout */
+  .project-modal .carousel-container {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    padding: var(--spacing-sm) !important;
+    margin: 0 auto !important;
+    max-width: 100% !important;
+    position: relative !important;
+  }
+  
+  /* Mobile: Hide entire carousel completely */
+  .project-modal .carousel-container {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    opacity: 0 !important;
+  }
+  
+  /* Mobile: Hide carousel controls completely */
+  .project-modal .carousel-btn,
+  .project-modal .carousel-indicators {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    opacity: 0 !important;
+  }
+  
+  /* Mobile: Hide all carousel items completely */
+  .project-modal .carousel-item,
+  .project-modal .carousel-track {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    width: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    position: absolute !important;
+    opacity: 0 !important;
+  }
+  
+  /* Mobile: "View Gallery" Button - Clean & Integrated */
+  .project-modal .view-gallery-btn {
+    position: static !important;
+    display: block !important;
+    margin: var(--spacing-lg) auto var(--spacing-sm) !important;
+    background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 100%) !important;
+    color: var(--white) !important;
+    border: none !important;
+    padding: 16px 32px !important;
+    border-radius: 30px !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    box-shadow: 0 6px 20px rgba(143, 96, 39, 0.3) !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+    min-width: 160px !important;
+    text-align: center !important;
+    letter-spacing: 0.5px !important;
+    max-width: 220px !important;
+    text-transform: uppercase !important;
+  }
+  
+  .project-modal .view-gallery-btn:hover {
+    background: linear-gradient(135deg, var(--muted-gold) 0%, var(--light-gold) 100%) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(143, 96, 39, 0.4) !important;
+  }
+  
+  .project-modal .view-gallery-btn:active {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 15px rgba(143, 96, 39, 0.3) !important;
+  }
+  
+  /* Mobile Carousel Buttons - Better touch targets */
+  .project-modal .carousel-btn {
+    width: 50px !important;
+    height: 50px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border: 2px solid var(--primary-brown) !important;
+  }
+  
+  /* Mobile Carousel Button Icons - Better visibility */
+  .project-modal .carousel-btn svg {
+    width: 24px !important;
+    height: 24px !important;
+    stroke: var(--primary-brown) !important;
+  }
+  
+  /* Mobile Carousel Indicators - Cleaner appearance */
+  .project-modal .carousel-indicator {
+    width: 10px !important;
+    height: 10px !important;
+    margin: 0 4px !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+  }
+  
+  /* Mobile Active Indicator - Better visibility */
+  .project-modal .carousel-indicator.active {
+    background: var(--white) !important;
+    transform: scale(1.1) !important;
+  }
+  
+  /* Mobile Photo Carousel - Better spacing */
+  .project-modal .photo-carousel {
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    padding: var(--spacing-sm) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 16px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+  
+  /* Mobile Close Button - Better positioning */
+  .project-modal .modal-close {
+    top: 15px !important;
+    right: 15px !important;
+    width: 44px !important;
+    height: 44px !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    border: 2px solid var(--primary-brown) !important;
+  }
+  
+  /* Mobile Close Button Icon - Better visibility */
+  .project-modal .modal-close svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+  
+  /* ==========================================
+     Full-Screen Photo Viewer for Mobile
+     ========================================== */
+  
+  /* Full-Screen Photo Viewer Container */
+  .fullscreen-photo-viewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .fullscreen-photo-viewer.active {
+    display: flex;
+    opacity: 1;
+  }
+  
+  /* Full-Screen Photo Container */
+  .fullscreen-photo-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  
+  /* Full-Screen Photo Wrapper */
+  .fullscreen-photo-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Full-Screen Photo */
+  .fullscreen-photo {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Full-Screen Close Button */
+  .fullscreen-close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--primary-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
+  
+  .fullscreen-close-btn:hover {
+    background: var(--primary-brown);
+    transform: scale(1.1);
+  }
+  
+  .fullscreen-close-btn svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--primary-brown);
+    transition: stroke 0.3s ease;
+  }
+  
+  .fullscreen-close-btn:hover svg {
+    stroke: var(--white);
+  }
+  
+  /* Full-Screen Navigation Buttons */
+  .fullscreen-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--primary-brown);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: all 0.3s ease;
+  }
+  
+  .fullscreen-nav-btn:hover {
+    background: var(--primary-brown);
+    transform: translateY(-50%) scale(1.1);
+  }
+  
+  .fullscreen-nav-btn svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--primary-brown);
+    transition: stroke 0.3s ease;
+  }
+  
+  .fullscreen-nav-btn:hover svg {
+    stroke: var(--white);
+  }
+  
+  /* Previous Button */
+  .fullscreen-prev-btn {
+    left: 20px;
+  }
+  
+  /* Next Button */
+  .fullscreen-next-btn {
+    right: 20px;
+  }
+  
+  /* Full-Screen Counter */
+  .fullscreen-counter {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: var(--white);
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 500;
+    z-index: 10;
+  }
+  
+  /* Desktop: Show full-screen viewer */
+  @media (min-width: 769px) {
+    .fullscreen-photo-viewer {
+      display: none;
+    }
+    
+    .fullscreen-photo-viewer.active {
+      display: flex !important;
+    }
+    
+    /* Desktop: Enhanced "View Gallery" button - Much bigger and prominent */
+    .project-modal .view-gallery-btn {
+      display: block !important;
+      margin: var(--spacing-xxl) auto var(--spacing-xl) !important;
+      padding: 26px 80px !important;
+      background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 50%, var(--light-gold) 100%) !important;
+      color: var(--white) !important;
+      border: none !important;
+      border-radius: 50px !important;
+      font-size: 1.3rem !important;
+      font-weight: 700 !important;
+      letter-spacing: 1px !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+      transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+      box-shadow: 0 8px 30px rgba(143, 96, 39, 0.3), 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+      min-width: 450px !important;
+      max-width: 500px !important;
+      position: relative !important;
+      overflow: hidden !important;
+      text-align: center !important;
+      display: block !important;
+      width: auto !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      z-index: 100 !important;
+      transform: translateY(0) !important;
+    }
+    
+    .project-modal .view-gallery-btn::before {
+      content: '' !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: -100% !important;
+      width: 100% !important;
+      height: 100% !important;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+      transition: left 0.6s ease !important;
+    }
+    
+    .project-modal .view-gallery-btn:hover::before {
+      left: 100% !important;
+    }
+    
+    .project-modal .view-gallery-btn:hover {
+      transform: translateY(-4px) scale(1.02) !important;
+      box-shadow: 0 12px 40px rgba(143, 96, 39, 0.4), 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+      background: linear-gradient(135deg, var(--muted-gold) 0%, var(--light-gold) 50%, var(--primary-brown) 100%) !important;
+    }
+    
+    .project-modal .view-gallery-btn:active {
+      transform: translateY(-2px) scale(1.01) !important;
+      box-shadow: 0 8px 25px rgba(143, 96, 39, 0.3), 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    /* Desktop: Add subtle animation on page load */
+    .project-modal.active .view-gallery-btn {
+      animation: buttonFadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards !important;
+      animation-delay: 0.3s !important;
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    
+    @keyframes buttonFadeInUp {
+      from {
+        opacity: 0 !important;
+        transform: translateY(30px) !important;
+      }
+      to {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+      }
+    }
+    
+    /* Force button visibility - Override any hiding rules */
+    html body .project-modal .view-gallery-btn {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: relative !important;
+      z-index: 1000 !important;
+    }
+    
+    /* Desktop: Hide carousel container (using button instead) */
+    body .project-modal .carousel-container {
+      display: none !important;
+    }
+    
+    /* Desktop: Hide all carousel controls (using button instead) */
+    body .project-modal .carousel-btn,
+    body .project-modal .carousel-indicators {
+      display: none !important;
+    }
+    
+    /* Desktop: Hide all carousel items (using button instead) */
+    body .project-modal .carousel-item {
+      display: none !important;
+    }
+    
+    /* Desktop: Hide carousel track (using button instead) */
+    body .project-modal .carousel-track {
+      display: none !important;
+    }
+    
+
+    
+    /* Desktop: Gallery title styling */
+    body .project-modal .gallery-title {
+      display: block !important;
+      visibility: visible !important;
+      margin-bottom: var(--spacing-md) !important;
+      color: var(--white) !important;
+      font-size: 1.5rem !important;
+      font-weight: 600 !important;
+      text-align: center !important;
+    }
+    
+    /* Desktop: Enhanced carousel styling */
+    body .project-modal .carousel-image {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 60vh !important;
+      object-fit: cover !important;
+      border-radius: 12px !important;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+    }
+    
+    .project-modal .carousel-image:hover {
+      transform: scale(1.02) !important;
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    /* Desktop: Better carousel navigation */
+    .project-modal .carousel-btn {
+      width: 56px !important;
+      height: 56px !important;
+      background: rgba(255, 255, 255, 0.95) !important;
+      border: 2px solid var(--primary-brown) !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    }
+    
+    .project-modal .carousel-btn:hover {
+      background: var(--primary-brown) !important;
+      transform: scale(1.05) !important;
+    }
+    
+    .project-modal .carousel-btn svg {
+      width: 24px !important;
+      height: 24px !important;
+      stroke: var(--primary-brown) !important;
+      transition: stroke 0.3s ease !important;
+    }
+    
+    .project-modal .carousel-btn:hover svg {
+      stroke: var(--white) !important;
+    }
+    
+    /* Desktop: Enhanced indicators */
+    .project-modal .carousel-indicators {
+      margin-top: var(--spacing-md) !important;
+      gap: var(--spacing-sm) !important;
+    }
+    
+    .project-modal .carousel-indicator {
+      width: 12px !important;
+      height: 12px !important;
+      background: rgba(255, 255, 255, 0.3) !important;
+      border: 2px solid transparent !important;
+      transition: all 0.3s ease !important;
+    }
+    
+    .project-modal .carousel-indicator.active {
+      background: var(--white) !important;
+      border-color: var(--primary-brown) !important;
+      transform: scale(1.2) !important;
+    }
+    
+    /* Desktop: Hide gallery section completely - Only show button */
+    html body .project-modal .gallery-section {
+      display: none !important;
+      visibility: hidden !important;
+      height: 0 !important;
+      width: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      position: absolute !important;
+      opacity: 0 !important;
+    }
+    
+
+    
+    /* Desktop: Hide gallery title completely */
+    html body .project-modal .gallery-title {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      height: 0 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+  
+  /* Very small mobile screens */
+  @media (max-width: 480px) {
+    .project-modal .gallery-section {
+      padding: var(--spacing-md) var(--spacing-sm) !important;
+      margin-top: var(--spacing-md) !important;
+    }
+    
+    .project-modal .gallery-title {
+      font-size: clamp(1.6rem, 4.5vw, 2rem) !important;
+      margin-bottom: var(--spacing-md) !important;
+    }
+    
+    .project-modal .view-gallery-btn {
+      padding: 14px 28px !important;
+      font-size: 0.85rem !important;
+      min-width: 140px !important;
+      max-width: 180px !important;
+    }
+  }
+  
+  /* Medium Desktop Screens - Scale down button slightly */
+  @media (min-width: 769px) and (max-width: 1200px) {
+    .project-modal .view-gallery-btn {
+      padding: 22px 60px !important;
+      font-size: 1.1rem !important;
+      min-width: 380px !important;
+      max-width: 420px !important;
+      margin: var(--spacing-lg) auto !important;
+    }
+  }
+  
+  /* Large Tablets in Landscape - Hybrid approach */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .project-modal .view-gallery-btn {
+      padding: 20px 50px !important;
+      font-size: 1rem !important;
+      min-width: 320px !important;
+      max-width: 380px !important;
+      letter-spacing: 0.8px !important;
+    }
+  }
+  
+  /* ==========================================
+     Desktop Navigation (1025px and above)
+     ========================================== */
+  @media (min-width: 1025px) {
+    /* Ensure hamburger button is always hidden on desktop */
+    .sticky-menu-toggle {
+      display: none !important;
+    }
+    
+    /* Even when sticky header is visible, keep hamburger hidden */
+    .sticky-header.visible .sticky-menu-toggle {
+      display: none !important;
+    }
+    
+    /* Show navigation list on desktop */
+    .sticky-nav-list {
+      display: flex !important;
+    }
+  }
+
+  /* ==========================================
+     Large Desktop Navigation (1200px and above)
+     ========================================== */
+  @media (min-width: 1200px) {
+    /* Ensure hamburger button is always hidden on large desktop */
+    .sticky-menu-toggle {
+      display: none !important;
+    }
+    
+    /* Even when sticky header is visible, keep hamburger hidden */
+    .sticky-header.visible .sticky-menu-toggle {
+      display: none !important;
+    }
+    
+    /* Show navigation list on large desktop */
+    .sticky-nav-list {
+      display: flex !important;
+    }
+  }
+  

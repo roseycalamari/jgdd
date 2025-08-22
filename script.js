@@ -39,6 +39,25 @@ function translatePage(language) {
         }
     });
     
+    // Handle aria-label translations
+    const ariaElements = document.querySelectorAll('[data-translate-aria]');
+    ariaElements.forEach(element => {
+        const key = element.getAttribute('data-translate-aria');
+        const keys = key.split('.');
+        
+        let translation = translations;
+        for (const k of keys) {
+            if (translation && translation[k]) {
+                translation = translation[k];
+            } else {
+                console.warn(`Aria translation key '${key}' not found for language '${language}'`);
+                return;
+            }
+        }
+        
+        element.setAttribute('aria-label', translation);
+    });
+    
     // Update document language
     document.documentElement.lang = language;
     
@@ -92,7 +111,10 @@ document.addEventListener('DOMContentLoaded', function() {
     trackPageView('Home Page');
     
     // Initialize translations with default language (Dutch)
-    translatePage('nl');
+    setTimeout(() => {
+        translatePage('nl');
+        console.log('Initial translation loaded for Dutch');
+    }, 100);
     
     // Initialize flip cards
     initializeFlipCards();
@@ -115,21 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize flower gallery
     initializeFlowerGallery();
     
+    // Initialize full-screen photo viewer
+    initializeFullscreenPhotoViewer();
+    
     console.log('Interface initialized successfully');
     
-    // Mobile debugging - add a test button to check if modal works
-    if ('ontouchstart' in window) {
-        console.log('Mobile device detected, adding debug info');
-        // Test if modal can be opened manually
-        setTimeout(() => {
-            if (window.openProjectModal) {
-                console.log('openProjectModal function is available');
-                console.log('Modal element exists:', document.getElementById('projectModal'));
-            } else {
-                console.log('openProjectModal function is NOT available');
-            }
-        }, 1000);
-    }
+
 });
 
 /**
@@ -185,14 +198,14 @@ function initializeProjectButtons() {
         button.addEventListener('touchstart', function(e) {
             // Don't prevent default on touchstart to allow click to fire
             e.stopPropagation();
-            console.log('Touch start on project button');
+    
         }, { passive: true });
         
         // Add touchend event for mobile
         button.addEventListener('touchend', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Touch end on project button, opening modal...');
+    
             // Small delay to ensure touch events complete
             setTimeout(() => {
                 handleProjectAction.call(this, e);
@@ -207,7 +220,7 @@ function initializeProjectButtons() {
         
         // Add additional mobile event listeners
         button.addEventListener('touchcancel', function(e) {
-            console.log('Touch cancelled on project button');
+    
         });
         
         // Ensure the button is properly configured for mobile
@@ -216,13 +229,13 @@ function initializeProjectButtons() {
         
         // Add a simple click fallback for mobile
         button.addEventListener('pointerdown', function(e) {
-            console.log('Pointer down on project button');
+    
         });
         
         // Add a direct mobile click handler
         if ('ontouchstart' in window) {
             button.addEventListener('click', function(e) {
-                console.log('Mobile click detected, forcing modal open...');
+        
                 // Force the modal to open even if other events fail
                 setTimeout(() => {
                     if (window.openProjectModal && projectIds[index]) {
@@ -243,13 +256,23 @@ function initializeProjectModal() {
     const modalTitle = document.getElementById('modalTitle');
     const modalSubtitle = document.getElementById('modalSubtitle');
     const modalDescription = document.getElementById('modalDescription');
-    const carouselTrack = document.getElementById('carouselTrack');
-    const carouselIndicators = document.getElementById('carouselIndicators');
     const prevBtn = document.getElementById('carouselPrev');
     const nextBtn = document.getElementById('carouselNext');
+    const carouselContainer = document.querySelector('.carousel-container');
+    
+    // Make carousel elements globally accessible
+    window.carouselTrack = document.getElementById('carouselTrack');
+    window.carouselIndicators = document.getElementById('carouselIndicators');
+    
+
     
     if (!modal || !modalClose) {
         console.warn('Modal elements not found');
+        return;
+    }
+    
+    if (!window.carouselTrack || !window.carouselIndicators) {
+        console.warn('Carousel elements not found');
         return;
     }
     
@@ -291,7 +314,23 @@ function initializeProjectModal() {
             description: 'A stunning kitchen transformation that combines functionality with modern aesthetics. The new design features premium materials, smart storage solutions, and a layout that maximizes both space and style for the perfect holiday home experience.',
             images: [
                 { src: 'assets/images/holidayHouse/after_kitchen.jpg', alt: 'Kitchen After Renovation', caption: 'After Transformation' },
-                { src: 'assets/images/holidayHouse/before_kitchen.jpg', alt: 'Kitchen Before Renovation', caption: 'Before Transformation' }
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.23.41_d8e763b0.jpg', alt: 'Holiday Home Transformation Photo 1', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.47_a9cad054.jpg', alt: 'Holiday Home Transformation Photo 2', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_1697f7a8.jpg', alt: 'Holiday Home Transformation Photo 3', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/ç.jpg', alt: 'Holiday Home Transformation Photo 4', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_c6f6271f.jpg', alt: 'Holiday Home Transformation Photo 5', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_8f129d16.jpg', alt: 'Holiday Home Transformation Photo 6', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_606ce62f.jpg', alt: 'Holiday Home Transformation Photo 7', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_fb3bff19.jpg', alt: 'Holiday Home Transformation Photo 8', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_be2ee4a1.jpg', alt: 'Holiday Home Transformation Photo 9', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_defeb9f5.jpg', alt: 'Holiday Home Transformation Photo 10', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_ab4b78c2.jpg', alt: 'Holiday Home Transformation Photo 11', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.47_4ed80cad.jpg', alt: 'Holiday Home Transformation Photo 12', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_919a0bf9.jpg', alt: 'Holiday Home Transformation Photo 13', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.47_8b6166e8.jpg', alt: 'Holiday Home Transformation Photo 14', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_e5b83a0f.jpg', alt: 'Holiday Home Transformation Photo 15', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/Imagem WhatsApp 2025-08-19 às 09.13.48_7c10f78f.jpg', alt: 'Holiday Home Transformation Photo 16', caption: 'Holiday Home Transformation' },
+                { src: 'assets/images/holidayHouse/+.jpg', alt: 'Holiday Home Transformation Photo 17', caption: 'Holiday Home Transformation' }
             ]
         },
         'holiday-home-2': {
@@ -390,17 +429,23 @@ function initializeProjectModal() {
     
     // Make modal functions globally accessible
     window.openProjectModal = function(projectId) {
-        if (!projectData[projectId]) {
-            console.warn(`Project data not found for ID: ${projectId}`);
+        // Get current language and translations
+        const currentLang = document.documentElement.lang || 'nl';
+        const translations = window.TRANSLATIONS && window.TRANSLATIONS[currentLang];
+        
+        if (!translations || !translations.projects || !translations.projects[projectId]) {
+            console.warn(`Project translations not found for ID: ${projectId} and language: ${currentLang}`);
             return;
         }
+        
+        const projectImages = projectData[projectId] ? projectData[projectId].images : [];
         
         currentProjectId = projectId;
         currentPhotoIndex = 0;
         
-        const project = projectData[projectId];
+        const project = translations.projects[projectId];
         
-        // Update modal content
+        // Update modal content with translations
         modalTitle.textContent = project.title;
         modalSubtitle.textContent = project.subtitle;
         modalDescription.textContent = project.description;
@@ -412,7 +457,7 @@ function initializeProjectModal() {
         });
         
         // Update carousel
-        updateCarousel(project.images);
+        updateCarousel(projectImages);
         
             // Show modal with smooth animation
     modal.setAttribute('aria-hidden', 'false');
@@ -430,10 +475,7 @@ function initializeProjectModal() {
         modalClose.focus();
     });
     
-    console.log(`Modal opened for project: ${project.title}`);
-    console.log(`Modal element:`, modal);
-    console.log(`Modal classes:`, modal.className);
-    console.log(`Modal active class added:`, modal.classList.contains('active'));
+    
     };
     
     window.closeProjectModal = function() {
@@ -466,41 +508,146 @@ function initializeProjectModal() {
     
     // Carousel functionality
     function updateCarousel(images) {
-        if (!carouselTrack || !carouselIndicators) return;
+        if (!window.carouselTrack || !window.carouselIndicators) {
+            console.error('Carousel elements not found!');
+            return;
+        }
         
         // Clear existing content
-        carouselTrack.innerHTML = '';
-        carouselIndicators.innerHTML = '';
+        window.carouselTrack.innerHTML = '';
+        window.carouselIndicators.innerHTML = '';
         
         // Add images to carousel
         images.forEach((image, index) => {
             const carouselItem = document.createElement('div');
             carouselItem.className = 'carousel-item';
-            carouselItem.style.display = index === 0 ? 'block' : 'none';
+            
+            // Desktop: Show first image, mobile: hide all
+            if (window.innerWidth > 768) {
+                // Desktop: Traditional carousel - show first image, others hidden
+                carouselItem.style.display = index === 0 ? 'block' : 'none';
+                carouselItem.style.visibility = 'visible';
+                carouselItem.style.opacity = '1';
+                carouselItem.style.position = 'relative';
+            } else {
+                // Mobile: Hide all images (will show via button)
+                carouselItem.style.display = 'none';
+            }
             
             const img = document.createElement('img');
             img.src = image.src;
             img.alt = image.alt;
             img.className = 'carousel-image';
             
-            carouselItem.appendChild(img);
-            carouselTrack.appendChild(carouselItem);
+            // Force image styling for desktop
+            if (window.innerWidth > 768) {
+                img.style.width = '100%';
+                img.style.height = 'auto';
+                img.style.maxHeight = '60vh';
+                img.style.objectFit = 'cover';
+                img.style.borderRadius = '12px';
+                img.style.display = 'block';
+                img.style.visibility = 'visible';
+                img.style.opacity = '1';
+            }
             
-            // Add indicator
-            const indicator = document.createElement('button');
-            indicator.className = 'carousel-indicator';
-            indicator.setAttribute('aria-label', `Go to photo ${index + 1}`);
-            indicator.addEventListener('click', () => goToPhoto(index));
-            carouselIndicators.appendChild(indicator);
+            // Add error handling for images
+            img.addEventListener('error', function() {
+                console.warn('Failed to load image:', image.src);
+                // Try alternative path or show placeholder
+                this.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f0f0f0"/><text x="200" y="150" text-anchor="middle" fill="%23999" font-family="Arial" font-size="16">Image not found</text></svg>';
+            });
+            
+
+            
+            carouselItem.appendChild(img);
+            window.carouselTrack.appendChild(carouselItem);
+            
+            // Add indicator (desktop only)
+            if (window.innerWidth > 768) {
+                const indicator = document.createElement('button');
+                indicator.className = 'carousel-indicator';
+                indicator.setAttribute('aria-label', `Go to photo ${index + 1}`);
+                indicator.addEventListener('click', () => goToPhoto(index));
+                window.carouselIndicators.appendChild(indicator);
+            }
         });
         
-        // Update indicators
+        // Add "View Gallery" button for both mobile and desktop
+        // Remove any existing buttons first to prevent duplicates
+        const existingButtons = document.querySelectorAll('.view-gallery-btn');
+        existingButtons.forEach(btn => btn.remove());
+        
+        const viewGalleryBtn = document.createElement('button');
+        viewGalleryBtn.className = 'view-gallery-btn';
+        viewGalleryBtn.innerHTML = 'View Gallery';
+        console.log('Created View Gallery button:', viewGalleryBtn);
+        viewGalleryBtn.addEventListener('click', function() {
+            console.log('View Gallery button clicked!');
+            // Get all image sources for navigation
+            const allImages = images.map(img => img.src);
+            const projectId = currentProjectId || 'project';
+            
+            console.log('Opening gallery with:', {
+                images: allImages,
+                projectId: projectId,
+                totalImages: allImages.length
+            });
+            
+            // Open full-screen viewer with first photo
+            if (window.openFullscreenPhoto) {
+                window.openFullscreenPhoto(allImages[0], allImages, projectId, 0);
+            } else {
+                console.error('openFullscreenPhoto function not found!');
+            }
+        });
+        
+        // Insert button into the modal body after the description
+        const modalBody = document.querySelector('.modal-body');
+        if (modalBody) {
+            modalBody.appendChild(viewGalleryBtn);
+            console.log('View Gallery button added to modal body');
+            
+            // Force button visibility on desktop
+            if (window.innerWidth > 768) {
+                setTimeout(() => {
+                    viewGalleryBtn.style.display = 'block';
+                    viewGalleryBtn.style.visibility = 'visible';
+                    viewGalleryBtn.style.opacity = '1';
+                    viewGalleryBtn.style.transform = 'translateY(0)';
+                    viewGalleryBtn.style.zIndex = '1000';
+                    console.log('Forced button visibility on desktop');
+                }, 100);
+            }
+        } else {
+            console.error('Modal body not found!');
+        }
+        
+
+        
+        // Set current photo index to 0 and update indicators
+        currentPhotoIndex = 0;
         updateIndicators();
+        
+        // Ensure first photo is visible on desktop - with a small delay to ensure DOM is ready
+        if (window.innerWidth > 768 && images.length > 0) {
+            setTimeout(() => {
+                goToPhoto(0);
+                
+                // Double-check that the first image is visible
+                const firstItem = window.carouselTrack.querySelector('.carousel-item:first-child');
+                if (firstItem) {
+                    firstItem.style.display = 'block';
+                    firstItem.style.visibility = 'visible';
+                    firstItem.style.opacity = '1';
+                }
+            }, 100);
+        }
     }
     
     function goToPhoto(index) {
-        const items = carouselTrack.querySelectorAll('.carousel-item');
-        const indicators = carouselIndicators.querySelectorAll('.carousel-indicator');
+        const items = window.carouselTrack.querySelectorAll('.carousel-item');
+        const indicators = window.carouselIndicators.querySelectorAll('.carousel-indicator');
         
         if (index < 0 || index >= items.length) return;
         
@@ -546,12 +693,12 @@ function initializeProjectModal() {
     let touchStartX = 0;
     let touchEndX = 0;
     
-    if (carouselTrack) {
-        carouselTrack.addEventListener('touchstart', function(e) {
+    if (window.carouselTrack) {
+        window.carouselTrack.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
         
-        carouselTrack.addEventListener('touchend', function(e) {
+        window.carouselTrack.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
         }, { passive: true });
@@ -591,7 +738,7 @@ function initializeFlipCards() {
             const flipCard = this.closest('.flip-card');
             if (flipCard) {
                 flipCard.classList.toggle('flipped');
-                console.log(`Flip card ${index + 1} toggled`);
+        
         } else {
                 console.log('No flip card found for button');
             }
@@ -609,7 +756,7 @@ function initializeFlipCards() {
             // Only flip if clicking on the card itself, not on buttons
             if (e.target === this || e.target.classList.contains('flip-card-inner')) {
                 this.classList.toggle('flipped');
-                console.log(`Flip card ${index + 1} toggled via card click`);
+        
             }
         });
     });
@@ -648,7 +795,6 @@ function initializeBasicFeatures() {
             offCanvasMenu.classList.remove('active');
             if (menuToggle) menuToggle.classList.remove('active');
             if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
-            if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
         });
     }
     
@@ -672,6 +818,16 @@ function initializeBasicFeatures() {
             // Translate the page to the selected language
             translatePage(lang);
             
+            // Force refresh of flower gallery if active
+            const mainImage = document.getElementById('mainImage');
+            if (mainImage && window.updateMainImage) {
+                const activeThumbnail = document.querySelector('.thumbnail.active');
+                if (activeThumbnail) {
+                    const currentIndex = parseInt(activeThumbnail.dataset.index) || 0;
+                    window.updateMainImage(activeThumbnail.getAttribute('data-image'), currentIndex);
+                }
+            }
+            
             // Close language selector
             languageSelector.classList.remove('active');
             
@@ -688,11 +844,10 @@ function initializeBasicFeatures() {
         
         // Close off-canvas menu when clicking outside
         if (offCanvasMenu && offCanvasMenu.classList.contains('active') && !offCanvasMenu.contains(e.target) && 
-            !menuToggle?.contains(e.target) && !stickyMenuToggle?.contains(e.target) && !headerMobileMenuToggle?.contains(e.target)) {
+            !menuToggle?.contains(e.target) && !stickyMenuToggle?.contains(e.target)) {
             offCanvasMenu.classList.remove('active');
             if (menuToggle) menuToggle.classList.remove('active');
             if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
-            if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
         }
     });
     
@@ -702,7 +857,6 @@ function initializeBasicFeatures() {
             offCanvasMenu.classList.remove('active');
             if (menuToggle) menuToggle.classList.remove('active');
             if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
-            if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
         }
     });
     
@@ -739,17 +893,22 @@ function initializeBasicFeatures() {
                     // Scrolling up - show header
                     stickyHeader.classList.remove('hidden');
                     stickyHeader.classList.add('visible');
-                    console.log('Header shown - scrolling up');
+                    console.log('Sticky header visible, isMobile:', isMobile);
+                    
+
+            
                 } else {
                     // Scrolling down - hide header
                     stickyHeader.classList.remove('visible');
                     stickyHeader.classList.add('hidden');
-                    console.log('Header hidden - scrolling down');
+                    console.log('Sticky header hidden');
+            
                 }
             } else {
                 // At top - hide header completely
                 stickyHeader.classList.remove('visible', 'hidden');
-                console.log('Header at top - hidden');
+                console.log('Sticky header at top');
+        
             }
             
             lastScrollY = currentScrollY;
@@ -850,7 +1009,6 @@ function initializeBasicFeatures() {
                 offCanvasMenu.classList.remove('active');
                 if (menuToggle) menuToggle.classList.remove('active');
                 if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
-                if (headerMobileMenuToggle) headerMobileMenuToggle.classList.remove('active');
             }
             
             // Navigate to target
@@ -881,6 +1039,8 @@ function initializeBasicFeatures() {
         });
     }
     
+
+    
     // Ensure menu buttons don't conflict
     if (menuToggle && stickyMenuToggle) {
         menuToggle.addEventListener('click', function() {
@@ -890,36 +1050,7 @@ function initializeBasicFeatures() {
         });
     }
     
-    // Header Mobile Menu Toggle
-    const headerMobileMenuToggle = document.getElementById('headerMobileMenuToggle');
-    if (headerMobileMenuToggle && offCanvasMenu) {
-        headerMobileMenuToggle.addEventListener('click', function() {
-            offCanvasMenu.classList.toggle('active');
-            this.classList.toggle('active');
-            
-            // Ensure other menu buttons are not active
-            if (menuToggle) menuToggle.classList.remove('active');
-            if (stickyMenuToggle) stickyMenuToggle.classList.remove('active');
-        });
-    }
-    
-    // Ensure all menu buttons don't conflict
-    if (headerMobileMenuToggle) {
-        if (menuToggle) {
-            menuToggle.addEventListener('click', function() {
-                if (headerMobileMenuToggle.classList.contains('active')) {
-                    headerMobileMenuToggle.classList.remove('active');
-                }
-            });
-        }
-        if (stickyMenuToggle) {
-            stickyMenuToggle.addEventListener('click', function() {
-                if (headerMobileMenuToggle.classList.contains('active')) {
-                    headerMobileMenuToggle.classList.remove('active');
-                }
-            });
-        }
-    }
+
     
     // Sticky Nav Links
     const stickyNavLinks = document.querySelectorAll('.sticky-nav-list a');
@@ -1061,30 +1192,7 @@ function initializeImageErrorHandling() {
     console.log('Image error handling initialized');
 }
 
-/**
- * Mobile Debug Functions - Test modal functionality
- */
-// Add this to global scope for testing
-window.testModalOnMobile = function() {
-    console.log('Testing modal on mobile...');
-    if (window.openProjectModal) {
-        console.log('openProjectModal function exists');
-        window.openProjectModal('meeting-room');
-    } else {
-        console.log('openProjectModal function does not exist');
-    }
-};
 
-// Test if modal elements exist
-window.checkModalElements = function() {
-    console.log('Checking modal elements...');
-    console.log('Modal:', document.getElementById('projectModal'));
-
-    console.log('Modal Close:', document.getElementById('modalClose'));
-    console.log('Modal Title:', document.getElementById('modalTitle'));
-    console.log('Modal Subtitle:', document.getElementById('modalSubtitle'));
-    console.log('Modal Description:', document.getElementById('modalDescription'));
-};
 
 /**
  * Initialize flower gallery functionality
@@ -1092,48 +1200,137 @@ window.checkModalElements = function() {
 function initializeFlowerGallery() {
     const mainImage = document.getElementById('mainImage');
     const thumbnails = document.querySelectorAll('.thumbnail');
+    const imageTitle = document.getElementById('imageTitle');
+    const imageDescription = document.getElementById('imageDescription');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const currentPage = document.getElementById('currentPage');
+    const totalPages = document.getElementById('totalPages');
     
     if (!mainImage || !thumbnails.length) {
         console.log('Gallery elements not found');
         return;
     }
     
+    let currentIndex = 0;
+    const totalImages = thumbnails.length;
+    
+    // Update total pages
+    if (totalPages) {
+        totalPages.textContent = totalImages;
+    }
+    
     console.log(`Initializing flower gallery with ${thumbnails.length} thumbnails`);
     
-    // Function to update main image
-    function updateMainImage(imageSrc, title) {
+    // Function to update main image with smooth transition
+    function updateMainImage(imageSrc, imageIndex) {
+        // Make function globally accessible for language changes
+        window.updateMainImage = updateMainImage;
         if (mainImage) {
-            mainImage.src = imageSrc;
-            mainImage.alt = title;
+            const container = mainImage.parentElement;
+            
+            // Get current language and translations
+            const currentLang = document.documentElement.lang || 'nl';
+            const translations = window.TRANSLATIONS && window.TRANSLATIONS[currentLang];
+            
+            if (!translations || !translations.flowerGallery || !translations.flowerGallery.images) {
+                console.warn('Flower gallery translations not found');
+                return;
+            }
+            
+            const imageData = translations.flowerGallery.images[imageIndex];
+            if (!imageData) {
+                console.warn('Image data not found for index:', imageIndex);
+                return;
+            }
+            
+            // Add fade out effect and loading state
+            mainImage.style.opacity = '0';
+            mainImage.style.transform = 'scale(0.95)';
+            container.classList.add('loading');
+            
+            setTimeout(() => {
+                // Create new image to preload
+                const newImg = new Image();
+                newImg.onload = function() {
+                    mainImage.src = imageSrc;
+                    mainImage.alt = imageData.title;
+                    
+                    // Update image info with translations
+                    if (imageTitle) imageTitle.textContent = imageData.title;
+                    if (imageDescription) imageDescription.textContent = imageData.description;
+                    
+                    // Remove loading state and fade in with new image
+                    container.classList.remove('loading');
+                    mainImage.style.opacity = '1';
+                    mainImage.style.transform = 'scale(1)';
+                };
+                
+                newImg.onerror = function() {
+                    console.error('Failed to load flower image:', imageSrc);
+                    // Remove loading state and restore original state on error
+                    container.classList.remove('loading');
+                    mainImage.style.opacity = '1';
+                    mainImage.style.transform = 'scale(1)';
+                };
+                
+                newImg.src = imageSrc;
+            }, 200);
         }
     }
     
-    // Function to update active thumbnail
-    function updateActiveThumbnail(clickedThumbnail) {
+    // Function to update active thumbnail with smooth animation
+    function updateActiveThumbnail(index) {
         // Remove active class from all thumbnails
         thumbnails.forEach(thumb => {
             thumb.classList.remove('active');
         });
         
-        // Add active class to clicked thumbnail
-        clickedThumbnail.classList.add('active');
+        // Add active class to selected thumbnail
+        if (thumbnails[index]) {
+            thumbnails[index].classList.add('active');
+        }
+        
+        // Update current page indicator
+        if (currentPage) {
+            currentPage.textContent = index + 1;
+        }
+        
+        // Update navigation button states
+        updateNavigationButtons();
+    }
+    
+    // Function to update navigation button states
+    function updateNavigationButtons() {
+        if (prevBtn) {
+            prevBtn.disabled = currentIndex === 0;
+        }
+        if (nextBtn) {
+            nextBtn.disabled = currentIndex === totalImages - 1;
+        }
+    }
+    
+    // Function to navigate to specific image
+    function goToImage(index) {
+        if (index < 0 || index >= totalImages) return;
+        
+        currentIndex = index;
+        const thumbnail = thumbnails[index];
+        if (thumbnail) {
+            const imageSrc = thumbnail.getAttribute('data-image');
+            
+            updateMainImage(imageSrc, index);
+            updateActiveThumbnail(index);
+            
+            // Track interaction
+            trackEvent('gallery_interaction', 'Engagement', 'Navigation', `Image ${index + 1}`);
+        }
     }
     
     // Event listeners for thumbnails
     thumbnails.forEach((thumbnail, index) => {
         thumbnail.addEventListener('click', function() {
-            const imageSrc = this.getAttribute('data-image');
-            const title = this.getAttribute('data-title');
-            
-            if (imageSrc && title) {
-                updateMainImage(imageSrc, title);
-                updateActiveThumbnail(this);
-                
-                // Track interaction
-                trackEvent('gallery_interaction', 'Engagement', 'Thumbnail Click', `Image ${index + 1}`);
-                
-                console.log(`Switched to image ${index + 1}: ${title}`);
-            }
+            goToImage(index);
         });
         
         // Add image load/error tracking
@@ -1149,6 +1346,38 @@ function initializeFlowerGallery() {
         }
     });
     
+    // Navigation button event listeners
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            goToImage(currentIndex - 1);
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            goToImage(currentIndex + 1);
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (document.querySelector('.flower-gallery-section')) {
+            switch(e.key) {
+                case 'ArrowLeft':
+                    e.preventDefault();
+                    goToImage(currentIndex - 1);
+                    break;
+                case 'ArrowRight':
+                    e.preventDefault();
+                    goToImage(currentIndex + 1);
+                    break;
+            }
+        }
+    });
+    
+    // Initialize with first image
+    updateNavigationButtons();
+    
     // Check if main image loads properly
     if (mainImage) {
         mainImage.addEventListener('load', function() {
@@ -1161,4 +1390,154 @@ function initializeFlowerGallery() {
     }
     
     console.log('Flower gallery initialized successfully');
+}
+
+/**
+ * Initialize Full-Screen Photo Viewer for Mobile
+ */
+function initializeFullscreenPhotoViewer() {
+    const fullscreenViewer = document.getElementById('fullscreenPhotoViewer');
+    const fullscreenPhoto = document.getElementById('fullscreenPhoto');
+    const fullscreenCloseBtn = document.getElementById('fullscreenCloseBtn');
+    const fullscreenPrevBtn = document.getElementById('fullscreenPrevBtn');
+    const fullscreenNextBtn = document.getElementById('fullscreenNextBtn');
+    const fullscreenCounter = document.getElementById('fullscreenCounter');
+    
+    if (!fullscreenViewer || !fullscreenPhoto || !fullscreenCloseBtn) {
+        console.log('Fullscreen photo viewer elements not found');
+        return;
+    }
+    
+    let currentPhotoIndex = 0;
+    let currentPhotoArray = [];
+    let currentProjectId = '';
+    
+    // Function to open fullscreen viewer
+    window.openFullscreenPhoto = function(photoSrc, photoArray, projectId, photoIndex = 0) {
+        // Work on both mobile and desktop now
+        currentPhotoArray = photoArray || [];
+        currentProjectId = projectId || '';
+        currentPhotoIndex = photoIndex;
+        
+        // Set the photo
+        fullscreenPhoto.src = photoSrc;
+        fullscreenPhoto.alt = `Fullscreen photo from ${projectId}`;
+        
+        // Update counter
+        updateFullscreenCounter();
+        
+        // Show viewer
+        fullscreenViewer.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        
+        console.log(`Opened fullscreen photo: ${photoSrc}`);
+    };
+    
+    // Function to update counter
+    function updateFullscreenCounter() {
+        if (fullscreenCounter && currentPhotoArray.length > 0) {
+            const currentSpan = fullscreenCounter.querySelector('.current-photo');
+            const totalSpan = fullscreenCounter.querySelector('.total-photos');
+            
+            if (currentSpan && totalSpan) {
+                currentSpan.textContent = currentPhotoIndex + 1;
+                totalSpan.textContent = currentPhotoArray.length;
+            }
+        }
+    }
+    
+    // Function to show next photo
+    function showNextPhoto() {
+        if (currentPhotoArray.length > 0) {
+            currentPhotoIndex = (currentPhotoIndex + 1) % currentPhotoArray.length;
+            const nextPhoto = currentPhotoArray[currentPhotoIndex];
+            
+            if (nextPhoto) {
+                fullscreenPhoto.src = nextPhoto;
+                updateFullscreenCounter();
+                console.log(`Showing next photo: ${nextPhoto}`);
+            }
+        }
+    }
+    
+    // Function to show previous photo
+    function showPrevPhoto() {
+        if (currentPhotoArray.length > 0) {
+            currentPhotoIndex = (currentPhotoIndex - 1 + currentPhotoArray.length) % currentPhotoArray.length;
+            const prevPhoto = currentPhotoArray[currentPhotoIndex];
+            
+            if (prevPhoto) {
+                fullscreenPhoto.src = prevPhoto;
+                updateFullscreenCounter();
+                console.log(`Showing previous photo: ${prevPhoto}`);
+            }
+        }
+    }
+    
+    // Function to close fullscreen viewer
+    function closeFullscreenViewer() {
+        fullscreenViewer.classList.remove('active');
+        document.body.style.overflow = ''; // Restore scrolling
+        console.log('Closed fullscreen photo viewer');
+    }
+    
+    // Event listeners
+    fullscreenCloseBtn.addEventListener('click', closeFullscreenViewer);
+    
+    fullscreenPrevBtn.addEventListener('click', showPrevPhoto);
+    fullscreenNextBtn.addEventListener('click', showNextPhoto);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (fullscreenViewer.classList.contains('active')) {
+            switch(e.key) {
+                case 'Escape':
+                    closeFullscreenViewer();
+                    break;
+                case 'ArrowLeft':
+                    showPrevPhoto();
+                    break;
+                case 'ArrowRight':
+                    showNextPhoto();
+                    break;
+            }
+        }
+    });
+    
+    // Touch/swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    fullscreenViewer.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    fullscreenViewer.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        const diff = touchStartX - touchEndX;
+        
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe left - next photo
+                showNextPhoto();
+            } else {
+                // Swipe right - previous photo
+                showPrevPhoto();
+            }
+        }
+    }
+    
+    // Click outside to close
+    fullscreenViewer.addEventListener('click', function(e) {
+        if (e.target === fullscreenViewer) {
+            closeFullscreenViewer();
+        }
+    });
+    
+    console.log('Fullscreen photo viewer initialized successfully');
 }

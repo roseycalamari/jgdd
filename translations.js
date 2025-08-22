@@ -140,7 +140,149 @@ const TRANSLATIONS = {
         // Flower Gallery Section
         flowerGallery: {
             title: 'Bekijk Onze Flower Pieces',
-            subtitle: 'Ontdek de schoonheid van handgemaakte kunstbloemen'
+            subtitle: 'Ontdek de schoonheid van handgemaakte kunstbloemen',
+            defaultTitle: 'Artistieke Creatie',
+            defaultDescription: 'Creativiteit & Stijl',
+            prevPhoto: 'Vorige foto',
+            nextPhoto: 'Volgende foto',
+            images: {
+                0: { title: 'Artistieke Creatie', description: 'Creativiteit & Stijl' },
+                1: { title: 'Elegante Arrangement', description: 'Handgemaakt met Passie' },
+                2: { title: 'Klassiek Boeket', description: 'Tijdloze Elegantie' },
+                3: { title: 'Modern Design', description: 'Innovatieve Stijl' },
+                4: { title: 'Natuurgetrouw', description: 'Realistische Schoonheid' },
+                5: { title: 'Luxe Collectie', description: 'Premium Kwaliteit' },
+                6: { title: 'Creatieve Stijl', description: 'Unieke Uitstraling' }
+            }
+        },
+        
+        // Specialities Section
+        specialities: {
+            title: 'Mijn Specialiteiten',
+            description: `
+                <h3 class="specialty-highlight">Flower Pieces</h3>
+                <ul class="specialities-list">
+                    <li>Handgemaakte kunstbloemen met aandacht voor detail en tijdloze elegantie.</li>
+                    <li>Van klassieke boeketten tot moderne arrangementen - natuurgetrouw en onderhoudsvrij.</li>
+                    <li>Perfecte aanvullingen voor elk interieur, aangepast aan uw persoonlijke stijl.</li>
+                </ul>
+            `,
+            features: `
+                <h3 class="specialty-highlight">Kenmerken</h3>
+                <div class="features-grid">
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Handgemaakt</strong>
+                            <span>Elk stuk uniek vervaardigd</span>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Natuurgetrouw</strong>
+                            <span>Realistische uitstraling</span>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Premium Kwaliteit</strong>
+                            <span>Duurzame materialen</span>
+                        </div>
+                    </div>
+                </div>
+            `,
+            signature: 'Vakmanschap & Creativiteit'
+        },
+        
+        // Modal Section
+        modal: {
+            defaultTitle: 'Project Titel',
+            defaultSubtitle: 'Project Ondertitel',
+            defaultDescription: 'Projectbeschrijving komt hier...',
+            galleryTitle: 'Project Galerij',
+            close: 'Sluiten',
+            previousPhoto: 'Vorige foto',
+            nextPhoto: 'Volgende foto'
+        },
+        
+        // UI Elements
+        ui: {
+            viewDetails: 'Bekijk Details',
+            interiorDesigner: 'Interieurontwerper',
+            createdBy: 'gemaakt door'
+        },
+        
+        // Social Media
+        social: {
+            instagram: 'Instagram',
+            whatsapp: 'WhatsApp'
+        },
+        
+        // Language Names
+        language: {
+            dutch: 'Nederlands',
+            english: 'Engels',
+            german: 'Duits',
+            portuguese: 'Portugees'
+        },
+        
+        // Project Data
+        projects: {
+            'meeting-room': {
+                title: 'Meeting Room Transformatie',
+                subtitle: 'Professionele Kantoorruimte',
+                description: 'Een complete transformatie van een zakelijke vergaderruimte, waarbij een moderne en inspirerende werkplek is gecreëerd die creativiteit en productiviteit bevordert. Het ontwerp omvat elegante verlichting, comfortabele zitplaatsen en een verfijnd kleurenpallet dat het professionele imago van het bedrijf weergeeft.'
+            },
+            'office': {
+                title: 'Kantoor Interieurontwerp',
+                subtitle: 'Hedendaagse Werkruimte',
+                description: 'Een uitgebreid kantoor herontwerp dat een traditionele werkruimte transformeert tot een moderne, collaboratieve omgeving. Kenmerken zijn onder meer open planindelingen, ergonomisch meubilair en strategisch gebruik van natuurlijk licht om een uitnodigende en productieve sfeer te creëren.'
+            },
+            'holiday-home': {
+                title: 'Vakantiehuis Makeover',
+                subtitle: 'Ontspannende Luxe',
+                description: 'Een prachtige transformatie van een vakantiehuis, waarbij comfort en stijl samen komen voor de perfecte ontspanningsruimte. Warme kleuren en luxueuze materialen creëren een uitnodigende sfeer voor onvergetelijke vakanties.'
+            },
+            'holiday-home-2': {
+                title: 'Vakantievilla Design',
+                subtitle: 'Elegante Retreat',
+                description: 'Een verfijnde aanpak van villa interieur met focus op elegantie en comfort. Elke ruimte is zorgvuldig ontworpen om rust en luxe uit te stralen, met attention voor detail in elke hoek.'
+            },
+            'corcovada-home': {
+                title: 'Corcovada Woning',
+                subtitle: 'Moderne Woonruimte',
+                description: 'Een stijlvolle transformatie van een moderne woning met clean lines en warme accenten. Het ontwerp combineert functionaliteit met esthetiek voor een perfect leefomgeving.'
+            },
+            'torremolinos-home': {
+                title: 'Torremolinos Huis',
+                subtitle: 'Mediterrane Charme',
+                description: 'Een prachtige renovatie die mediterrane charme combineert met moderne comfort. Lichte kleuren en natuurlijke materialen creëren een serene en uitnodigende atmosfeer.'
+            },
+            'borboleta-turquesa': {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Kleurrijke Elegantie',
+                description: 'Een uniek interieurproject waarbij kleur en creativiteit centraal staan. Turquoise accenten en artistieke elementen maken dit een echt opvallend en persoonlijk interieur.'
+            },
+            'youth-lounge': {
+                title: 'Jeugd Lounge',
+                subtitle: 'Dynamische Correctie School',
+                description: 'Een speciaal ontworpen ruimte voor jongeren in een correctie school setting. Modern, veilig en inspirerend - een omgeving die positieve verandering bevordert en comfort biedt.'
+            }
         }
     },
     
@@ -280,7 +422,101 @@ const TRANSLATIONS = {
         // Flower Gallery Section
         flowerGallery: {
             title: 'View Our Flower Pieces',
-            subtitle: 'Discover the beauty of handcrafted artificial flowers'
+            subtitle: 'Discover the beauty of handcrafted artificial flowers',
+            defaultTitle: 'Artistic Creation',
+            defaultDescription: 'Creativity & Style',
+            prevPhoto: 'Previous photo',
+            nextPhoto: 'Next photo',
+            images: {
+                0: { title: 'Artistic Creation', description: 'Creativity & Style' },
+                1: { title: 'Elegant Arrangement', description: 'Handcrafted with Passion' },
+                2: { title: 'Classic Bouquet', description: 'Timeless Elegance' },
+                3: { title: 'Modern Design', description: 'Innovative Style' },
+                4: { title: 'Natural Looking', description: 'Realistic Beauty' },
+                5: { title: 'Luxury Collection', description: 'Premium Quality' },
+                6: { title: 'Creative Style', description: 'Unique Appearance' }
+            }
+        },
+        
+        // Specialities Section
+        specialities: {
+            signature: 'Craftsmanship & Creativity'
+        },
+        
+        // Modal Section
+        modal: {
+            defaultTitle: 'Project Title',
+            defaultSubtitle: 'Project Subtitle',
+            defaultDescription: 'Project description will go here...',
+            galleryTitle: 'Project Gallery',
+            close: 'Close',
+            previousPhoto: 'Previous photo',
+            nextPhoto: 'Next photo'
+        },
+        
+        // UI Elements
+        ui: {
+            viewDetails: 'View Details',
+            interiorDesigner: 'Interior Designer',
+            createdBy: 'created by'
+        },
+        
+        // Social Media
+        social: {
+            instagram: 'Instagram',
+            whatsapp: 'WhatsApp'
+        },
+        
+        // Language Names
+        language: {
+            dutch: 'Dutch',
+            english: 'English',
+            german: 'German',
+            portuguese: 'Portuguese'
+        },
+        
+        // Project Data
+        projects: {
+            'meeting-room': {
+                title: 'Meeting Room Transformation',
+                subtitle: 'Professional Office Space',
+                description: 'A complete transformation of a corporate meeting room, creating a modern and inspiring workspace that promotes creativity and productivity. The design incorporates elegant lighting, comfortable seating, and a sophisticated color palette that reflects the company\'s professional image.'
+            },
+            'office': {
+                title: 'Office Interior Design',
+                subtitle: 'Contemporary Workspace',
+                description: 'A comprehensive office redesign that transforms a traditional workspace into a modern, collaborative environment. Features include open-plan layouts, ergonomic furniture, and strategic use of natural light to create an inviting and productive atmosphere.'
+            },
+            'holiday-home': {
+                title: 'Holiday Home Makeover',
+                subtitle: 'Relaxing Luxury',
+                description: 'A beautiful transformation of a holiday home where comfort and style come together for the perfect relaxation space. Warm colors and luxurious materials create an inviting atmosphere for unforgettable vacations.'
+            },
+            'holiday-home-2': {
+                title: 'Holiday Villa Design',
+                subtitle: 'Elegant Retreat',
+                description: 'A refined approach to villa interior with focus on elegance and comfort. Every space is carefully designed to radiate peace and luxury, with attention to detail in every corner.'
+            },
+            'corcovada-home': {
+                title: 'Corcovada Home',
+                subtitle: 'Modern Living Space',
+                description: 'A stylish transformation of a modern home with clean lines and warm accents. The design combines functionality with aesthetics for a perfect living environment.'
+            },
+            'torremolinos-home': {
+                title: 'Torremolinos House',
+                subtitle: 'Mediterranean Charm',
+                description: 'A beautiful renovation that combines Mediterranean charm with modern comfort. Light colors and natural materials create a serene and inviting atmosphere.'
+            },
+            'borboleta-turquesa': {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Colorful Elegance',
+                description: 'A unique interior project where color and creativity take center stage. Turquoise accents and artistic elements make this a truly striking and personal interior.'
+            },
+            'youth-lounge': {
+                title: 'Youth Lounge',
+                subtitle: 'Dynamic Correction School',
+                description: 'A specially designed space for young people in a correction school setting. Modern, safe and inspiring - an environment that promotes positive change and offers comfort.'
+            }
         }
     },
     
@@ -420,7 +656,149 @@ const TRANSLATIONS = {
         // Flower Gallery Section
         flowerGallery: {
             title: 'Sehen Sie unsere Blumenstücke',
-            subtitle: 'Entdecken Sie die Schönheit handgefertigter Kunstblumen'
+            subtitle: 'Entdecken Sie die Schönheit handgefertigter Kunstblumen',
+            defaultTitle: 'Künstlerische Kreation',
+            defaultDescription: 'Kreativität & Stil',
+            prevPhoto: 'Vorheriges Foto',
+            nextPhoto: 'Nächstes Foto',
+            images: {
+                0: { title: 'Künstlerische Kreation', description: 'Kreativität & Stil' },
+                1: { title: 'Elegantes Arrangement', description: 'Handgefertigt mit Leidenschaft' },
+                2: { title: 'Klassischer Strauß', description: 'Zeitlose Eleganz' },
+                3: { title: 'Modernes Design', description: 'Innovativer Stil' },
+                4: { title: 'Naturgetreu', description: 'Realistische Schönheit' },
+                5: { title: 'Luxus-Kollektion', description: 'Premium-Qualität' },
+                6: { title: 'Kreativer Stil', description: 'Einzigartiges Aussehen' }
+            }
+        },
+        
+        // Specialities Section
+        specialities: {
+            title: 'Meine Spezialitäten',
+            description: `
+                <h3 class="specialty-highlight">Blumenstücke</h3>
+                <ul class="specialities-list">
+                    <li>Handgefertigte Kunstblumen mit Liebe zum Detail und zeitloser Eleganz.</li>
+                    <li>Von klassischen Sträußen bis hin zu modernen Arrangements - naturgetreu und pflegefrei.</li>
+                    <li>Perfekte Ergänzungen für jedes Interieur, angepasst an Ihren persönlichen Stil.</li>
+                </ul>
+            `,
+            features: `
+                <h3 class="specialty-highlight">Eigenschaften</h3>
+                <div class="features-grid">
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Handgefertigt</strong>
+                            <span>Jedes Stück einzigartig gefertigt</span>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Naturgetreu</strong>
+                            <span>Realistische Erscheinung</span>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Premium Qualität</strong>
+                            <span>Langlebige Materialien</span>
+                        </div>
+                    </div>
+                </div>
+            `,
+            signature: 'Handwerk & Kreativität'
+        },
+        
+        // Modal Section
+        modal: {
+            defaultTitle: 'Projekt Titel',
+            defaultSubtitle: 'Projekt Untertitel',
+            defaultDescription: 'Projektbeschreibung wird hier stehen...',
+            galleryTitle: 'Projekt Galerie',
+            close: 'Schließen',
+            previousPhoto: 'Vorheriges Foto',
+            nextPhoto: 'Nächstes Foto'
+        },
+        
+        // UI Elements
+        ui: {
+            viewDetails: 'Details anzeigen',
+            interiorDesigner: 'Innenarchitektin',
+            createdBy: 'erstellt von'
+        },
+        
+        // Social Media
+        social: {
+            instagram: 'Instagram',
+            whatsapp: 'WhatsApp'
+        },
+        
+        // Language Names
+        language: {
+            dutch: 'Niederländisch',
+            english: 'Englisch',
+            german: 'Deutsch',
+            portuguese: 'Portugiesisch'
+        },
+        
+        // Project Data
+        projects: {
+            'meeting-room': {
+                title: 'Besprechungsraum Transformation',
+                subtitle: 'Professioneller Büroraum',
+                description: 'Eine komplette Transformation eines Firmenbesprechungsraums, der einen modernen und inspirierenden Arbeitsplatz schafft, der Kreativität und Produktivität fördert. Das Design umfasst elegante Beleuchtung, komfortable Sitzgelegenheiten und eine raffinierte Farbpalette, die das professionelle Image des Unternehmens widerspiegelt.'
+            },
+            'office': {
+                title: 'Büro Innenarchitektur',
+                subtitle: 'Zeitgemäßer Arbeitsplatz',
+                description: 'Eine umfassende Büro-Neugestaltung, die einen traditionellen Arbeitsplatz in eine moderne, kollaborative Umgebung verwandelt. Zu den Merkmalen gehören offene Grundrisse, ergonomische Möbel und strategische Nutzung von natürlichem Licht, um eine einladende und produktive Atmosphäre zu schaffen.'
+            },
+            'holiday-home': {
+                title: 'Ferienhaus Makeover',
+                subtitle: 'Entspannender Luxus',
+                description: 'Eine wunderschöne Transformation eines Ferienhauses, wo Komfort und Stil für den perfekten Entspannungsraum zusammenkommen. Warme Farben und luxuriöse Materialien schaffen eine einladende Atmosphäre für unvergessliche Ferien.'
+            },
+            'holiday-home-2': {
+                title: 'Ferienvilla Design',
+                subtitle: 'Eleganter Rückzugsort',
+                description: 'Ein raffinierter Ansatz für Villa-Interieur mit Fokus auf Eleganz und Komfort. Jeder Raum ist sorgfältig entworfen, um Ruhe und Luxus auszustrahlen, mit Liebe zum Detail in jeder Ecke.'
+            },
+            'corcovada-home': {
+                title: 'Corcovada Haus',
+                subtitle: 'Moderner Wohnraum',
+                description: 'Eine stilvolle Transformation eines modernen Hauses mit klaren Linien und warmen Akzenten. Das Design kombiniert Funktionalität mit Ästhetik für eine perfekte Wohnumgebung.'
+            },
+            'torremolinos-home': {
+                title: 'Torremolinos Haus',
+                subtitle: 'Mediterraner Charme',
+                description: 'Eine wunderschöne Renovierung, die mediterranen Charme mit modernem Komfort verbindet. Helle Farben und natürliche Materialien schaffen eine ruhige und einladende Atmosphäre.'
+            },
+            'borboleta-turquesa': {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Farbenfrohe Eleganz',
+                description: 'Ein einzigartiges Innenarchitekturprojekt, bei dem Farbe und Kreativität im Mittelpunkt stehen. Türkise Akzente und künstlerische Elemente machen dies zu einem wirklich auffälligen und persönlichen Interieur.'
+            },
+            'youth-lounge': {
+                title: 'Jugend Lounge',
+                subtitle: 'Dynamische Erziehungsanstalt',
+                description: 'Ein speziell entworfener Raum für junge Menschen in einer Erziehungsanstalt. Modern, sicher und inspirierend - eine Umgebung, die positive Veränderungen fördert und Komfort bietet.'
+            }
         }
     },
     
@@ -559,8 +937,150 @@ const TRANSLATIONS = {
         
         // Flower Gallery Section
         flowerGallery: {
-            title: 'Veja os Nossos Pieces de Flores',
-            subtitle: 'Descubra a beleza das flores artificiais artesanais'
+            title: 'Veja as Nossas Peças de Flores',
+            subtitle: 'Descubra a beleza das flores artificiais artesanais',
+            defaultTitle: 'Criação Artística',
+            defaultDescription: 'Criatividade & Estilo',
+            prevPhoto: 'Foto anterior',
+            nextPhoto: 'Próxima foto',
+            images: {
+                0: { title: 'Criação Artística', description: 'Criatividade & Estilo' },
+                1: { title: 'Arranjo Elegante', description: 'Artesanal com Paixão' },
+                2: { title: 'Buquê Clássico', description: 'Elegância Atemporal' },
+                3: { title: 'Design Moderno', description: 'Estilo Inovador' },
+                4: { title: 'Aparência Natural', description: 'Beleza Realística' },
+                5: { title: 'Coleção de Luxo', description: 'Qualidade Premium' },
+                6: { title: 'Estilo Criativo', description: 'Aparência Única' }
+            }
+        },
+        
+        // Specialities Section
+        specialities: {
+            title: 'Minhas Especialidades',
+            description: `
+                <h3 class="specialty-highlight">Peças de Flores</h3>
+                <ul class="specialities-list">
+                    <li>Flores artificiais artesanais com atenção aos detalhes e elegância atemporal.</li>
+                    <li>De buquês clássicos a arranjos modernos - aparência natural e livres de manutenção.</li>
+                    <li>Complementos perfeitos para qualquer interior, adaptados ao seu estilo pessoal.</li>
+                </ul>
+            `,
+            features: `
+                <h3 class="specialty-highlight">Características</h3>
+                <div class="features-grid">
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Artesanal</strong>
+                            <span>Cada peça única artesanalmente</span>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Aparência Natural</strong>
+                            <span>Aparência realista</span>
+                        </div>
+                    </div>
+                    <div class="feature-highlight">
+                        <span class="feature-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                            </svg>
+                        </span>
+                        <div class="feature-text">
+                            <strong>Qualidade Premium</strong>
+                            <span>Materiais duráveis</span>
+                        </div>
+                    </div>
+                </div>
+            `,
+            signature: 'Artesanato & Criatividade'
+        },
+        
+        // Modal Section
+        modal: {
+            defaultTitle: 'Título do Projeto',
+            defaultSubtitle: 'Subtítulo do Projeto',
+            defaultDescription: 'Descrição do projeto virá aqui...',
+            galleryTitle: 'Galeria do Projeto',
+            close: 'Fechar',
+            previousPhoto: 'Foto anterior',
+            nextPhoto: 'Próxima foto'
+        },
+        
+        // UI Elements
+        ui: {
+            viewDetails: 'Ver Detalhes',
+            interiorDesigner: 'Designer de Interiores',
+            createdBy: 'criado por'
+        },
+        
+        // Social Media
+        social: {
+            instagram: 'Instagram',
+            whatsapp: 'WhatsApp'
+        },
+        
+        // Language Names
+        language: {
+            dutch: 'Holandês',
+            english: 'Inglês',
+            german: 'Alemão',
+            portuguese: 'Português'
+        },
+        
+        // Project Data
+        projects: {
+            'meeting-room': {
+                title: 'Transformação Sala de Reuniões',
+                subtitle: 'Espaço de Escritório Profissional',
+                description: 'Uma transformação completa de uma sala de reuniões corporativa, criando um espaço de trabalho moderno e inspirador que promove criatividade e produtividade. O design incorpora iluminação elegante, assentos confortáveis e uma paleta de cores sofisticada que reflete a imagem profissional da empresa.'
+            },
+            'office': {
+                title: 'Design de Interior de Escritório',
+                subtitle: 'Espaço de Trabalho Contemporâneo',
+                description: 'Um redesign abrangente de escritório que transforma um espaço de trabalho tradicional num ambiente moderno e colaborativo. As características incluem layouts de plano aberto, mobiliário ergonômico e uso estratégico de luz natural para criar uma atmosfera convidativa e produtiva.'
+            },
+            'holiday-home': {
+                title: 'Renovação Casa de Férias',
+                subtitle: 'Luxo Relaxante',
+                description: 'Uma bela transformação de uma casa de férias onde conforto e estilo se unem para o espaço de relaxamento perfeito. Cores quentes e materiais luxuosos criam uma atmosfera convidativa para férias inesquecíveis.'
+            },
+            'holiday-home-2': {
+                title: 'Design Villa de Férias',
+                subtitle: 'Retiro Elegante',
+                description: 'Uma abordagem refinada ao interior de villa com foco em elegância e conforto. Cada espaço é cuidadosamente projetado para irradiar paz e luxo, com atenção aos detalhes em cada canto.'
+            },
+            'corcovada-home': {
+                title: 'Casa Corcovada',
+                subtitle: 'Espaço de Vida Moderno',
+                description: 'Uma transformação elegante de uma casa moderna com linhas limpas e acentos calorosos. O design combina funcionalidade com estética para um ambiente de vida perfeito.'
+            },
+            'torremolinos-home': {
+                title: 'Casa Torremolinos',
+                subtitle: 'Charme Mediterrâneo',
+                description: 'Uma bela renovação que combina charme mediterrâneo com conforto moderno. Cores claras e materiais naturais criam uma atmosfera serena e convidativa.'
+            },
+            'borboleta-turquesa': {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Elegância Colorida',
+                description: 'Um projeto de interior único onde cor e criatividade ocupam o centro do palco. Acentos turquesa e elementos artísticos tornam este um interior verdadeiramente marcante e pessoal.'
+            },
+            'youth-lounge': {
+                title: 'Lounge Juvenil',
+                subtitle: 'Escola Correcional Dinâmica',
+                description: 'Um espaço especialmente projetado para jovens num ambiente de escola correcional. Moderno, seguro e inspirador - um ambiente que promove mudanças positivas e oferece conforto.'
+            }
         }
     }
 };
