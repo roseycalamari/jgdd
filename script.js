@@ -2,6 +2,9 @@
  * Jeanette Gasseling Deco & Design - Simple Working Interface
  */
 
+// Global variable to track current language
+let currentLanguage = 'nl';
+
 // Translation function
 function translatePage(language) {
     if (!window.TRANSLATIONS || !window.TRANSLATIONS[language]) {
@@ -112,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize translations with default language (Dutch)
     setTimeout(() => {
+        currentLanguage = 'nl';
         translatePage('nl');
         console.log('Initial translation loaded for Dutch');
     }, 100);
@@ -580,7 +584,10 @@ function initializeProjectModal() {
         
         const viewGalleryBtn = document.createElement('button');
         viewGalleryBtn.className = 'view-gallery-btn';
-        viewGalleryBtn.innerHTML = 'View Gallery';
+        
+        // Get translated text with fallback
+        const translatedText = TRANSLATIONS[currentLanguage]?.ui?.viewGallery || 'View Gallery';
+        viewGalleryBtn.innerHTML = translatedText;
         console.log('Created View Gallery button:', viewGalleryBtn);
         viewGalleryBtn.addEventListener('click', function() {
             console.log('View Gallery button clicked!');
@@ -729,24 +736,37 @@ function initializeFlipCards() {
     
     console.log(`Found ${flipCards.length} flip cards and ${flipButtons.length} flip buttons`);
     
-    // Add click event listeners to all flip buttons
+        // Add click event listeners to all flip buttons
     flipButtons.forEach((button, index) => {
+        // Handle click events
         button.addEventListener('click', function(e) {
-          e.preventDefault();
-        e.stopPropagation();
+            e.preventDefault();
+            e.stopPropagation();
             
             const flipCard = this.closest('.flip-card');
             if (flipCard) {
                 flipCard.classList.toggle('flipped');
-        
-        } else {
+                console.log('Card flipped via button click');
+            } else {
                 console.log('No flip card found for button');
             }
         });
         
-        // Add touch events for mobile
+        // Enhanced touch events for mobile
         button.addEventListener('touchstart', function(e) {
-      e.preventDefault();
+            e.preventDefault();
+            e.stopPropagation();
+        }, { passive: false });
+        
+        button.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            const flipCard = this.closest('.flip-card');
+            if (flipCard) {
+                flipCard.classList.toggle('flipped');
+                console.log('Card flipped via touch');
+            }
         }, { passive: false });
     });
     
@@ -754,11 +774,33 @@ function initializeFlipCards() {
     flipCards.forEach((card, index) => {
         card.addEventListener('click', function(e) {
             // Only flip if clicking on the card itself, not on buttons
-            if (e.target === this || e.target.classList.contains('flip-card-inner')) {
+            if (e.target === this || 
+                e.target.classList.contains('flip-card-inner') || 
+                e.target.classList.contains('grid-image') ||
+                e.target.classList.contains('project-image-wrapper')) {
                 this.classList.toggle('flipped');
-        
+                console.log('Card flipped via card click');
             }
         });
+        
+        // Enhanced touch events for mobile cards
+        card.addEventListener('touchstart', function(e) {
+            // Don't prevent default - allow normal touch behavior
+        }, { passive: true });
+        
+        card.addEventListener('touchend', function(e) {
+            // Only flip if touching the card itself, not buttons
+            if (e.target === this || 
+                e.target.classList.contains('flip-card-inner') || 
+                e.target.classList.contains('grid-image') ||
+                e.target.classList.contains('project-image-wrapper')) {
+                
+                // Prevent click event from firing
+                e.preventDefault();
+                this.classList.toggle('flipped');
+                console.log('Card flipped via card touch');
+            }
+        }, { passive: false });
     });
   }
 
@@ -815,6 +857,9 @@ function initializeBasicFeatures() {
             e.stopPropagation();
             const lang = this.getAttribute('data-lang');
             
+            // Update current language
+            currentLanguage = lang;
+            
             // Translate the page to the selected language
             translatePage(lang);
             
@@ -825,6 +870,26 @@ function initializeBasicFeatures() {
                 if (activeThumbnail) {
                     const currentIndex = parseInt(activeThumbnail.dataset.index) || 0;
                     window.updateMainImage(activeThumbnail.getAttribute('data-image'), currentIndex);
+                }
+            }
+            
+            // Force refresh of project modal if open
+            const projectModal = document.getElementById('projectModal');
+            if (projectModal && projectModal.classList.contains('active')) {
+                // Update the "View Gallery" button text
+                const viewGalleryBtn = projectModal.querySelector('.view-gallery-btn');
+                if (viewGalleryBtn) {
+                    const translatedText = TRANSLATIONS[currentLanguage]?.ui?.viewGallery || 'View Gallery';
+                    viewGalleryBtn.innerHTML = translatedText;
+                }
+                
+                // Update other modal text that might need translation
+                const modalTitle = projectModal.querySelector('.modal-title');
+                const modalSubtitle = projectModal.querySelector('.modal-subtitle');
+                const modalDescription = projectModal.querySelector('.modal-description');
+                
+                if (modalTitle && modalTitle.dataset.translate) {
+                    translatePage(currentLanguage);
                 }
             }
             
@@ -933,7 +998,8 @@ function initializeBasicFeatures() {
             const originalText = submitButton.querySelector('span').textContent;
             
             // Show loading state
-            submitButton.querySelector('span').textContent = 'Versturen...';
+            const sendingText = TRANSLATIONS[currentLanguage]?.ui?.sending || 'Sending...';
+            submitButton.querySelector('span').textContent = sendingText;
             submitButton.disabled = true;
             
             // Submit form data
@@ -949,7 +1015,8 @@ function initializeBasicFeatures() {
             .then(response => {
                 if (response.ok) {
                     // Success state
-                    submitButton.querySelector('span').textContent = '✓ Verzonden!';
+                    const sentText = TRANSLATIONS[currentLanguage]?.ui?.sent || '✓ Sent!';
+                    submitButton.querySelector('span').textContent = sentText;
                     this.reset();
                     
                     // Track successful submission
@@ -960,7 +1027,8 @@ function initializeBasicFeatures() {
             })
             .catch(error => {
                 console.error('Form submission error:', error);
-                submitButton.querySelector('span').textContent = 'Fout opgetreden';
+                const errorText = TRANSLATIONS[currentLanguage]?.ui?.error || 'Error occurred';
+                submitButton.querySelector('span').textContent = errorText;
                 
                 // Track failed submission
                 trackEvent('form_submit', 'Conversion', 'Contact Form Submit', 'Error');

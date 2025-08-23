@@ -223,8 +223,16 @@ const TRANSLATIONS = {
         // UI Elements
         ui: {
             viewDetails: 'Bekijk Details',
+            viewGallery: 'Bekijk Galerij',
             interiorDesigner: 'Interieurontwerper',
-            createdBy: 'gemaakt door'
+            createdBy: 'gemaakt door',
+            sending: 'Versturen...',
+            sent: '✓ Verzonden!',
+            error: 'Fout opgetreden',
+            before: 'Voor',
+            after: 'Na',
+            flipToBefore: 'Klik om de foto van voor de renovatie te zien',
+            flipToAfter: 'Klik om de foto van na de renovatie te zien'
         },
         
         // Social Media
@@ -242,7 +250,7 @@ const TRANSLATIONS = {
         },
         
         // Project Data
-        projects: {
+        projectData: {
             'meeting-room': {
                 title: 'Meeting Room Transformatie',
                 subtitle: 'Professionele Kantoorruimte',
@@ -457,8 +465,16 @@ const TRANSLATIONS = {
         // UI Elements
         ui: {
             viewDetails: 'View Details',
+            viewGallery: 'View Gallery',
             interiorDesigner: 'Interior Designer',
-            createdBy: 'created by'
+            createdBy: 'created by',
+            sending: 'Sending...',
+            sent: '✓ Sent!',
+            error: 'Error occurred',
+            before: 'Before',
+            after: 'After',
+            flipToBefore: 'Click to see the before image',
+            flipToAfter: 'Click to see the after image'
         },
         
         // Social Media
@@ -476,7 +492,7 @@ const TRANSLATIONS = {
         },
         
         // Project Data
-        projects: {
+        projectData: {
             'meeting-room': {
                 title: 'Meeting Room Transformation',
                 subtitle: 'Professional Office Space',
@@ -739,8 +755,16 @@ const TRANSLATIONS = {
         // UI Elements
         ui: {
             viewDetails: 'Details anzeigen',
+            viewGallery: 'Galerie anzeigen',
             interiorDesigner: 'Innenarchitektin',
-            createdBy: 'erstellt von'
+            createdBy: 'erstellt von',
+            sending: 'Wird gesendet...',
+            sent: '✓ Gesendet!',
+            error: 'Fehler aufgetreten',
+            before: 'Vorher',
+            after: 'Nachher',
+            flipToBefore: 'Klicken Sie, um das Vorher-Bild zu sehen',
+            flipToAfter: 'Klicken Sie, um das Nachher-Bild zu sehen'
         },
         
         // Social Media
@@ -758,7 +782,7 @@ const TRANSLATIONS = {
         },
         
         // Project Data
-        projects: {
+        projectData: {
             'meeting-room': {
                 title: 'Besprechungsraum Transformation',
                 subtitle: 'Professioneller Büroraum',
@@ -819,7 +843,7 @@ const TRANSLATIONS = {
         
         // Projects Section
         projects: {
-            title: 'Meus Projetos',
+            title: 'Os Meus Projetos',
             slogan: 'Adequado para todos os orçamentos e todos os espaços'
         },
         
@@ -956,7 +980,7 @@ const TRANSLATIONS = {
         
         // Specialities Section
         specialities: {
-            title: 'Minhas Especialidades',
+            title: 'As Minhas Especialidades',
             description: `
                 <h3 class="specialty-highlight">Peças de Flores</h3>
                 <ul class="specialities-list">
@@ -1021,8 +1045,16 @@ const TRANSLATIONS = {
         // UI Elements
         ui: {
             viewDetails: 'Ver Detalhes',
+            viewGallery: 'Ver Galeria',
             interiorDesigner: 'Designer de Interiores',
-            createdBy: 'criado por'
+            createdBy: 'criado por',
+            sending: 'A enviar...',
+            sent: '✓ Enviado!',
+            error: 'Erro ocorreu',
+            before: 'Antes',
+            after: 'Depois',
+            flipToBefore: 'Clique para ver a imagem de antes',
+            flipToAfter: 'Clique para ver a imagem de depois'
         },
         
         // Social Media
@@ -1040,7 +1072,7 @@ const TRANSLATIONS = {
         },
         
         // Project Data
-        projects: {
+        projectData: {
             'meeting-room': {
                 title: 'Transformação Sala de Reuniões',
                 subtitle: 'Espaço de Escritório Profissional',
