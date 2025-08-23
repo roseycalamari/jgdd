@@ -42,6 +42,13 @@
     --spacing-lg: 32px;
     --spacing-xl: 48px;
     --spacing-xxl: 64px;
+    
+    /* Mobile-first spacing overrides */
+    --mobile-spacing-xs: 6px;
+    --mobile-spacing-sm: 12px;
+    --mobile-spacing-md: 18px;
+    --mobile-spacing-lg: 24px;
+    --mobile-spacing-xl: 36px;
     --border-radius-small: 8px;
     --border-radius-medium: 12px;
     --border-radius-large: 16px;
@@ -6626,26 +6633,26 @@
     /* Global mobile improvements */
     body {
       font-size: 16px;
-      line-height: 1.6;
+      line-height: 1.7;
     }
     
     /* Header improvements */
     .hero-header {
-      padding: var(--spacing-md);
+      padding: var(--spacing-lg) var(--spacing-md);
       margin-top: 0;
       position: relative;
     }
     
     .main-title {
-      font-size: clamp(2.2rem, 8vw, 3rem);
+      font-size: clamp(2.4rem, 8vw, 3.2rem);
       line-height: 1.1;
-      margin-bottom: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
     }
     
-    .main-subtitle {
-      font-size: clamp(1rem, 4vw, 1.3rem);
-      line-height: 1.4;
-      margin-bottom: var(--spacing-md);
+    .subtitle {
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      line-height: 1.5;
+      margin-bottom: var(--spacing-lg);
     }
     
 
@@ -6665,10 +6672,10 @@
     
       /* Grid improvements */
   .grid-container {
-    gap: var(--spacing-lg);
-    padding: var(--spacing-md);
+    gap: var(--spacing-xl);
+    padding: var(--spacing-lg) var(--spacing-md);
     grid-template-columns: 1fr;
-    max-width: 400px;
+    max-width: 420px;
     margin: 0 auto;
   }
     
@@ -7975,6 +7982,466 @@
     /* Show navigation list on large desktop */
     .sticky-nav-list {
       display: flex !important;
+    }
+  }
+
+  /* ==========================================
+     ENHANCED MOBILE RESPONSIVE FIXES
+     Optimized for iPhone 13 mini and small devices
+     ========================================== */
+
+  /* iPhone 13 mini and similar small devices (375px and below) */
+  @media (max-width: 375px) {
+    :root {
+      --spacing-xs: var(--mobile-spacing-xs);
+      --spacing-sm: var(--mobile-spacing-sm);
+      --spacing-md: var(--mobile-spacing-md);
+      --spacing-lg: var(--mobile-spacing-lg);
+      --spacing-xl: var(--mobile-spacing-xl);
+    }
+
+    body {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* Container improvements for very small screens */
+    .container {
+      padding: var(--mobile-spacing-md);
+      min-height: auto;
+    }
+
+    /* Hero section optimizations */
+    .hero-header {
+      padding: var(--mobile-spacing-lg) var(--mobile-spacing-md);
+      margin-bottom: var(--mobile-spacing-xl);
+    }
+
+    .logo-container {
+      gap: var(--mobile-spacing-lg);
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .logo-image {
+      max-width: 90px;
+      height: auto;
+    }
+
+    .main-title {
+      font-size: clamp(2rem, 7vw, 2.6rem);
+      line-height: 1.1;
+      margin-bottom: var(--mobile-spacing-md);
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 4vw, 1.2rem);
+      margin-bottom: var(--mobile-spacing-md);
+    }
+
+    .tagline {
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      line-height: 1.6;
+    }
+
+    /* Projects section optimizations */
+    .projects-header {
+      padding: var(--mobile-spacing-lg) var(--mobile-spacing-md);
+      margin-bottom: var(--mobile-spacing-xl);
+    }
+
+    .projects-title {
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      margin-bottom: var(--mobile-spacing-md);
+    }
+
+    .projects-slogan {
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      line-height: 1.6;
+    }
+
+    /* Grid improvements for iPhone 13 mini */
+    .grid-container {
+      gap: var(--mobile-spacing-xl);
+      padding: var(--mobile-spacing-md);
+      max-width: 350px;
+      margin: 0 auto;
+    }
+
+    .grid-item {
+      border-radius: var(--border-radius-medium);
+      margin-bottom: var(--mobile-spacing-md);
+    }
+
+    .grid-image {
+      border-radius: var(--border-radius-small);
+      min-height: 240px;
+      object-fit: cover;
+    }
+
+    /* CTA container improvements */
+    .cta-container {
+      padding: var(--mobile-spacing-xl) var(--mobile-spacing-lg);
+      margin: var(--mobile-spacing-xl) 0;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--border-radius-large);
+    }
+
+    .cta-title {
+      font-size: clamp(1.5rem, 5vw, 1.9rem);
+      margin-bottom: var(--mobile-spacing-sm);
+    }
+
+    .cta-subtitle {
+      font-size: clamp(1.1rem, 4vw, 1.4rem);
+      margin-bottom: var(--mobile-spacing-lg);
+    }
+
+    .cta-description {
+      font-size: clamp(0.85rem, 3.5vw, 1rem);
+      line-height: 1.7;
+      margin-top: var(--mobile-spacing-md);
+    }
+
+    /* Button improvements */
+    .project-cta-button,
+    .cta-button {
+      padding: 16px 28px;
+      font-size: 1rem;
+      min-height: 50px;
+      min-width: 180px;
+      margin: var(--mobile-spacing-md) auto;
+      border-radius: var(--border-radius-medium);
+    }
+
+    /* About section improvements */
+    .about-section {
+      padding: var(--mobile-spacing-xl) var(--mobile-spacing-md);
+      margin-top: var(--mobile-spacing-xxl);
+    }
+
+    .about-title {
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      margin-bottom: var(--mobile-spacing-xl);
+    }
+
+    .about-layout {
+      gap: var(--mobile-spacing-xl);
+      padding: 0;
+    }
+
+    .about-image-wrapper {
+      max-width: 220px;
+      margin: 0 auto;
+    }
+
+    .about-content {
+      padding: 0 var(--mobile-spacing-md);
+      text-align: left;
+    }
+
+    .about-content p {
+      font-size: clamp(0.9rem, 3.5vw, 1rem);
+      line-height: 1.8;
+      margin-bottom: var(--mobile-spacing-lg);
+      text-indent: 0;
+    }
+
+    /* Specialities improvements */
+    .specialities-section {
+      padding: var(--mobile-spacing-xl) var(--mobile-spacing-md);
+      margin-top: var(--mobile-spacing-xxl);
+    }
+
+    .specialities-title {
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      margin-bottom: var(--mobile-spacing-xl);
+    }
+
+    .specialities-layout {
+      gap: var(--mobile-spacing-xl);
+      padding: 0;
+    }
+
+    .specialities-description,
+    .specialities-features {
+      padding: var(--mobile-spacing-lg) var(--mobile-spacing-md);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius-medium);
+    }
+
+    .specialty-highlight {
+      font-size: clamp(1.3rem, 4.5vw, 1.5rem);
+      margin-bottom: var(--mobile-spacing-lg);
+    }
+
+    .specialities-list li {
+      font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+      line-height: 1.8;
+      margin-bottom: var(--mobile-spacing-lg);
+    }
+
+    /* Contact section improvements */
+    .contact-section {
+      padding: var(--mobile-spacing-xl) var(--mobile-spacing-md);
+      margin-top: var(--mobile-spacing-xxl);
+    }
+
+    .contact-title {
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      margin-bottom: var(--mobile-spacing-md);
+    }
+
+    .contact-subtitle {
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      margin-bottom: var(--mobile-spacing-xl);
+    }
+
+    .contact-content {
+      gap: var(--mobile-spacing-xl);
+      padding: 0;
+    }
+
+    .contact-item {
+      gap: var(--mobile-spacing-lg);
+      padding: var(--mobile-spacing-lg);
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: var(--border-radius-medium);
+      margin-bottom: var(--mobile-spacing-md);
+    }
+
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      min-width: 40px;
+      min-height: 40px;
+    }
+
+    .contact-icon svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .contact-details h3 {
+      font-size: clamp(1rem, 3.5vw, 1.1rem);
+      margin-bottom: var(--mobile-spacing-sm);
+    }
+
+    .contact-details a,
+    .contact-details p {
+      font-size: clamp(0.85rem, 3.5vw, 0.95rem);
+      line-height: 1.6;
+    }
+
+    /* Form improvements */
+    .contact-form {
+      padding: var(--mobile-spacing-xl);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius-medium);
+    }
+
+    .form-group {
+      margin-bottom: var(--mobile-spacing-xl);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 18px var(--mobile-spacing-lg);
+      font-size: 16px; /* Prevent zoom on iOS */
+      border-radius: var(--border-radius-small);
+      min-height: 52px;
+    }
+
+    .form-group label {
+      font-size: 0.9rem;
+      padding: 0 var(--mobile-spacing-sm);
+    }
+
+    .contact-submit {
+      padding: 18px 36px;
+      font-size: 1rem;
+      min-height: 54px;
+      width: 100%;
+      border-radius: var(--border-radius-medium);
+    }
+
+    /* Videos section improvements */
+    .videos-section {
+      padding: var(--mobile-spacing-xl) var(--mobile-spacing-md);
+      margin-top: var(--mobile-spacing-xxl);
+    }
+
+    .videos-title {
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      margin-bottom: var(--mobile-spacing-md);
+    }
+
+    .videos-slogan {
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+      margin-bottom: var(--mobile-spacing-xl);
+    }
+
+    .videos-grid {
+      gap: var(--mobile-spacing-xl);
+      padding: 0;
+    }
+
+    .video-item {
+      max-width: 340px;
+      margin: 0 auto;
+    }
+
+    /* Footer improvements */
+    .footer {
+      margin-top: var(--mobile-spacing-xxl);
+      padding: var(--mobile-spacing-xl) var(--mobile-spacing-md);
+    }
+
+    .footer-main {
+      gap: var(--mobile-spacing-xl);
+    }
+
+    .footer-brand {
+      gap: var(--mobile-spacing-lg);
+      text-align: center;
+    }
+
+    .footer-logo {
+      max-width: 70px;
+    }
+
+    .footer-title {
+      font-size: clamp(1.2rem, 4vw, 1.4rem);
+    }
+
+    .footer-subtitle {
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    }
+
+    .footer-tagline {
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+    }
+
+    /* Touch target improvements */
+    .flip-arrow-btn,
+    .video-cta-button,
+    .nav-btn,
+    .thumbnail,
+    .lang-toggle,
+    .back-to-top {
+      min-height: 48px;
+      min-width: 48px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Sticky header improvements */
+    .sticky-header-content {
+      padding: var(--mobile-spacing-md) var(--mobile-spacing-lg);
+      gap: var(--mobile-spacing-lg);
+    }
+
+    .sticky-logo {
+      max-width: 45px;
+    }
+
+    .sticky-main-title {
+      font-size: clamp(1rem, 3.5vw, 1.2rem);
+    }
+
+    .sticky-subtitle {
+      font-size: clamp(0.75rem, 3vw, 0.85rem);
+    }
+  }
+
+  /* Very small devices (iPhone SE, etc.) */
+  @media (max-width: 320px) {
+    .container {
+      padding: var(--mobile-spacing-sm);
+    }
+
+    .grid-container {
+      max-width: 300px;
+      gap: var(--mobile-spacing-lg);
+      padding: var(--mobile-spacing-sm);
+    }
+
+    .hero-header {
+      padding: var(--mobile-spacing-lg) var(--mobile-spacing-sm);
+    }
+
+    .logo-image {
+      max-width: 80px;
+    }
+
+    .main-title {
+      font-size: clamp(1.8rem, 8vw, 2.2rem);
+    }
+
+    .cta-container {
+      padding: var(--mobile-spacing-lg) var(--mobile-spacing-md);
+    }
+
+    .contact-item {
+      padding: var(--mobile-spacing-md);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      padding: 16px var(--mobile-spacing-md);
+    }
+
+    .contact-form {
+      padding: var(--mobile-spacing-lg);
+    }
+  }
+
+  /* Landscape orientation fixes for small devices */
+  @media (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+    .hero-header {
+      padding: var(--mobile-spacing-md) var(--mobile-spacing-lg);
+      margin-bottom: var(--mobile-spacing-lg);
+    }
+
+    .logo-container {
+      flex-direction: row;
+      gap: var(--mobile-spacing-lg);
+      align-items: center;
+    }
+
+    .logo-image {
+      max-width: 70px;
+    }
+
+    .main-title {
+      font-size: clamp(1.6rem, 5vw, 2rem);
+    }
+
+    .subtitle {
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
+    }
+
+    .tagline {
+      font-size: clamp(0.8rem, 3vw, 0.9rem);
+    }
+
+    .projects-header {
+      padding: var(--mobile-spacing-md) var(--mobile-spacing-lg);
+      margin-bottom: var(--mobile-spacing-lg);
+    }
+
+    .grid-container {
+      gap: var(--mobile-spacing-lg);
+      padding: var(--mobile-spacing-md);
+    }
+
+    /* Reduce spacing for landscape mode */
+    .about-section,
+    .specialities-section,
+    .contact-section,
+    .videos-section {
+      margin-top: var(--mobile-spacing-xl);
+      padding: var(--mobile-spacing-lg) var(--mobile-spacing-md);
     }
   }
   
