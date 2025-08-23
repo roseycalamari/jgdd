@@ -172,6 +172,10 @@ function initializeProjectButtons() {
     projectButtons.forEach((button, index) => {
         // Function to handle project button click/touch
         const handleProjectAction = function(e) {
+            console.log('=== BUTTON CLICKED ===');
+            console.log('Button index:', index);
+            console.log('Event type:', e.type);
+            
             e.preventDefault();
             e.stopPropagation();
             
@@ -183,71 +187,51 @@ function initializeProjectButtons() {
             
             const projectId = projectIds[index];
             console.log(`Project button clicked: ${projectTitle} (ID: ${projectId})`);
+            console.log('Modal function available:', typeof window.openProjectModal);
             
             // Track the button click
-            trackEvent('project_button_click', 'Projects', 'View Details', projectTitle);
+            if (typeof trackEvent === 'function') {
+                trackEvent('project_button_click', 'Projects', 'View Details', projectTitle);
+            }
             
             // Open the project modal
             if (window.openProjectModal && projectId) {
+                console.log('Calling openProjectModal...');
                 window.openProjectModal(projectId);
             } else {
-                console.warn('Modal function not available or project ID missing');
+                console.warn('Modal function not available or project ID missing', {
+                    modalFunction: typeof window.openProjectModal,
+                    projectId: projectId
+                });
             }
         };
         
         // Add click event listener
         button.addEventListener('click', handleProjectAction);
         
-        // Add touch events for mobile (without preventing default)
+        // Debug: log button properties
+        console.log(`Button ${index} setup:`, {
+            element: button,
+            classList: button.classList.toString(),
+            projectId: projectIds[index],
+            computedStyle: window.getComputedStyle(button).pointerEvents
+        });
+        
+        // Add touch events for mobile support
         button.addEventListener('touchstart', function(e) {
-            // Don't prevent default on touchstart to allow click to fire
             e.stopPropagation();
-    
+            console.log('Touch start on button:', index);
         }, { passive: true });
         
         // Add touchend event for mobile
         button.addEventListener('touchend', function(e) {
             e.preventDefault();
             e.stopPropagation();
-    
-            // Small delay to ensure touch events complete
-            setTimeout(() => {
-                handleProjectAction.call(this, e);
-            }, 50);
+            console.log('Touch end on button:', index);
+            
+            // Call the action directly
+            handleProjectAction.call(this, e);
         }, { passive: false });
-        
-        // Add mousedown event for better mobile support
-        button.addEventListener('mousedown', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-        
-        // Add additional mobile event listeners
-        button.addEventListener('touchcancel', function(e) {
-    
-        });
-        
-        // Ensure the button is properly configured for mobile
-        button.style.touchAction = 'manipulation';
-        button.style.webkitTapHighlightColor = 'transparent';
-        
-        // Add a simple click fallback for mobile
-        button.addEventListener('pointerdown', function(e) {
-    
-        });
-        
-        // Add a direct mobile click handler
-        if ('ontouchstart' in window) {
-            button.addEventListener('click', function(e) {
-        
-                // Force the modal to open even if other events fail
-                setTimeout(() => {
-                    if (window.openProjectModal && projectIds[index]) {
-                        window.openProjectModal(projectIds[index]);
-                    }
-                }, 100);
-            }, { passive: false });
-        }
     });
 }
 
@@ -258,6 +242,12 @@ function initializeProjectModal() {
     const modal = document.getElementById('projectModal');
     const modalClose = document.getElementById('modalClose');
     const modalTitle = document.getElementById('modalTitle');
+    
+    console.log('Modal elements found:', {
+        modal: !!modal,
+        modalClose: !!modalClose,
+        modalTitle: !!modalTitle
+    });
     const modalSubtitle = document.getElementById('modalSubtitle');
     const modalDescription = document.getElementById('modalDescription');
     const prevBtn = document.getElementById('carouselPrev');
@@ -433,13 +423,27 @@ function initializeProjectModal() {
     
     // Make modal functions globally accessible
     window.openProjectModal = function(projectId) {
+        console.log('Opening modal for project:', projectId);
+        
         // Get current language and translations
-        const currentLang = document.documentElement.lang || 'nl';
+        const currentLang = currentLanguage || document.documentElement.lang || 'nl';
         const translations = window.TRANSLATIONS && window.TRANSLATIONS[currentLang];
         
-        if (!translations || !translations.projects || !translations.projects[projectId]) {
+        console.log('Current language:', currentLang);
+        console.log('Available translations:', translations);
+        
+        // Check for projectData instead of projects for individual project data
+        if (!translations || !translations.projectData || !translations.projectData[projectId]) {
             console.warn(`Project translations not found for ID: ${projectId} and language: ${currentLang}`);
-            return;
+            // Try fallback to Dutch
+            const fallbackTranslations = window.TRANSLATIONS && window.TRANSLATIONS['nl'];
+            if (fallbackTranslations && fallbackTranslations.projectData && fallbackTranslations.projectData[projectId]) {
+                console.log('Using fallback Dutch translations');
+                translations = fallbackTranslations;
+            } else {
+                console.error('No translations available for project:', projectId);
+                return;
+            }
         }
         
         const projectImages = projectData[projectId] ? projectData[projectId].images : [];
@@ -447,7 +451,7 @@ function initializeProjectModal() {
         currentProjectId = projectId;
         currentPhotoIndex = 0;
         
-        const project = translations.projects[projectId];
+        const project = translations.projectData[projectId];
         
         // Update modal content with translations
         modalTitle.textContent = project.title;
@@ -1608,4 +1612,79 @@ function initializeFullscreenPhotoViewer() {
     });
     
     console.log('Fullscreen photo viewer initialized successfully');
+}
+
+// Video Modal Functionality
+function openVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const video = document.getElementById('borboletaVideo');
+    
+    if (videoModal && video) {
+        // Show the modal
+        videoModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Play the video after a short delay to ensure modal is visible
+        setTimeout(() => {
+            video.play().catch((error) => {
+                console.error('Error playing video:', error);
+            });
+        }, 300);
+    }
+}
+
+function closeVideoModal() {
+    const videoModal = document.getElementById('videoModal');
+    const video = document.getElementById('borboletaVideo');
+    
+    if (videoModal && video) {
+        // Pause the video
+        video.pause();
+        video.currentTime = 0; // Reset to beginning
+        
+        // Hide the modal
+        videoModal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        const videoModal = document.getElementById('videoModal');
+        if (videoModal && videoModal.classList.contains('active')) {
+            closeVideoModal();
+        }
+    }
+});
+
+// Fullscreen toggle for video
+function toggleVideoFullscreen() {
+    const video = document.getElementById('borboletaVideo');
+    
+    if (video) {
+        if (!document.fullscreenElement) {
+            // Enter fullscreen
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        } else {
+            // Exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    }
 }

@@ -44,6 +44,7 @@
                 <ul class="sticky-nav-list">
                     <li><a href="#home" data-translate="menu.home">Home</a></li>
                     <li><a href="#projects" data-translate="menu.projects">Projecten</a></li>
+                    <li><a href="#videos" data-translate="menu.videos">Video's</a></li>
                     <li><a href="#about" data-translate="menu.about">Over mij</a></li>
                     <li><a href="#specialities" data-translate="menu.specialities">Specialiteiten</a></li>
                     <li><a href="#contact" data-translate="menu.contact">Contact</a></li>
@@ -87,6 +88,7 @@
             <ul class="menu-list">
                 <li><a href="#home" data-translate="menu.home">Home</a></li>
                 <li><a href="#projects" data-translate="menu.projects">Projecten</a></li>
+                <li><a href="#videos" data-translate="menu.videos">Video's</a></li>
                 <li><a href="#about" data-translate="menu.about">Over mij</a></li>
                 <li><a href="#specialities" data-translate="menu.specialities">Specialiteiten</a></li>
                 <li><a href="#contact" data-translate="menu.contact">Contact</a></li>
@@ -572,6 +574,94 @@
             </div>
         </section>
 
+        <!-- Videos Section -->
+        <section class="videos-section" id="videos">
+            <div class="videos-container">
+                <div class="videos-header">
+                    <h2 class="videos-title" data-translate="videos.title">Mijn Video's</h2>
+                    <p class="videos-slogan" data-translate="videos.slogan">Ontdek mijn werk in beweging</p>
+                </div>
+                
+                <div class="videos-grid">
+                    <!-- Borboleta Turquesa Project Video -->
+                    <div class="video-item">
+                        <div class="video-wrapper">
+                            <div class="video-placeholder">
+                                <div class="video-preview" onclick="openVideoModal()">
+                                    <img src="assets/images/borboleta/after2.jpeg" alt="Borboleta Turquesa Project Video" class="video-thumbnail">
+                                    <div class="custom-play-button">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5,3 19,12 5,21"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="video-overlay">
+                                    <div class="video-overlay-content">
+                                        <span class="video-overlay-title" data-translate="videos.borboletaTurquesa.title">Borboleta Turquesa</span>
+                                        <span class="video-overlay-subtitle" data-translate="videos.borboletaTurquesa.subtitle">Transformatie proces</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title" data-translate="videos.borboletaTurquesa.title">Borboleta Turquesa</h3>
+                            <p class="video-description">Borboleta Turquesa Project</p>
+                        </div>
+                    </div>
+                    <div class="video-item">
+                        <div class="video-wrapper">
+                            <div class="video-placeholder">
+                                <div class="video-preview">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI0MCIgdmlld0JveD0iMCAwIDQwMCAyNDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjQwIiBmaWxsPSIjRjNGNEY2Ii8+CjxyZWN0IHg9IjE3NSIgeT0iMTA1IiB3aWR0aD0iNTAiIGhlaWdodD0iMzAiIHJ4PSI0IiBmaWxsPSIjOEY2MDI3Ii8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4RjYwMjciPkJlaGluZCB0aGUgU2NlbmVzPC90ZXh0Pgo8L3N2Zz4=" alt="Behind the Scenes Video" class="video-thumbnail">
+                                    <div class="play-button">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5,3 19,12 5,21"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="video-overlay">
+                                    <div class="video-overlay-content">
+                                        <span class="video-overlay-title" data-translate="videos.video3.title">Behind the Scenes</span>
+                                        <span class="video-overlay-subtitle" data-translate="videos.video3.subtitle">Mijn creatieve proces</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="video-cta-button">
+                            <span class="btn-text" data-translate="ui.watchVideo">Bekijk Video</span>
+                            <div class="btn-gradient"></div>
+                        </button>
+                    </div>
+
+                    <!-- Video 4 -->
+                    <div class="video-item">
+                        <div class="video-wrapper">
+                            <div class="video-placeholder">
+                                <div class="video-preview">
+                                    <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjI0MCIgdmlld0JveD0iMCAwIDQwMCAyNDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMjQwIiBmaWxsPSIjRjNGNEY2Ii8+CjxyZWN0IHg9IjE3NSIgeT0iMTA1IiB3aWR0aD0iNTAiIGhlaWdodD0iMzAiIHJ4PSI0IiBmaWxsPSIjOEY2MDI3Ii8+Cjx0ZXh0IHg9IjIwMCIgeT0iMTUwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTIiIGZpbGw9IiM4RjYwMjciPlRyYW5zZm9ybWF0aWUgVmlkZW88L3RleHQ+Cjwvc3ZnPg==" alt="Room Transformation Video" class="video-thumbnail">
+                                    <div class="play-button">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <polygon points="5,3 19,12 5,21"></polygon>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="video-overlay">
+                                    <div class="video-overlay-content">
+                                        <span class="video-overlay-title" data-translate="videos.video4.title">Transformaties</span>
+                                        <span class="video-overlay-subtitle" data-translate="videos.video4.subtitle">Voor en na resultaten</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="video-cta-button">
+                            <span class="btn-text" data-translate="ui.watchVideo">Bekijk Video</span>
+                            <div class="btn-gradient"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- About Me Section -->
         <section class="about-section" id="about">
             <div class="about-container">
@@ -848,6 +938,33 @@
 
     </main>
 
+    <!-- Video Modal -->
+    <div class="video-modal" id="videoModal">
+        <div class="video-modal-overlay" onclick="closeVideoModal()"></div>
+        <div class="video-modal-container">
+            <button class="video-modal-close" onclick="closeVideoModal()">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+            <div class="video-modal-content">
+                <video 
+                    id="borboletaVideo"
+                    class="modal-video-player" 
+                    controls
+                    preload="metadata">
+                    <source src="assets/images/video/Jeanette Gasseling - Casa Corcovada.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <div class="video-modal-info">
+                <h3 class="video-modal-title" data-translate="videos.borboletaTurquesa.title">Borboleta Turquesa</h3>
+                <p class="video-modal-description">Borboleta Turquesa Project</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Project Modal -->
     <div class="project-modal" id="projectModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
 
@@ -920,6 +1037,7 @@
                         <ul>
                             <li><a href="#home" data-translate="menu.home">Home</a></li>
                             <li><a href="#projects" data-translate="menu.projects">Projecten</a></li>
+                            <li><a href="#videos" data-translate="menu.videos">Video's</a></li>
                             <li><a href="#about" data-translate="menu.about">Over mij</a></li>
                             <li><a href="#specialities" data-translate="menu.specialities">Specialiteiten</a></li>
                             <li><a href="#contact" data-translate="menu.contact">Contact</a></li>

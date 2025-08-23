@@ -9,6 +9,7 @@ const TRANSLATIONS = {
         menu: {
             home: 'Home',
             projects: 'Projecten',
+            videos: 'Video\'s',
             about: 'Over mij',
             specialities: 'Specialiteiten',
             contact: 'Contact'
@@ -23,6 +24,16 @@ const TRANSLATIONS = {
         projects: {
             title: 'Mijn Projecten',
             slogan: 'Passend bij ieder budget en elke ruimte'
+        },
+        
+        // Videos Section
+        videos: {
+            title: 'Mijn Video\'s',
+            slogan: 'Ontdek mijn werk in beweging',
+            borboletaTurquesa: {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Transformatie proces'
+            }
         },
         
         // CTA Section
@@ -224,6 +235,7 @@ const TRANSLATIONS = {
         ui: {
             viewDetails: 'Bekijk Details',
             viewGallery: 'Bekijk Galerij',
+            watchVideo: 'Bekijk Video',
             interiorDesigner: 'Interieurontwerper',
             createdBy: 'gemaakt door',
             sending: 'Versturen...',
@@ -299,6 +311,7 @@ const TRANSLATIONS = {
         menu: {
             home: 'Home',
             projects: 'Projects',
+            videos: 'Videos',
             about: 'About Me',
             specialities: 'Specialities',
             contact: 'Contact'
@@ -313,6 +326,16 @@ const TRANSLATIONS = {
         projects: {
             title: 'My Projects',
             slogan: 'Suitable for every budget and every space'
+        },
+        
+        // Videos Section
+        videos: {
+            title: 'My Videos',
+            slogan: 'Discover my work in motion',
+            borboletaTurquesa: {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Transformation process'
+            }
         },
         
         // CTA Section
@@ -466,6 +489,7 @@ const TRANSLATIONS = {
         ui: {
             viewDetails: 'View Details',
             viewGallery: 'View Gallery',
+            watchVideo: 'Watch Video',
             interiorDesigner: 'Interior Designer',
             createdBy: 'created by',
             sending: 'Sending...',
@@ -541,6 +565,7 @@ const TRANSLATIONS = {
         menu: {
             home: 'Startseite',
             projects: 'Projekte',
+            videos: 'Videos',
             about: 'Über mich',
             specialities: 'Spezialitäten',
             contact: 'Kontakt'
@@ -555,6 +580,16 @@ const TRANSLATIONS = {
         projects: {
             title: 'Meine Projekte',
             slogan: 'Passend für jedes Budget und jeden Raum'
+        },
+        
+        // Videos Section
+        videos: {
+            title: 'Meine Videos',
+            slogan: 'Entdecken Sie meine Arbeit in Bewegung',
+            borboletaTurquesa: {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Transformationsprozess'
+            }
         },
         
         // CTA Section
@@ -756,6 +791,7 @@ const TRANSLATIONS = {
         ui: {
             viewDetails: 'Details anzeigen',
             viewGallery: 'Galerie anzeigen',
+            watchVideo: 'Video ansehen',
             interiorDesigner: 'Innenarchitektin',
             createdBy: 'erstellt von',
             sending: 'Wird gesendet...',
@@ -831,6 +867,7 @@ const TRANSLATIONS = {
         menu: {
             home: 'Início',
             projects: 'Projetos',
+            videos: 'Vídeos',
             about: 'Sobre Mim',
             specialities: 'Especialidades',
             contact: 'Contacto'
@@ -845,6 +882,16 @@ const TRANSLATIONS = {
         projects: {
             title: 'Os Meus Projetos',
             slogan: 'Adequado para todos os orçamentos e todos os espaços'
+        },
+        
+        // Videos Section
+        videos: {
+            title: 'Os Meus Vídeos',
+            slogan: 'Descubra o meu trabalho em movimento',
+            borboletaTurquesa: {
+                title: 'Borboleta Turquesa',
+                subtitle: 'Processo de transformação'
+            }
         },
         
         // CTA Section
@@ -1046,6 +1093,7 @@ const TRANSLATIONS = {
         ui: {
             viewDetails: 'Ver Detalhes',
             viewGallery: 'Ver Galeria',
+            watchVideo: 'Ver Vídeo',
             interiorDesigner: 'Designer de Interiores',
             createdBy: 'criado por',
             sending: 'A enviar...',
