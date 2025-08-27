@@ -56,6 +56,20 @@ const TRANSLATIONS = {
                 
                 <p>Samen met mijn echtgenoot, dochters en schoonzoon hebben wij een goedlopend familiebedrijf in de schilders en bouw branche opgebouwd. Deze samenwerking bracht niet alleen vakmanschap in kleur en afwerking samen, maar ook oog voor detail en sfeer.</p>
                 
+                <div class="family-business-links">
+                    <span class="family-business-label">Onze familiebedrijven:</span>
+                    <div class="business-links-container">
+                        <a href="https://www.schildersbedrijfgasseling.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">Schildersbedrijf Gasseling</span>
+                            <span class="business-type">Schilders & Afwerking</span>
+                        </a>
+                        <a href="https://vakschilderdeals.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">VakschilderDeals</span>
+                            <span class="business-type">Spuitwerk Specialisten</span>
+                        </a>
+                    </div>
+                </div>
+                
                 <p>Tegenwoordig richt ik mij op het inrichten en decoreren van soms een enkele kamer, gehele woning, afgewisseld met kantoren en vakantiewoningen – altijd met oog voor de wensen van de klant en met een warm hart voor karaktervolle kringloopvondsten. Juist die mix van stijlen, materialen en verhalen maakt een ruimte uniek.</p>
                 
                 <p>Of je nu op zoek bent naar wat nieuwe sfeer een compleet nieuw interieur of enkel een frisse touch. Door bijvoorbeeld een mooi kunstbloemstuk of een ander kleurtje op de wand, dan help ik je graag om jouw ruimte tot jou sfeervolle eigen woon, werk of vakantie plek te maken.</p>
@@ -228,7 +242,11 @@ const TRANSLATIONS = {
             galleryTitle: 'Project Galerij',
             close: 'Sluiten',
             previousPhoto: 'Vorige foto',
-            nextPhoto: 'Volgende foto'
+            nextPhoto: 'Volgende foto',
+            airbnb: {
+                bookOn: 'Boek op',
+                airbnb: 'Airbnb'
+            }
         },
         
         // UI Elements
@@ -286,7 +304,7 @@ const TRANSLATIONS = {
             'corcovada-home': {
                 title: 'Corcovada Woning',
                 subtitle: 'Moderne Woonruimte',
-                description: 'Een stijlvolle transformatie van een moderne woning met clean lines en warme accenten. Het ontwerp combineert functionaliteit met esthetiek voor een perfect leefomgeving.'
+                description: 'Een stijlvolle transformatie van een moderne woning met warme accenten. Het ontwerp combineert functionaliteit met esthetiek voor een perfect leefomgeving.'
             },
             'torremolinos-home': {
                 title: 'Torremolinos Huis',
@@ -357,6 +375,20 @@ const TRANSLATIONS = {
                 <p>For several years, I ran a cozy flower and gift shop with great pleasure. Here my feeling for color, style, and harmony fully blossomed. The love for beautiful things, and combining old and new, found its place there.</p>
                 
                 <p>Together with my husband, daughters, and son-in-law, we have built a successful family business in the painting and construction industry. This collaboration brought together not only craftsmanship in color and finishing, but also an eye for detail and atmosphere.</p>
+                
+                <div class="family-business-links">
+                    <span class="family-business-label">Our family businesses:</span>
+                    <div class="business-links-container">
+                        <a href="https://www.schildersbedrijfgasseling.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">Schildersbedrijf Gasseling</span>
+                            <span class="business-type">Painters & Finishing</span>
+                        </a>
+                        <a href="https://vakschilderdeals.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">VakschilderDeals</span>
+                            <span class="business-type">Spray Painting Specialists</span>
+                        </a>
+                    </div>
+                </div>
                 
                 <p>Nowadays, I focus on furnishing and decorating sometimes a single room, entire house, alternating with offices and holiday homes – always with an eye for the client's wishes and with a warm heart for characterful thrift store finds. It's precisely that mix of styles, materials, and stories that makes a space unique.</p>
                 
@@ -482,7 +514,11 @@ const TRANSLATIONS = {
             galleryTitle: 'Project Gallery',
             close: 'Close',
             previousPhoto: 'Previous photo',
-            nextPhoto: 'Next photo'
+            nextPhoto: 'Next photo',
+            airbnb: {
+                bookOn: 'Book on',
+                airbnb: 'Airbnb'
+            }
         },
         
         // UI Elements
@@ -611,6 +647,20 @@ const TRANSLATIONS = {
                 <p>Einige Jahre habe ich mit viel Freude einen gemütlichen Blumen- und Geschenkladen geführt. Hier kam mein Gefühl für Farbe, Stil und Harmonie voll zur Blüte. Die Liebe zu schönen Dingen und das Kombinieren von Alt und Neu fand dort ihren Platz.</p>
                 
                 <p>Zusammen mit meinem Ehemann, Töchtern und Schwiegersohn haben wir ein erfolgreiches Familienunternehmen in der Maler- und Baubranche aufgebaut. Diese Zusammenarbeit brachte nicht nur Handwerkskunst in Farbe und Verarbeitung zusammen, sondern auch ein Auge für Details und Atmosphäre.</p>
+                
+                <div class="family-business-links">
+                    <span class="family-business-label">Unsere Familienunternehmen:</span>
+                    <div class="business-links-container">
+                        <a href="https://www.schildersbedrijfgasseling.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">Schildersbedrijf Gasseling</span>
+                            <span class="business-type">Maler & Verarbeitung</span>
+                        </a>
+                        <a href="https://vakschilderdeals.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">VakschilderDeals</span>
+                            <span class="business-type">Spritzwerk Spezialisten</span>
+                        </a>
+                    </div>
+                </div>
                 
                 <p>Heutzutage konzentriere ich mich auf die Einrichtung und Dekoration manchmal eines einzelnen Zimmers, ganzen Hauses, abwechselnd mit Büros und Ferienhäusern – immer mit einem Auge für die Wünsche des Kunden und mit einem warmen Herzen für charaktervolle Second-Hand-Funde. Gerade diese Mischung aus Stilen, Materialien und Geschichten macht einen Raum einzigartig.</p>
                 
@@ -784,7 +834,11 @@ const TRANSLATIONS = {
             galleryTitle: 'Projekt Galerie',
             close: 'Schließen',
             previousPhoto: 'Vorheriges Foto',
-            nextPhoto: 'Nächstes Foto'
+            nextPhoto: 'Nächstes Foto',
+            airbnb: {
+                bookOn: 'Buchen auf',
+                airbnb: 'Airbnb'
+            }
         },
         
         // UI Elements
@@ -913,6 +967,20 @@ const TRANSLATIONS = {
                 <p>Durante vários anos, geri com muito prazer uma loja acolhedora de flores e presentes. Aqui o meu sentimento por cor, estilo e harmonia floresceu completamente. O amor por coisas bonitas e combinar o velho com o novo encontrou o seu lugar lá.</p>
                 
                 <p>Juntamente com o meu marido, filhas e genro, construímos um negócio familiar bem-sucedido na indústria de pintura e construção. Esta colaboração trouxe não só artesanato em cor e acabamento, mas também um olho para detalhes e atmosfera.</p>
+                
+                <div class="family-business-links">
+                    <span class="family-business-label">Os nossos negócios familiares:</span>
+                    <div class="business-links-container">
+                        <a href="https://www.schildersbedrijfgasseling.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">Schildersbedrijf Gasseling</span>
+                            <span class="business-type">Pintores & Acabamento</span>
+                        </a>
+                        <a href="https://vakschilderdeals.nl/" target="_blank" rel="noopener noreferrer" class="business-link">
+                            <span class="business-name">VakschilderDeals</span>
+                            <span class="business-type">Especialistas em Pintura por Pulverização</span>
+                        </a>
+                    </div>
+                </div>
                 
                 <p>Hoje em dia, concentro-me na decoração e decoração às vezes de uma única sala, casa inteira, alternando com escritórios e casas de férias – sempre com um olho para os desejos do cliente e com um coração quente para descobertas de segunda mão com caráter. É precisamente essa mistura de estilos, materiais e histórias que torna um espaço único.</p>
                 
@@ -1086,7 +1154,11 @@ const TRANSLATIONS = {
             galleryTitle: 'Galeria do Projeto',
             close: 'Fechar',
             previousPhoto: 'Foto anterior',
-            nextPhoto: 'Próxima foto'
+            nextPhoto: 'Próxima foto',
+            airbnb: {
+                bookOn: 'Reservar no',
+                airbnb: 'Airbnb'
+            }
         },
         
         // UI Elements

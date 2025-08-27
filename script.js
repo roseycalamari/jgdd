@@ -464,6 +464,20 @@ function initializeProjectModal() {
             description: project.description
         });
         
+        // Handle Airbnb button for specific projects
+        const airbnbButtonContainer = document.getElementById('airbnbButtonContainer');
+        const airbnbButton = document.getElementById('airbnbButton');
+        
+        if (projectId === 'corcovada-home') {
+            airbnbButtonContainer.style.display = 'flex';
+            airbnbButton.href = 'https://www.airbnb.nl/rooms/44654231?adults=1&source_impression_id=p3_1608566762_DiNNmnbWWwqCtU1y&guests=1';
+        } else if (projectId === 'borboleta-turquesa') {
+            airbnbButtonContainer.style.display = 'flex';
+            airbnbButton.href = 'https://airbnb.com/h/borboletaturquesa';
+        } else {
+            airbnbButtonContainer.style.display = 'none';
+        }
+        
         // Update carousel
         updateCarousel(projectImages);
         

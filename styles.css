@@ -964,6 +964,24 @@
     align-items: start;
   }
   
+  /* Responsive grid breakpoints */
+  @media (max-width: 1200px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: var(--spacing-lg) !important;
+      max-width: 900px !important;
+    }
+  }
+  
+  @media (max-width: 900px) {
+    .grid-container {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: var(--spacing-md) !important;
+      max-width: 600px !important;
+      padding: 0 var(--spacing-md) !important;
+    }
+  }
+  
   .flip-card {
     background-color: transparent;
     perspective: 1000px;
@@ -1479,104 +1497,229 @@
     color: var(--primary-brown);
   }
   
-  /* Responsive adjustments for project buttons */
+  /* Mobile CTA container adjustments */
   @media (max-width: 768px) {
-    .project-cta-button {
-      padding: 12px 24px;
-      font-size: 0.9rem;
-      min-width: 140px;
-      width: 100%;
-      max-width: 280px;
-      margin: 20px auto 0 auto;
-      border-radius: 50px;
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-      z-index: 20;
-      pointer-events: auto;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      position: relative;
+    .cta-container {
+      aspect-ratio: auto !important;
+      height: auto !important;
+      min-height: auto !important;
+      padding: var(--spacing-lg) var(--spacing-md) !important;
     }
     
-    .grid-container {
-      gap: var(--spacing-lg);
+    .cta-title {
+      font-size: clamp(1.2rem, 2.2vw, 1.6rem) !important;
     }
     
-    /* Ensure buttons are visible on mobile */
-    .grid-item.flip-card {
-      margin-bottom: 20px;
-      width: 100%;
-      max-width: 350px;
-      justify-self: center;
-      height: auto;
-      min-height: auto;
+    .cta-subtitle {
+      font-size: clamp(2rem, 3.5vw, 2.8rem) !important;
+      margin-bottom: var(--spacing-md) !important;
     }
     
-    /* Center project cards properly */
-    .flip-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding-bottom: 20px;
+    .cta-button {
+      padding: var(--spacing-md) var(--spacing-lg) !important;
+      font-size: 1rem !important;
+      margin-bottom: var(--spacing-sm) !important;
+    }
+    
+    .cta-description {
+      font-size: clamp(0.9rem, 2vw, 1rem) !important;
+      line-height: 1.5 !important;
     }
   }
   
   @media (max-width: 480px) {
-    .project-cta-button {
-      padding: 14px 28px;
-      font-size: 1rem;
-      min-width: 160px;
-      width: 100%;
-      max-width: 300px;
-      margin: 20px auto 0 auto;
-      border-radius: 50px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      font-weight: 700;
-      z-index: 25;
-      pointer-events: auto;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: transparent;
-      position: relative;
+    .cta-container {
+      padding: var(--spacing-md) var(--spacing-sm) !important;
     }
     
+    .cta-title {
+      font-size: clamp(1.1rem, 2vw, 1.4rem) !important;
+    }
+    
+    .cta-subtitle {
+      font-size: clamp(1.8rem, 3vw, 2.4rem) !important;
+    }
+    
+    .cta-button {
+      padding: var(--spacing-sm) var(--spacing-md) !important;
+      font-size: 0.9rem !important;
+    }
+  }
+  
+  /* Responsive adjustments for project buttons */
+  @media (max-width: 768px) {
+    /* Fix grid layout for mobile */
     .grid-container {
-      gap: var(--spacing-xl);
-      padding: 0 var(--spacing-sm);
+      grid-template-columns: 1fr !important;
+      gap: var(--spacing-md) !important;
+      padding: 0 var(--spacing-sm) !important;
+      max-width: 100% !important;
     }
     
-    /* Prevent button overlap on small mobile */
+    /* Fix project card sizing and layout */
     .grid-item.flip-card {
-      margin-bottom: 25px;
-      width: 100%;
-      max-width: 320px;
-      justify-self: center;
-      height: auto;
-      min-height: auto;
+      width: 100% !important;
+      max-width: 100% !important;
+      height: auto !important;
+      min-height: auto !important;
+      margin-bottom: var(--spacing-md) !important;
+      justify-self: stretch !important;
+      border-radius: var(--border-radius-medium) !important;
     }
     
-    /* Ensure proper spacing for buttons */
+    /* Fix flip card inner layout */
+    .flip-card-inner {
+      width: 100% !important;
+      height: auto !important;
+      aspect-ratio: 4/3 !important;
+      border-radius: var(--border-radius-medium) !important;
+    }
+    
+    /* Fix flip card front and back */
+    .flip-card-front,
+    .flip-card-back {
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: var(--border-radius-medium) !important;
+    }
+    
+    /* Fix project image wrapper */
+    .project-image-wrapper {
+      width: 100% !important;
+      height: 100% !important;
+      border-radius: var(--border-radius-medium) !important;
+    }
+    
+    /* Fix grid images */
+    .grid-image {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+      border-radius: var(--border-radius-medium) !important;
+    }
+    
+    /* Fix project CTA button */
+    .project-cta-button {
+      padding: var(--spacing-md) var(--spacing-lg) !important;
+      font-size: 1rem !important;
+      min-width: 160px !important;
+      width: auto !important;
+      max-width: 280px !important;
+      margin: var(--spacing-md) auto 0 auto !important;
+      border-radius: var(--border-radius-medium) !important;
+      box-shadow: var(--shadow-standard) !important;
+      z-index: 20 !important;
+      pointer-events: auto !important;
+      touch-action: manipulation !important;
+      -webkit-tap-highlight-color: transparent !important;
+      position: relative !important;
+      font-weight: 600 !important;
+      letter-spacing: 0.5px !important;
+    }
+    
+    /* Fix flip arrow button */
+    .flip-arrow-btn {
+      width: 48px !important;
+      height: 48px !important;
+      border-radius: var(--border-radius-circle) !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      border: 2px solid var(--white) !important;
+      box-shadow: var(--shadow-subtle) !important;
+    }
+    
+    .flip-arrow-btn svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+    
+    /* Center project cards properly */
     .flip-card {
-      padding-bottom: 35px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      padding-bottom: var(--spacing-md) !important;
     }
     
-    /* Small mobile: Enhanced project overlay visibility */
+    /* Fix CTA container */
+    .cta-container {
+      padding: var(--spacing-lg) var(--spacing-md) !important;
+      text-align: center !important;
+    }
+    
+    .cta-button {
+      padding: var(--spacing-md) var(--spacing-lg) !important;
+      font-size: 1rem !important;
+      min-width: 160px !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* Enhanced mobile grid layout */
+    .grid-container {
+      gap: var(--spacing-sm) !important;
+      padding: 0 var(--spacing-xs) !important;
+    }
+    
+    /* Enhanced project card sizing */
+    .grid-item.flip-card {
+      margin-bottom: var(--spacing-sm) !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      justify-self: stretch !important;
+    }
+    
+    /* Enhanced flip card inner */
+    .flip-card-inner {
+      aspect-ratio: 3/2 !important;
+    }
+    
+    /* Enhanced project CTA button */
+    .project-cta-button {
+      padding: var(--spacing-sm) var(--spacing-md) !important;
+      font-size: 0.9rem !important;
+      min-width: 140px !important;
+      max-width: 240px !important;
+      margin: var(--spacing-sm) auto 0 auto !important;
+      border-radius: var(--border-radius-small) !important;
+    }
+    
+    /* Enhanced flip arrow button */
+    .flip-arrow-btn {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    
+    .flip-arrow-btn svg {
+      width: 16px !important;
+      height: 16px !important;
+    }
+    
+    /* Enhanced CTA container */
+    .cta-container {
+      padding: var(--spacing-md) var(--spacing-sm) !important;
+    }
+    
+    .cta-button {
+      padding: var(--spacing-sm) var(--spacing-md) !important;
+      font-size: 0.9rem !important;
+      min-width: 140px !important;
+    }
+    
+    /* Enhanced project overlay for small mobile */
     .project-overlay {
-      background: linear-gradient(transparent 0%, rgba(143, 96, 39, 0.95) 100%);
-      padding: var(--spacing-xs) var(--spacing-xs);
+      background: linear-gradient(transparent 0%, rgba(143, 96, 39, 0.95) 100%) !important;
+      padding: var(--spacing-xs) !important;
     }
     
     .project-overlay-title {
-      font-size: clamp(0.85rem, 3vw, 1rem);
-      font-weight: 700;
+      font-size: clamp(0.8rem, 2.5vw, 0.9rem) !important;
+      font-weight: 700 !important;
     }
     
     .project-overlay-subtitle {
-      font-size: clamp(0.75rem, 2.5vw, 0.85rem);
-      font-weight: 600;
+      font-size: clamp(0.7rem, 2vw, 0.8rem) !important;
+      font-weight: 600 !important;
     }
     
     /* Extra small mobile: Perfect centering */
@@ -2376,6 +2519,134 @@
     font-weight: 600;
     font-size: clamp(1.1rem, 1.3vw, 1.2rem);
     letter-spacing: 0.5px;
+  }
+  
+  /* ==========================================
+     Family Business Links
+     ========================================== */
+  .family-business-links {
+    margin: var(--spacing-lg) 0;
+    padding: var(--spacing-lg);
+    background: linear-gradient(135deg, var(--light-gold) 0%, var(--muted-gold) 100%);
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-subtle);
+    border: 2px solid var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .family-business-links::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+    animation: shimmer 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  .family-business-label {
+    display: block;
+    font-size: clamp(1rem, 1.2vw, 1.1rem);
+    font-weight: 600;
+    color: var(--primary-brown);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+    letter-spacing: 0.5px;
+  }
+  
+  .business-links-container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+  
+  .business-link {
+    display: flex;
+    flex-direction: column;
+    padding: var(--spacing-md);
+    background: var(--white);
+    border-radius: var(--border-radius-small);
+    text-decoration: none;
+    transition: var(--transition-standard);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .business-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 100%);
+    opacity: 0;
+    transition: var(--transition-standard);
+    z-index: 1;
+  }
+  
+  .business-link:hover::before {
+    opacity: 0.05;
+  }
+  
+  .business-link:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-standard);
+    border-color: var(--primary-brown);
+  }
+  
+  .business-name {
+    font-size: clamp(1.1rem, 1.3vw, 1.2rem);
+    font-weight: 700;
+    color: var(--primary-brown);
+    margin-bottom: var(--spacing-xs);
+    position: relative;
+    z-index: 2;
+    transition: var(--transition-standard);
+  }
+  
+  .business-type {
+    font-size: clamp(0.9rem, 1vw, 1rem);
+    color: var(--dark-text);
+    font-style: italic;
+    position: relative;
+    z-index: 2;
+    transition: var(--transition-standard);
+  }
+  
+  .business-link:hover .business-name {
+    color: var(--primary-brown);
+    transform: translateX(4px);
+  }
+  
+  .business-link:hover .business-type {
+    color: var(--primary-brown);
+    transform: translateX(4px);
+  }
+  
+  /* Mobile Responsiveness for Family Business Links */
+  @media (max-width: 768px) {
+    .family-business-links {
+      margin: var(--mobile-spacing-lg) 0;
+      padding: var(--mobile-spacing-lg);
+    }
+    
+    .business-links-container {
+      gap: var(--mobile-spacing-md);
+    }
+    
+    .business-link {
+      padding: var(--mobile-spacing-md);
+    }
   }
   
   /* ==========================================
@@ -7195,6 +7466,135 @@
     font-size: 1.6rem !important;
   }
   
+  /* ==========================================
+     Airbnb Button Styles
+     ========================================== */
+  .airbnb-button-container {
+    display: flex;
+    justify-content: center;
+    margin: var(--spacing-md) 0;
+    padding: var(--spacing-sm);
+  }
+  
+  .airbnb-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: linear-gradient(135deg, #FF5A5F 0%, #FF385C 100%);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: var(--border-radius-medium);
+    box-shadow: var(--shadow-standard);
+    transition: var(--transition-standard);
+    border: 2px solid transparent;
+    position: relative;
+    overflow: hidden;
+    font-weight: 600;
+    min-width: 200px;
+    justify-content: center;
+  }
+  
+  .airbnb-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, #FF385C 0%, #FF5A5F 100%);
+    opacity: 0;
+    transition: var(--transition-standard);
+    z-index: 1;
+  }
+  
+  .airbnb-button:hover::before {
+    opacity: 1;
+  }
+  
+  .airbnb-button:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-elevated);
+    border-color: var(--white);
+  }
+  
+  .airbnb-icon {
+    width: 24px;
+    height: 24px;
+    background: var(--white);
+    border-radius: var(--border-radius-circle);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #FF5A5F;
+    position: relative;
+    z-index: 2;
+    transition: var(--transition-standard);
+  }
+  
+  .airbnb-button:hover .airbnb-icon {
+    transform: scale(1.1);
+    background: var(--white);
+    color: #FF385C;
+  }
+  
+  .airbnb-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+    transition: var(--transition-standard);
+  }
+  
+  .airbnb-label {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    line-height: 1;
+  }
+  
+  .airbnb-brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1;
+  }
+  
+  .airbnb-arrow {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    transition: var(--transition-standard);
+  }
+  
+  .airbnb-button:hover .airbnb-arrow {
+    transform: translateX(4px);
+  }
+  
+  .airbnb-button:hover .airbnb-content {
+    transform: translateX(2px);
+  }
+  
+  /* Mobile Responsiveness for Airbnb Button */
+  @media (max-width: 768px) {
+    .airbnb-button {
+      min-width: 180px;
+      padding: var(--mobile-spacing-md) var(--mobile-spacing-lg);
+    }
+    
+    .airbnb-icon {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .airbnb-brand {
+      font-size: 1.1rem;
+    }
+  }
+  
   /* Force gallery title to be bigger */
   .project-modal .gallery-title {
     font-size: clamp(2.8rem, 5vw, 3.5rem) !important;
@@ -7278,6 +7678,211 @@
     background: rgba(255, 255, 255, 0.03) !important;
     border-radius: 16px !important;
     border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  
+  /* ==========================================
+     Mobile Modal Responsiveness
+     ========================================== */
+  @media (max-width: 768px) {
+    /* Mobile modal container */
+    .project-modal .modal-container {
+      width: 95% !important;
+      max-width: 95% !important;
+      height: 90vh !important;
+      max-height: 90vh !important;
+      margin: 5vh auto !important;
+      border-radius: var(--border-radius-medium) !important;
+      padding: var(--spacing-sm) !important;
+    }
+    
+    /* Mobile modal content */
+    .project-modal .modal-content {
+      padding: var(--spacing-sm) !important;
+      height: 100% !important;
+      overflow-y: auto !important;
+    }
+    
+    /* Mobile modal header */
+    .project-modal .modal-header {
+      margin-bottom: var(--spacing-md) !important;
+      padding-bottom: var(--spacing-sm) !important;
+      text-align: center !important;
+    }
+    
+    .project-modal .modal-title {
+      font-size: clamp(1.5rem, 4vw, 2rem) !important;
+      line-height: 1.2 !important;
+      margin-bottom: var(--spacing-xs) !important;
+    }
+    
+    .project-modal .modal-subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.2rem) !important;
+      line-height: 1.3 !important;
+    }
+    
+    /* Mobile project description */
+    .project-modal .project-description {
+      padding: var(--spacing-sm) !important;
+      margin-bottom: var(--spacing-md) !important;
+      text-align: left !important;
+    }
+    
+    .project-modal .project-description p {
+      font-size: clamp(0.9rem, 2.5vw, 1rem) !important;
+      line-height: 1.5 !important;
+      text-indent: 0 !important;
+      margin-bottom: var(--spacing-sm) !important;
+    }
+    
+    /* Mobile Airbnb button */
+    .project-modal .airbnb-button-container {
+      margin: var(--spacing-sm) 0 !important;
+      padding: var(--spacing-xs) !important;
+    }
+    
+    .project-modal .airbnb-button {
+      min-width: 160px !important;
+      padding: var(--spacing-sm) var(--spacing-md) !important;
+    }
+    
+    /* Mobile gallery section */
+    .project-modal .gallery-section {
+      margin-top: var(--spacing-sm) !important;
+      padding: var(--spacing-sm) !important;
+      border-radius: var(--border-radius-small) !important;
+    }
+    
+    .project-modal .gallery-title {
+      font-size: clamp(1.5rem, 3.5vw, 2rem) !important;
+      margin-bottom: var(--spacing-sm) !important;
+    }
+    
+    /* Mobile photo carousel */
+    .project-modal .photo-carousel {
+      max-width: 100% !important;
+      padding: var(--spacing-sm) !important;
+      border-radius: var(--border-radius-small) !important;
+    }
+    
+    /* Mobile carousel container */
+    .project-modal .carousel-container {
+      height: 200px !important;
+      max-height: 200px !important;
+      margin: var(--spacing-xs) 0 !important;
+    }
+    
+    /* Mobile carousel images */
+    .project-modal .carousel-image {
+      width: 100% !important;
+      height: 180px !important;
+      max-height: 180px !important;
+      max-width: 100% !important;
+      border-radius: var(--border-radius-small) !important;
+    }
+    
+    /* Mobile carousel buttons */
+    .project-modal .carousel-btn {
+      width: 48px !important;
+      height: 48px !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      border: 2px solid var(--white) !important;
+      box-shadow: var(--shadow-subtle) !important;
+    }
+    
+    .project-modal .carousel-btn svg {
+      width: 20px !important;
+      height: 20px !important;
+      color: var(--primary-brown) !important;
+    }
+    
+    /* Mobile carousel indicators */
+    .project-modal .carousel-indicators {
+      margin-top: var(--spacing-sm) !important;
+      gap: var(--spacing-xs) !important;
+    }
+    
+    .project-modal .carousel-indicator {
+      width: 10px !important;
+      height: 10px !important;
+      margin: 0 4px !important;
+    }
+    
+    /* Mobile modal close button */
+    .project-modal .modal-close {
+      width: 48px !important;
+      height: 48px !important;
+      top: var(--spacing-sm) !important;
+      right: var(--spacing-sm) !important;
+      background: rgba(255, 255, 255, 0.9) !important;
+      border: 2px solid var(--white) !important;
+      box-shadow: var(--shadow-subtle) !important;
+    }
+    
+    .project-modal .modal-close svg {
+      width: 20px !important;
+      height: 20px !important;
+      color: var(--primary-brown) !important;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* Small mobile modal adjustments */
+    .project-modal .modal-container {
+      width: 98% !important;
+      height: 95vh !important;
+      margin: 2.5vh auto !important;
+      padding: var(--spacing-xs) !important;
+    }
+    
+    .project-modal .modal-content {
+      padding: var(--spacing-xs) !important;
+    }
+    
+    .project-modal .modal-title {
+      font-size: clamp(1.3rem, 3.5vw, 1.8rem) !important;
+    }
+    
+    .project-modal .modal-subtitle {
+      font-size: clamp(0.9rem, 2.2vw, 1.1rem) !important;
+    }
+    
+    .project-modal .project-description p {
+      font-size: clamp(0.85rem, 2.2vw, 0.95rem) !important;
+    }
+    
+    .project-modal .gallery-title {
+      font-size: clamp(1.3rem, 3vw, 1.8rem) !important;
+    }
+    
+    .project-modal .carousel-container {
+      height: 180px !important;
+      max-height: 180px !important;
+    }
+    
+    .project-modal .carousel-image {
+      height: 160px !important;
+      max-height: 160px !important;
+    }
+    
+    .project-modal .carousel-btn {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    
+    .project-modal .carousel-btn svg {
+      width: 16px !important;
+      height: 16px !important;
+    }
+    
+    .project-modal .modal-close {
+      width: 40px !important;
+      height: 40px !important;
+    }
+    
+    .project-modal .modal-close svg {
+      width: 16px !important;
+      height: 16px !important;
+    }
   }
   
   /* ==========================================
