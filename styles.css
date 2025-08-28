@@ -4897,6 +4897,887 @@
   .modal-container.loading {
     pointer-events: none;
   }
+
+  /* ==========================================
+     Enhanced Mobile-First Modal Responsiveness
+     ========================================== */
+
+  /* iPhone SE, Small Android (320px and below) */
+  @media (max-width: 320px) {
+    .project-modal {
+      padding: 4px;
+      padding-top: 8px;
+    }
+    
+    .modal-container {
+      width: 100%;
+      max-width: 100%;
+      max-height: 100vh;
+      height: auto;
+      min-height: auto;
+      aspect-ratio: auto;
+      margin: 0;
+      border-radius: 0;
+    }
+    
+    .modal-content {
+      padding: 50px 12px 20px;
+      max-height: calc(100vh - 60px);
+      gap: 16px;
+    }
+    
+    .modal-title {
+      font-size: 1.6rem;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    
+    .modal-subtitle {
+      font-size: 0.9rem;
+      padding: 4px 12px;
+      margin-bottom: 12px;
+    }
+    
+    .project-description {
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+    
+    .project-description p {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-bottom: 8px;
+    }
+    
+    .gallery-title {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+    
+    .photo-carousel {
+      padding: 8px;
+      margin-bottom: 16px;
+    }
+    
+    .carousel-image {
+      height: 200px;
+    }
+    
+    .carousel-btn {
+      width: 40px;
+      height: 40px;
+    }
+    
+    .carousel-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+    
+    .carousel-prev {
+      left: -20px;
+    }
+    
+    .carousel-next {
+      right: -20px;
+    }
+    
+    .modal-close {
+      top: 8px;
+      right: 8px;
+      width: 36px;
+      height: 36px;
+    }
+    
+    .modal-close svg {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+  /* iPhone 13 mini, Small Mobile (375px and below) */
+  @media (max-width: 375px) {
+    .project-modal {
+      padding: 6px;
+      padding-top: 12px;
+    }
+    
+    .modal-container {
+      width: 100%;
+      max-width: 100%;
+      max-height: 98vh;
+      height: auto;
+      min-height: auto;
+      aspect-ratio: auto;
+      margin: 0;
+      border-radius: 8px;
+    }
+    
+    .modal-content {
+      padding: 55px 16px 24px;
+      max-height: calc(98vh - 80px);
+      gap: 20px;
+    }
+    
+    .modal-title {
+      font-size: 1.8rem;
+      line-height: 1.2;
+      margin-bottom: 10px;
+    }
+    
+    .modal-subtitle {
+      font-size: 1rem;
+      padding: 6px 14px;
+      margin-bottom: 14px;
+    }
+    
+    .project-description {
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    
+    .project-description p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+    
+    .gallery-title {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    
+    .photo-carousel {
+      padding: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .carousel-image {
+      height: 220px;
+    }
+    
+    .carousel-btn {
+      width: 44px;
+      height: 44px;
+    }
+    
+    .carousel-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    .carousel-prev {
+      left: -22px;
+    }
+    
+    .carousel-next {
+      right: -22px;
+    }
+    
+    .modal-close {
+      top: 12px;
+      right: 12px;
+      width: 40px;
+      height: 40px;
+    }
+    
+    .modal-close svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  /* iPhone 13, Standard Mobile (390px and below) */
+  @media (max-width: 390px) {
+    .project-modal {
+      padding: 8px;
+      padding-top: 16px;
+    }
+    
+    .modal-container {
+      width: 100%;
+      max-width: 100%;
+      max-height: 96vh;
+      height: auto;
+      min-height: auto;
+      aspect-ratio: auto;
+      margin: 0;
+      border-radius: 12px;
+    }
+    
+    .modal-content {
+      padding: 60px 20px 28px;
+      max-height: calc(96vh - 90px);
+      gap: 24px;
+    }
+    
+    .modal-title {
+      font-size: 2rem;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    
+    .modal-subtitle {
+      font-size: 1.05rem;
+      padding: 8px 16px;
+      margin-bottom: 16px;
+    }
+    
+    .project-description {
+      padding: 18px;
+      margin-bottom: 24px;
+    }
+    
+    .project-description p {
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    
+    .gallery-title {
+      font-size: 1.6rem;
+      margin-bottom: 18px;
+    }
+    
+    .photo-carousel {
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .carousel-image {
+      height: 240px;
+    }
+    
+    .carousel-btn {
+      width: 48px;
+      height: 48px;
+    }
+    
+    .carousel-btn svg {
+      width: 22px;
+      height: 22px;
+    }
+    
+    .carousel-prev {
+      left: -24px;
+    }
+    
+    .carousel-next {
+      right: -24px;
+    }
+    
+    .modal-close {
+      top: 16px;
+      right: 16px;
+      width: 44px;
+      height: 44px;
+    }
+    
+    .modal-close svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  /* Enhanced 480px breakpoint for better mobile experience */
+  @media (max-width: 480px) {
+    .project-modal {
+      padding: var(--spacing-sm);
+      padding-top: var(--spacing-md);
+    }
+    
+    .modal-container {
+      width: 100%;
+      max-width: 100%;
+      max-height: 95vh;
+      height: auto;
+      min-height: auto;
+      aspect-ratio: auto;
+      margin: 0;
+      border-radius: var(--border-radius-large);
+      transform: translateY(0) scale(1);
+    }
+    
+    .project-modal.active .modal-container {
+      transform: translateY(0) scale(1);
+    }
+    
+    .modal-content {
+      padding: 65px var(--spacing-md) var(--spacing-lg);
+      max-height: calc(95vh - 120px);
+      gap: var(--spacing-lg);
+    }
+    
+    .modal-title {
+      font-size: clamp(1.8rem, 6vw, 2.2rem);
+      line-height: 1.2;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(0.95rem, 3.5vw, 1.1rem);
+      padding: 8px 18px;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .project-description {
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-lg);
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: var(--border-radius-small);
+    }
+    
+    .project-description p {
+      font-size: clamp(0.9rem, 3vw, 1.05rem);
+      line-height: 1.6;
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .gallery-title {
+      font-size: clamp(1.4rem, 4.5vw, 1.6rem);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .photo-carousel {
+      padding: var(--spacing-md);
+      margin-bottom: var(--spacing-md);
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: var(--border-radius-small);
+    }
+    
+    .carousel-image {
+      height: 280px;
+      border-radius: var(--border-radius-small);
+    }
+    
+    .carousel-btn {
+      width: 52px;
+      height: 52px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .carousel-btn svg {
+      width: 24px;
+      height: 24px;
+      color: var(--primary-brown);
+    }
+    
+    .carousel-prev {
+      left: -26px;
+    }
+    
+    .carousel-next {
+      right: -26px;
+    }
+    
+    .modal-close {
+      top: var(--spacing-sm);
+      right: var(--spacing-sm);
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+    
+    .modal-close svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  /* Enhanced 768px breakpoint for tablets and small laptops */
+  @media (max-width: 768px) {
+    .project-modal {
+      padding: var(--spacing-md);
+      padding-top: var(--spacing-lg);
+      align-items: flex-start;
+    }
+    
+    .modal-container {
+      width: 95%;
+      max-width: 95%;
+      max-height: 90vh;
+      height: auto;
+      min-height: auto;
+      aspect-ratio: auto;
+      margin: 0 auto;
+      transform: translateY(0) scale(1);
+      border-radius: var(--border-radius-large);
+    }
+    
+    .project-modal.active .modal-container {
+      transform: translateY(0) scale(1);
+    }
+    
+    .modal-content {
+      padding: 70px var(--spacing-lg) var(--spacing-xl);
+      max-height: calc(90vh - 140px);
+      gap: var(--spacing-xl);
+    }
+    
+    .modal-close {
+      top: var(--spacing-md);
+      right: var(--spacing-md);
+      width: 52px;
+      height: 52px;
+    }
+    
+    .modal-close svg {
+      width: 22px;
+      height: 22px;
+    }
+    
+    .modal-header {
+      margin-bottom: var(--spacing-xl);
+      padding-bottom: var(--spacing-lg);
+    }
+    
+    .modal-title {
+      font-size: clamp(2.2rem, 5vw, 2.8rem);
+      margin-bottom: var(--spacing-sm);
+      line-height: 1.1;
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(1.1rem, 3.5vw, 1.3rem);
+      padding: 10px 20px;
+    }
+    
+    .project-description {
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-xl);
+      max-width: 100%;
+    }
+    
+    .project-description p {
+      font-size: clamp(1rem, 2.5vw, 1.1rem);
+      line-height: 1.7;
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .gallery-section {
+      margin-top: var(--spacing-xl);
+    }
+    
+    .gallery-title {
+      font-size: clamp(1.8rem, 4.5vw, 2rem);
+      margin-bottom: var(--spacing-lg);
+    }
+    
+    .photo-carousel {
+      padding: var(--spacing-lg);
+      margin-bottom: var(--spacing-lg);
+      max-width: 100%;
+    }
+    
+    .carousel-image {
+      height: 320px;
+    }
+    
+    .carousel-btn {
+      width: 56px;
+      height: 56px;
+    }
+    
+    .carousel-btn svg {
+      width: 24px;
+      height: 24px;
+    }
+    
+    .carousel-prev {
+      left: -28px;
+    }
+    
+    .carousel-next {
+      right: -28px;
+    }
+    
+    .carousel-indicators {
+      gap: var(--spacing-sm);
+      margin-top: var(--spacing-md);
+    }
+    
+    .carousel-indicator {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  /* Landscape orientation for mobile devices */
+  @media (max-width: 768px) and (orientation: landscape) {
+    .project-modal {
+      padding: var(--spacing-sm);
+      padding-top: var(--spacing-sm);
+    }
+    
+    .modal-container {
+      max-height: 85vh;
+      width: 90%;
+      max-width: 90%;
+    }
+    
+    .modal-content {
+      padding: 50px var(--spacing-md) var(--spacing-md);
+      max-height: calc(85vh - 100px);
+      gap: var(--spacing-md);
+    }
+    
+    .modal-title {
+      font-size: clamp(1.8rem, 4vw, 2.2rem);
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      padding: 6px 16px;
+    }
+    
+    .project-description {
+      padding: var(--spacing-sm);
+      margin-bottom: var(--spacing-md);
+    }
+    
+    .project-description p {
+      font-size: clamp(0.9rem, 2.5vw, 1rem);
+    }
+    
+    .gallery-title {
+      font-size: clamp(1.4rem, 3.5vw, 1.6rem);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .photo-carousel {
+      padding: var(--spacing-sm);
+      margin-bottom: var(--spacing-sm);
+    }
+    
+    .carousel-image {
+      height: 200px;
+    }
+  }
+
+  /* Enhanced tablet experience (768px - 1024px) */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .project-modal {
+      padding: var(--spacing-lg);
+    }
+    
+    .modal-container {
+      width: 85%;
+      max-width: 600px;
+      max-height: 85vh;
+      height: auto;
+      min-height: auto;
+      aspect-ratio: auto;
+    }
+    
+    .modal-content {
+      padding: 75px var(--spacing-xl) var(--spacing-xxl);
+      max-height: calc(85vh - 150px);
+      gap: var(--spacing-xxl);
+    }
+    
+    .modal-title {
+      font-size: clamp(2.5rem, 4vw, 3rem);
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+      padding: 12px 24px;
+    }
+    
+    .project-description {
+      padding: var(--spacing-xl);
+    }
+    
+    .project-description p {
+      font-size: clamp(1.1rem, 2vw, 1.2rem);
+    }
+    
+    .gallery-title {
+      font-size: clamp(2rem, 3.5vw, 2.2rem);
+    }
+    
+    .carousel-image {
+      height: 400px;
+    }
+  }
+
+  /* Enhanced desktop experience (1025px and above) */
+  @media (min-width: 1025px) {
+    .modal-container {
+      width: 70%;
+      max-width: 700px;
+      max-height: 80vh;
+      height: auto;
+      min-height: auto;
+      aspect-ratio: auto;
+    }
+    
+    .modal-content {
+      padding: 80px var(--spacing-xxl) var(--spacing-xxl);
+      max-height: calc(80vh - 160px);
+      gap: var(--spacing-xxl);
+    }
+    
+    .modal-title {
+      font-size: clamp(2.8rem, 3.5vw, 3.5rem);
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(1.3rem, 2vw, 1.5rem);
+      padding: 14px 28px;
+    }
+    
+    .project-description {
+      padding: var(--spacing-xxl);
+    }
+    
+    .project-description p {
+      font-size: clamp(1.2rem, 1.8vw, 1.3rem);
+    }
+    
+    .gallery-title {
+      font-size: clamp(2.2rem, 3vw, 2.5rem);
+    }
+    
+    .carousel-image {
+      height: 500px;
+    }
+  }
+
+  /* Large desktop screens (1400px and above) - Enhanced layout */
+  @media (min-width: 1400px) {
+    .modal-container {
+      max-width: 800px;
+      max-height: 75vh;
+      width: 60%;
+    }
+    
+    .modal-content {
+      max-height: calc(75vh - 180px);
+      padding: 90px var(--spacing-xxl) var(--spacing-xxl);
+      gap: var(--spacing-xxl);
+    }
+    
+    .modal-title {
+      font-size: clamp(3.2rem, 4vw, 4.2rem);
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(1.3rem, 2vw, 1.6rem);
+      padding: 16px 32px;
+    }
+    
+    .project-description {
+      padding: var(--spacing-xxl);
+    }
+    
+    .project-description p {
+      font-size: clamp(1.1rem, 1.4vw, 1.3rem);
+      line-height: 1.9;
+    }
+    
+    .gallery-title {
+      font-size: clamp(2.5rem, 3vw, 3rem);
+    }
+    
+    .carousel-image {
+      height: 600px;
+    }
+  }
+
+  /* Extra Large Screens (1920px and above) - Enhanced lengthy modal */
+  @media (min-width: 1920px) {
+    .modal-container {
+      max-width: 900px;
+      max-height: 70vh;
+      width: 55%;
+    }
+    
+    .modal-content {
+      max-height: calc(70vh - 200px);
+      padding: 100px var(--spacing-xxl) var(--spacing-xxl);
+    }
+    
+    .modal-title {
+      font-size: clamp(3.5rem, 3.5vw, 4.5rem);
+    }
+    
+    .modal-subtitle {
+      font-size: clamp(1.4rem, 1.8vw, 1.7rem);
+      padding: 18px 36px;
+    }
+    
+    .project-description {
+      padding: var(--spacing-xxl);
+    }
+    
+    .project-description p {
+      font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+      line-height: 2;
+    }
+    
+    .gallery-title {
+      font-size: clamp(2.8rem, 2.5vw, 3.2rem);
+    }
+    
+    .carousel-image {
+      height: 700px;
+    }
+  }
+
+  /* High DPI displays and accessibility improvements */
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .modal-close,
+    .carousel-btn {
+      border-width: 1px;
+    }
+    
+    .modal-content {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  }
+
+  /* Reduced motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    .project-modal,
+    .modal-container,
+    .modal-content > *,
+    .modal-close {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+
+  /* Dark mode support for modals */
+  @media (prefers-color-scheme: dark) {
+    .modal-container {
+      background: #2a2a2a;
+      border: 1px solid #444;
+    }
+    
+    .modal-content {
+      color: #e0e0e0;
+    }
+    
+    .modal-close,
+    .carousel-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #666;
+    }
+    
+    .modal-close:hover,
+    .carousel-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+
+  /* ==========================================
+     Mobile Touch & Accessibility Enhancements
+     ========================================== */
+
+  /* Ensure modals are touch-friendly on all mobile devices */
+  @media (max-width: 1024px) {
+    .modal-close,
+    .carousel-btn,
+    .carousel-indicator {
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    
+    .modal-content {
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      overscroll-behavior: contain;
+    }
+    
+    .photo-carousel {
+      touch-action: pan-y pinch-zoom;
+    }
+    
+    .carousel-track {
+      touch-action: pan-x;
+    }
+    
+    /* Prevent modal from being too close to screen edges */
+    .project-modal {
+      padding-left: max(env(safe-area-inset-left), var(--spacing-sm));
+      padding-right: max(env(safe-area-inset-right), var(--spacing-sm));
+      padding-top: max(env(safe-area-inset-top), var(--spacing-sm));
+      padding-bottom: max(env(safe-area-inset-bottom), var(--spacing-sm));
+    }
+    
+    /* Ensure modal container respects safe areas */
+    .modal-container {
+      margin-left: max(env(safe-area-inset-left), 0);
+      margin-right: max(env(safe-area-inset-right), 0);
+      margin-top: max(env(safe-area-inset-top), 0);
+      margin-bottom: max(env(safe-area-inset-bottom), 0);
+    }
+  }
+
+  /* iPhone notch and safe area support */
+  @supports (padding: max(0px)) {
+    .project-modal {
+      padding-left: max(env(safe-area-inset-left), var(--spacing-sm));
+      padding-right: max(env(safe-area-inset-right), var(--spacing-sm));
+      padding-top: max(env(safe-area-inset-top), var(--spacing-sm));
+      padding-bottom: max(env(safe-area-inset-bottom), var(--spacing-sm));
+    }
+    
+    .modal-container {
+      margin-left: max(env(safe-area-inset-left), 0);
+      margin-right: max(env(safe-area-inset-right), 0);
+      margin-top: max(env(safe-area-inset-top), 0);
+      margin-bottom: max(env(safe-area-inset-bottom), 0);
+    }
+  }
+
+  /* Prevent zoom on input focus for iOS */
+  @media screen and (-webkit-min-device-pixel-ratio: 0) {
+    .modal-content input,
+    .modal-content textarea {
+      font-size: 16px !important;
+    }
+  }
+
+  /* Enhanced focus states for accessibility */
+  .modal-close:focus-visible,
+  .carousel-btn:focus-visible,
+  .carousel-indicator:focus-visible {
+    outline: 3px solid var(--primary-brown);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Smooth scrolling for modal content */
+  .modal-content {
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-brown) transparent;
+  }
+
+  .modal-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .modal-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary-brown);
+    border-radius: 3px;
+  }
+
+  .modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--light-gold);
+  }
   
   .modal-container.loading::after {
     content: '';

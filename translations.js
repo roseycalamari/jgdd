@@ -287,9 +287,9 @@ const TRANSLATIONS = {
                 description: 'Een complete transformatie van een zakelijke vergaderruimte, waarbij een moderne en inspirerende werkplek is gecreëerd die creativiteit en productiviteit bevordert. Het ontwerp omvat elegante verlichting, comfortabele zitplaatsen en een verfijnd kleurenpallet dat het professionele imago van het bedrijf weergeeft.'
             },
             'office': {
-                title: 'Kantoor Interieurontwerp',
+                title: 'Stichting Levvel jeugdzorg Waterlandplein Purmerend',
                 subtitle: 'Hedendaagse Werkruimte',
-                description: 'Een uitgebreid kantoor herontwerp dat een traditionele werkruimte transformeert tot een moderne, collaboratieve omgeving. Kenmerken zijn onder meer open planindelingen, ergonomisch meubilair en strategisch gebruik van natuurlijk licht om een uitnodigende en productieve sfeer te creëren.'
+                description: 'Een uitgebreid kantoor herontwerp dat een traditionele werkruimte transformeert tot een moderne, gemeenschappelijke omgeving. Kenmerken zijn onder meer open planindelingen, ergonomisch meubilair en strategisch gebruik van natuurlijk licht om een uitnodigende en productieve sfeer te creëren.'
             },
             'holiday-home': {
                 title: 'Vakantiehuis Makeover',
@@ -317,8 +317,8 @@ const TRANSLATIONS = {
                 description: 'Een uniek interieurproject waarbij kleur en creativiteit centraal staan. Turquoise accenten en artistieke elementen maken dit een echt opvallend en persoonlijk interieur.'
             },
             'youth-lounge': {
-                title: 'Jeugd Lounge',
-                subtitle: 'Dynamische Correctie School',
+                title: 'Jongeren huiskamer en vergaderruimte',
+                subtitle: 'Een huiskamer voor jongeren waar je terecht kunt voor hulp bij het invullen van formulieren, maar ook gewoon voor een praatje.',
                 description: 'Een speciaal ontworpen ruimte voor jongeren in een correctie school setting. Modern, veilig en inspirerend - een omgeving die positieve verandering bevordert en comfort biedt.'
             }
         }
