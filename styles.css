@@ -1459,7 +1459,7 @@
     width: auto;
     min-width: 140px;
     white-space: nowrap;
-    margin: 20px auto 0 auto;
+    margin: 12px auto 0 auto;
     display: block;
     /* Ensure button doesn't interfere with flip functionality */
     position: relative;
@@ -3947,6 +3947,7 @@
       padding: 10px 18px !important;
       min-width: 160px !important;
       gap: var(--spacing-xs) !important;
+      background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 100%) !important;
     }
     
     .project-modal .airbnb-button .airbnb-label {
@@ -6837,7 +6838,7 @@
   /* Fix button positioning on mobile */
   .grid-item .project-cta-button {
     position: absolute;
-    bottom: -50px;
+    bottom: -25px;
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
@@ -7949,6 +7950,21 @@
     .thumbnail img {
       height: 50px;
     }
+    
+    /* Ensure project cards remain square in landscape */
+    .grid-container {
+      max-width: 600px !important;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: var(--spacing-md) !important;
+    }
+    
+    .flip-card {
+      max-width: 280px !important;
+    }
+    
+    .flip-card-inner {
+      aspect-ratio: 1 !important;
+    }
   }
   
   /* ==========================================
@@ -8012,6 +8028,63 @@
     
     .grid-image {
       border-radius: var(--border-radius-small);
+    }
+    
+    /* Ensure flip cards remain square on mobile */
+    .flip-card {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    
+    .flip-card-inner {
+      aspect-ratio: 1 !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+    
+    .flip-card-front,
+    .flip-card-back {
+      aspect-ratio: 1 !important;
+      width: 100% !important;
+      height: 100% !important;
+    }
+    
+    /* Mobile project card optimizations */
+    .project-image-wrapper {
+      aspect-ratio: 1 !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+    
+    .project-image-wrapper img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+    
+    /* Ensure CTA button is properly positioned below square cards */
+    .project-cta-button {
+      margin-top: 8px !important;
+      width: 100% !important;
+      max-width: 200px !important;
+    }
+    
+    /* Mobile project card spacing and layout */
+    .grid-item.flip-card {
+      margin-bottom: var(--spacing-md) !important;
+      padding-bottom: var(--spacing-sm) !important;
+    }
+    
+    /* Ensure proper spacing between cards */
+    .grid-container > .grid-item:not(:last-child) {
+      margin-bottom: var(--spacing-lg) !important;
+    }
+    
+    /* Mobile CTA container styling */
+    .grid-item.cta-container {
+      margin: var(--spacing-lg) auto !important;
+      max-width: 350px !important;
     }
     
     /* About section improvements */
@@ -8199,12 +8272,12 @@
   /* Ensure proper spacing for small mobile devices */
   .grid-item,
   .flip-card {
-    margin-bottom: 70px; /* Extra space for buttons */
+    margin-bottom: 45px; /* Reduced space for closer button positioning */
   }
 
   /* Mobile button adjustments */
   .grid-item .project-cta-button {
-    bottom: -55px;
+    bottom: -30px;
     font-size: 0.9rem;
     padding: 12px 20px;
     min-height: 44px; /* iOS accessibility requirement */
@@ -8232,11 +8305,11 @@
     
     .grid-item,
     .flip-card {
-      margin-bottom: 65px;
+      margin-bottom: 40px;
     }
     
     .grid-item .project-cta-button {
-      bottom: -50px;
+      bottom: -30px;
       width: 85%;
       font-size: 0.85rem;
       display: flex;
@@ -8537,7 +8610,7 @@
     align-items: center;
     gap: var(--spacing-xs);
     padding: var(--spacing-sm) var(--spacing-md);
-    background: linear-gradient(135deg, #FF5A5F 0%, #FF385C 100%);
+    background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 100%);
     color: var(--white);
     text-decoration: none;
     border-radius: var(--border-radius-medium);
@@ -8558,7 +8631,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg, #FF385C 0%, #FF5A5F 100%);
+    background: var(--white);
     opacity: 0;
     transition: var(--transition-standard);
     z-index: 1;
@@ -8571,7 +8644,8 @@
   .airbnb-button:hover {
     transform: translateY(-4px);
     box-shadow: var(--shadow-elevated);
-    border-color: var(--white);
+    border-color: var(--muted-gold);
+    color: var(--primary-brown);
   }
   
   .airbnb-icon {
@@ -8582,7 +8656,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #FF5A5F;
+    color: var(--primary-brown);
     position: relative;
     z-index: 2;
     transition: var(--transition-standard);
@@ -8590,8 +8664,8 @@
   
   .airbnb-button:hover .airbnb-icon {
     transform: scale(1.1);
-    background: var(--white);
-    color: #FF385C;
+    background: var(--muted-gold);
+    color: var(--white);
   }
   
   .airbnb-content {
@@ -8628,6 +8702,7 @@
   
   .airbnb-button:hover .airbnb-arrow {
     transform: translateX(4px);
+    color: var(--primary-brown);
   }
   
   .airbnb-button:hover .airbnb-content {
@@ -8872,6 +8947,7 @@
       background: rgba(255, 255, 255, 0.9) !important;
       border: 2px solid var(--white) !important;
       box-shadow: var(--shadow-subtle) !important;
+      border-radius: 50% !important;
     }
     
     .project-modal .modal-close svg {
@@ -8933,6 +9009,7 @@
     .project-modal .modal-close {
       width: 40px !important;
       height: 40px !important;
+      border-radius: 50% !important;
     }
     
     .project-modal .modal-close svg {
@@ -9198,6 +9275,7 @@
     height: 44px !important;
     background: rgba(255, 255, 255, 0.95) !important;
     border: 2px solid var(--primary-brown) !important;
+    border-radius: 50% !important;
   }
   
   /* Mobile Close Button Icon - Better visibility */
@@ -10165,6 +10243,7 @@
       padding: 8px 16px !important;
       min-width: 150px !important;
       gap: var(--spacing-xs) !important;
+      background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 100%) !important;
     }
     
     .project-modal .airbnb-button .airbnb-label {

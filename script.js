@@ -420,6 +420,7 @@ function initializeProjectModal() {
     
     let currentProjectId = null;
     let currentPhotoIndex = 0;
+    let scrollPosition = 0; // Store scroll position when modal opens
     
     // Make modal functions globally accessible
     window.openProjectModal = function(projectId) {
@@ -481,21 +482,25 @@ function initializeProjectModal() {
         // Update carousel
         updateCarousel(projectImages);
         
-            // Show modal with smooth animation
-    modal.setAttribute('aria-hidden', 'false');
-    
-    // Add entrance class for initial animation
-    modal.classList.add('entering');
-    
-    // Small delay to ensure smooth animation
-    requestAnimationFrame(() => {
-        modal.classList.remove('entering');
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
+            // Store current scroll position before opening modal
+        scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+        console.log('Stored scroll position:', scrollPosition);
         
-        // Focus management
-        modalClose.focus();
-    });
+        // Show modal with smooth animation
+        modal.setAttribute('aria-hidden', 'false');
+        
+        // Add entrance class for initial animation
+        modal.classList.add('entering');
+        
+        // Small delay to ensure smooth animation
+        requestAnimationFrame(() => {
+            modal.classList.remove('entering');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Focus management
+            modalClose.focus();
+        });
     
     
     };
@@ -511,15 +516,60 @@ function initializeProjectModal() {
             modal.setAttribute('aria-hidden', 'true');
             document.body.style.overflow = '';
             
-            // Reset focus
-            document.querySelector('.project-cta-button').focus();
+            // Restore scroll position immediately
+            if (scrollPosition > 0) {
+                // Temporarily disable smooth scrolling to prevent animation
+                const originalScrollBehavior = document.documentElement.style.scrollBehavior;
+                document.documentElement.style.scrollBehavior = 'auto';
+                
+                // Restore scroll position with multiple fallbacks for mobile
+                try {
+                    window.scrollTo(0, scrollPosition);
+                } catch (e) {
+                    // Fallback for older browsers
+                    window.scrollTo(0, scrollPosition);
+                }
+                
+                // Additional fallback for mobile devices
+                if (window.innerWidth <= 768) {
+                    setTimeout(() => {
+                        window.scrollTo(0, scrollPosition);
+                    }, 50);
+                }
+                
+                // Re-enable smooth scrolling after a short delay
+                setTimeout(() => {
+                    document.documentElement.style.scrollBehavior = originalScrollBehavior;
+                }, 100);
+            }
+            
+            // Better focus management - focus on the button that opened the modal
+            if (currentProjectId) {
+                const projectButton = document.querySelector(`[data-project="${currentProjectId}"]`);
+                if (projectButton) {
+                    projectButton.focus();
+                } else {
+                    // Fallback to first project button if specific one not found
+                    const firstProjectButton = document.querySelector('.project-cta-button');
+                    if (firstProjectButton) {
+                        firstProjectButton.focus();
+                    }
+                }
+            }
+            
+            console.log('Modal closed, scroll position restored to:', scrollPosition);
         }, 600); // Match the CSS transition duration
-        
-        console.log('Modal closed');
     };
     
     // Event listeners
     modalClose.addEventListener('click', closeProjectModal);
+    
+    // Click outside modal to close (preserving scroll position)
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+            closeProjectModal();
+        }
+    });
     
     // Keyboard navigation
     modal.addEventListener('keydown', function(e) {
