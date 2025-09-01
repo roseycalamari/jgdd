@@ -1118,12 +1118,6 @@
     box-shadow: none;
   }
   
-  .grid-item:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-subtle);
-    border-color: rgba(255, 255, 255, 0.1);
-  }
-  
   .grid-image {
     width: 100%;
     height: 100%;
@@ -1822,16 +1816,18 @@
   }
   
   .videos-grid {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: var(--spacing-xl);
     margin-top: var(--spacing-xxl);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  /* Hide dummy videos (temporary fix) */
-  .videos-grid .video-item:nth-child(n+2) {
-    display: none !important;
+  /* Show all videos in the grid */
+  .videos-grid .video-item {
+    display: block !important;
   }
   
   .video-item {
@@ -2187,7 +2183,7 @@
     }
     
     .videos-grid {
-      flex-direction: column;
+      grid-template-columns: 1fr;
       gap: var(--spacing-lg);
       max-width: 400px;
       margin: 0 auto;
@@ -3589,15 +3585,12 @@
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
   
-
-  
-      .modal-container {
-      position: relative;
-      width: 45%;
-      max-width: 450px;
-      max-height: 60vh !important;
-      height: 450px;
-      min-height: 450px;
+  .modal-container {
+    position: relative;
+    width: 90%;
+    max-width: 900px;
+    max-height: 90vh;
+    min-height: 700px;
     background: #c9a876;
     border-radius: var(--border-radius-large);
     box-shadow: var(--shadow-elevated);
@@ -3606,8 +3599,8 @@
     transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     opacity: 0;
     border: none;
-    position: relative;
-    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
   }
   
   .modal-container::before {
@@ -3634,10 +3627,10 @@
   
   .modal-close {
     position: absolute;
-    top: var(--spacing-lg);
-    right: var(--spacing-lg);
-    width: 52px;
-    height: 52px;
+    top: var(--spacing-md);
+    right: var(--spacing-md);
+    width: 44px;
+    height: 44px;
     background: rgba(255, 255, 255, 0.95);
     border: 2px solid var(--primary-brown);
     border-radius: 50%;
@@ -3687,8 +3680,8 @@
   }
   
   .modal-close svg {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     stroke: var(--primary-brown);
     stroke-width: 2;
     transition: var(--transition-standard);
@@ -3699,20 +3692,65 @@
   }
   
   .modal-content {
-    padding: 60px 80px 80px;
-    max-height: calc(99vh - 80px) !important;
+    padding: 30px 50px 40px;
+    max-height: calc(90vh - 100px);
     height: auto;
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: var(--primary-brown) var(--soft-cream);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
+    position: relative;
+    flex: 1;
+    /* Ensure scrolling works properly */
+    scroll-behavior: smooth;
   }
   
   /* Prevent unnecessary scrolling when content fits */
   .modal-content.no-scroll {
     overflow-y: visible;
+  }
+  
+  /* Ensure View Gallery button is always visible */
+  .modal-content .view-gallery-btn {
+    position: relative !important;
+    z-index: 1000 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    margin-top: var(--spacing-md) !important;
+    margin-bottom: var(--spacing-sm) !important;
+  }
+  
+  /* Ensure View Gallery button is visible in modal body */
+  .modal-body .view-gallery-btn {
+    position: static !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 1000 !important;
+    margin: var(--spacing-sm) auto var(--spacing-xs) !important;
+    transform: none !important;
+    height: auto !important;
+    width: auto !important;
+    /* Force button to be visible */
+    background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 100%) !important;
+    color: var(--white) !important;
+    border: none !important;
+    padding: 12px 24px !important;
+    border-radius: 30px !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    box-shadow: 0 6px 20px rgba(143, 96, 39, 0.3) !important;
+    transition: all 0.3s ease !important;
+    white-space: nowrap !important;
+    min-width: 140px !important;
+    text-align: center !important;
+    letter-spacing: 0.5px !important;
+    max-width: 200px !important;
+    text-transform: uppercase !important;
   }
   
   /* Modal content animation classes */
@@ -3832,10 +3870,103 @@
     border-radius: 4px;
   }
   
+  /* Ensure modal content can scroll when needed */
+  .modal-content {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-brown) var(--soft-cream);
+    min-height: 0;
+    /* Force scrollbar to be visible */
+    scrollbar-gutter: stable;
+  }
+  
+  /* Custom scrollbar styling for better visibility */
+  .modal-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .modal-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+  
+  .modal-content::-webkit-scrollbar-thumb {
+    background: var(--primary-brown);
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .modal-content::-webkit-scrollbar-thumb:hover {
+    background: var(--muted-gold);
+  }
+  
+  /* Ensure all modal content is visible */
+  .modal-content > * {
+    min-height: 0;
+    overflow: visible;
+  }
+  
+  /* Force View Gallery button visibility */
+  .modal-body .view-gallery-btn {
+    position: static !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 1000 !important;
+    margin: var(--spacing-sm) auto var(--spacing-xs) !important;
+    transform: none !important;
+    height: auto !important;
+    width: auto !important;
+  }
+  
+  /* Ensure modal body has enough space for all content */
+  .modal-body {
+    padding-bottom: var(--spacing-sm);
+  }
+  
+  /* Force larger modal size on desktop */
+  @media (min-width: 769px) {
+    .project-modal .modal-container {
+      width: 90% !important;
+      max-width: 900px !important;
+      max-height: 90vh !important;
+      min-height: 700px !important;
+    }
+    
+    .project-modal .modal-content {
+      padding: 30px 60px 50px !important;
+      max-height: calc(90vh - 100px) !important;
+      /* Ensure desktop modal scrolls properly */
+      overflow-y: auto !important;
+      scrollbar-width: thin !important;
+      scrollbar-color: var(--primary-brown) var(--soft-cream) !important;
+    }
+    
+    /* Desktop Airbnb button - more compact */
+    .project-modal .airbnb-button {
+      padding: 10px 18px !important;
+      min-width: 160px !important;
+      gap: var(--spacing-xs) !important;
+    }
+    
+    .project-modal .airbnb-button .airbnb-label {
+      font-size: 0.7rem !important;
+    }
+    
+    .project-modal .airbnb-button .airbnb-brand {
+      font-size: 0.9rem !important;
+    }
+    
+    .project-modal .airbnb-button-container {
+      margin: var(--spacing-xs) 0 !important;
+      padding: var(--spacing-xs) !important;
+    }
+  }
+  
   .modal-header {
     text-align: center;
-    margin-bottom: var(--spacing-xl);
-    padding-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
     position: relative;
     flex-shrink: 0;
@@ -3853,13 +3984,11 @@
     border-radius: 2px;
   }
   
-
-  
   .modal-title {
-    font-size: clamp(2.8rem, 4.5vw, 3.8rem);
+    font-size: clamp(2.5rem, 4vw, 3.2rem);
     font-weight: 400;
     color: var(--white);
-    margin-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
     font-family: 'Revans', serif;
     letter-spacing: -0.02em;
     line-height: 1.2;
@@ -3868,12 +3997,12 @@
   }
   
   .modal-subtitle {
-    font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+    font-size: clamp(1rem, 2vw, 1.3rem);
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
     font-family: 'Revans', serif;
     letter-spacing: 0.8px;
-    padding: 12px 24px;
+    padding: 8px 18px;
     background: rgba(255, 255, 255, 0.12);
     border-radius: 25px;
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -3881,19 +4010,25 @@
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
     font-style: italic;
     text-align: center;
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
   }
   
   .modal-body {
     color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    min-height: 0;
+    flex: 1;
+    overflow: visible;
   }
   
   .project-description {
-    margin-bottom: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
     text-align: left;
     max-width: 100%;
     background: rgba(255, 255, 255, 0.12);
-    padding: var(--spacing-xl);
+    padding: var(--spacing-lg);
     border-radius: 20px;
     border: 1px solid rgba(255, 255, 255, 0.25);
     box-shadow: 
@@ -3940,8 +4075,8 @@
   }
   
   .project-description p {
-    font-size: clamp(1rem, 1.6vw, 1.2rem);
-    line-height: 1.8;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    line-height: 1.7;
     color: rgba(255, 255, 255, 0.95);
     margin: 0;
     font-family: 'Revans', serif;
@@ -3959,19 +4094,21 @@
   
   .gallery-section {
     text-align: center;
-    margin-top: var(--spacing-md);
+    margin-top: var(--spacing-xs);
     flex: 1;
     min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
+    overflow: visible;
+    padding-bottom: var(--spacing-xs);
   }
   
   .gallery-title {
-    font-size: clamp(2.8rem, 5vw, 3.5rem);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
     font-weight: 400;
     color: var(--white);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
     font-family: 'Revans', serif;
     position: relative;
     display: inline-block;
@@ -4194,22 +4331,22 @@
     }
     
           .modal-container {
-        max-height: 500px;
-        width: 500px;
-        max-width: 500px;
-        min-height: 500px;
-        height: 500px;
+        max-height: 90vh;
+        width: 90%;
+        max-width: 900px;
+        min-height: 700px;
         background: linear-gradient(145deg, #d4b896 0%, #c9a876 50%, #b8956b 100%);
         border-radius: 24px;
-        aspect-ratio: 1;
-      box-shadow: 
-        0 25px 50px rgba(0, 0, 0, 0.35),
-        0 15px 35px rgba(0, 0, 0, 0.25),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-    }
+        box-shadow: 
+          0 25px 50px rgba(0, 0, 0, 0.35),
+          0 15px 35px rgba(0, 0, 0, 0.25),
+          inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
     
     .modal-container::before {
       content: '';
@@ -4223,18 +4360,56 @@
     }
     
     .modal-content {
-      max-height: calc(92vh - 140px);
-      padding: 60px 60px 70px;
+      max-height: calc(90vh - 100px);
+      padding: 30px 60px 50px;
       display: flex;
       flex-direction: column;
-      gap: var(--spacing-xxl);
+      gap: var(--spacing-lg);
       position: relative;
       z-index: 2;
+      flex: 1;
     }
     
     /* Ensure content fits without scrolling on larger screens */
     .modal-content:not(.overflowing) {
       overflow-y: visible;
+    }
+    
+    /* Force desktop modal to be larger */
+    @media (min-width: 769px) {
+      .project-modal .modal-container {
+        width: 90% !important;
+        max-width: 900px !important;
+        max-height: 90vh !important;
+        min-height: 700px !important;
+      }
+      
+      .project-modal .modal-content {
+        padding: 30px 60px 50px !important;
+        max-height: calc(90vh - 100px) !important;
+        /* Force desktop scrolling */
+        overflow-y: auto !important;
+      }
+      
+      /* Desktop scrollbar styling */
+      .project-modal .modal-content::-webkit-scrollbar {
+        width: 8px !important;
+      }
+      
+      .project-modal .modal-content::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-radius: 4px !important;
+      }
+      
+      .project-modal .modal-content::-webkit-scrollbar-thumb {
+        background: var(--primary-brown) !important;
+        border-radius: 4px !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+      }
+      
+      .project-modal .modal-content::-webkit-scrollbar-thumb:hover {
+        background: var(--muted-gold) !important;
+      }
     }
   }
   
@@ -4246,8 +4421,8 @@
     }
     
     .modal-container {
-      width: 98%;
-      max-height: 95vh;
+      width: 95%;
+      max-height: 90vh;
       margin: 0 auto;
       transform: translateY(0) scale(1);
     }
@@ -4257,7 +4432,7 @@
     }
     
     .modal-content {
-      padding: 60px var(--spacing-md) var(--spacing-lg);
+      padding: 40px var(--spacing-md) var(--spacing-lg);
       max-height: calc(95vh - 100px);
     }
     
@@ -8353,15 +8528,15 @@
   .airbnb-button-container {
     display: flex;
     justify-content: center;
-    margin: var(--spacing-md) 0;
-    padding: var(--spacing-sm);
+    margin: var(--spacing-sm) 0;
+    padding: var(--spacing-xs);
   }
   
   .airbnb-button {
     display: flex;
     align-items: center;
-    gap: var(--spacing-sm);
-    padding: var(--spacing-md) var(--spacing-lg);
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm) var(--spacing-md);
     background: linear-gradient(135deg, #FF5A5F 0%, #FF385C 100%);
     color: var(--white);
     text-decoration: none;
@@ -8372,7 +8547,7 @@
     position: relative;
     overflow: hidden;
     font-weight: 600;
-    min-width: 200px;
+    min-width: 180px;
     justify-content: center;
   }
   
@@ -8429,13 +8604,13 @@
   }
   
   .airbnb-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     opacity: 0.9;
     line-height: 1;
   }
   
   .airbnb-brand {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     line-height: 1;
   }
@@ -8938,27 +9113,30 @@
     opacity: 0 !important;
   }
   
-  /* Mobile: "View Gallery" Button - Clean & Integrated */
+  /* View Gallery Button - Clean & Integrated */
   .project-modal .view-gallery-btn {
     position: static !important;
     display: block !important;
-    margin: var(--spacing-lg) auto var(--spacing-sm) !important;
+    margin: var(--spacing-sm) auto var(--spacing-xs) !important;
     background: linear-gradient(135deg, var(--primary-brown) 0%, var(--muted-gold) 100%) !important;
     color: var(--white) !important;
     border: none !important;
-    padding: 16px 32px !important;
+    padding: 12px 24px !important;
     border-radius: 30px !important;
-    font-size: 0.9rem !important;
+    font-size: 0.85rem !important;
     font-weight: 600 !important;
     cursor: pointer !important;
     box-shadow: 0 6px 20px rgba(143, 96, 39, 0.3) !important;
     transition: all 0.3s ease !important;
     white-space: nowrap !important;
-    min-width: 160px !important;
+    min-width: 140px !important;
     text-align: center !important;
     letter-spacing: 0.5px !important;
-    max-width: 220px !important;
+    max-width: 200px !important;
     text-transform: uppercase !important;
+    z-index: 1000 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
   }
   
   .project-modal .view-gallery-btn:hover {
@@ -9928,6 +10106,78 @@
     .videos-section {
       margin-top: var(--mobile-spacing-xl);
       padding: var(--mobile-spacing-lg) var(--mobile-spacing-md);
+    }
+  }
+  
+  /* ==========================================
+     FORCE COMPACT DESKTOP MODALS - HIGH PRIORITY
+     ========================================== */
+  
+  /* Override any conflicting styles to ensure larger modals on desktop */
+  @media (min-width: 769px) {
+    .project-modal .modal-container {
+      width: 90% !important;
+      max-width: 900px !important;
+      max-height: 90vh !important;
+      min-height: 700px !important;
+      transform: translateY(60px) scale(0.9) !important;
+    }
+    
+    .project-modal .modal-content {
+      padding: 30px 60px 50px !important;
+      max-height: calc(90vh - 100px) !important;
+      gap: var(--spacing-lg) !important;
+      /* Force desktop scrolling */
+      overflow-y: auto !important;
+    }
+    
+    .project-modal .modal-title {
+      font-size: clamp(2.5rem, 4vw, 3.2rem) !important;
+      margin-bottom: var(--spacing-sm) !important;
+    }
+    
+    .project-modal .modal-subtitle {
+      font-size: clamp(1rem, 2vw, 1.3rem) !important;
+      padding: 8px 18px !important;
+      margin-bottom: var(--spacing-lg) !important;
+    }
+    
+    .project-modal .gallery-title {
+      font-size: clamp(2.2rem, 4vw, 2.8rem) !important;
+      margin-bottom: var(--spacing-md) !important;
+    }
+    
+    .project-modal .view-gallery-btn {
+      padding: 16px 28px !important;
+      font-size: 0.9rem !important;
+      min-width: 160px !important;
+      max-width: 220px !important;
+      margin: var(--spacing-sm) auto var(--spacing-xs) !important;
+      /* Force visibility on desktop */
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      z-index: 1000 !important;
+    }
+    
+    /* Desktop Airbnb button - ultra compact */
+    .project-modal .airbnb-button {
+      padding: 8px 16px !important;
+      min-width: 150px !important;
+      gap: var(--spacing-xs) !important;
+    }
+    
+    .project-modal .airbnb-button .airbnb-label {
+      font-size: 0.65rem !important;
+    }
+    
+    .project-modal .airbnb-button .airbnb-brand {
+      font-size: 0.85rem !important;
+    }
+    
+    .project-modal .airbnb-button-container {
+      margin: var(--spacing-xs) 0 !important;
+      padding: var(--spacing-xs) !important;
     }
   }
   

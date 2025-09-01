@@ -1629,11 +1629,24 @@ function initializeFullscreenPhotoViewer() {
 }
 
 // Video Modal Functionality
-function openVideoModal() {
+function openVideoModal(videoType) {
     const videoModal = document.getElementById('videoModal');
-    const video = document.getElementById('borboletaVideo');
+    const video = document.getElementById('videoPlayer');
+    const videoTitle = document.getElementById('videoModalTitle');
+    const videoDescription = document.getElementById('videoModalDescription');
     
-    if (videoModal && video) {
+    if (videoModal && video && videoTitle && videoDescription) {
+        // Set video source and info based on type
+        if (videoType === 'borboleta') {
+            video.src = 'assets/images/video/Jeanette Gasseling - Casa Corcovada.mp4';
+            videoTitle.textContent = 'Borboleta Turquesa';
+            videoDescription.textContent = 'Borboleta Turquesa Project';
+        } else if (videoType === 'torremolinos') {
+            video.src = 'assets/images/video/torremolinos video.mp4';
+            videoTitle.textContent = 'Torremolinos Home';
+            videoDescription.textContent = 'Torremolinos Home Project';
+        }
+        
         // Show the modal
         videoModal.classList.add('active');
         document.body.style.overflow = 'hidden';
@@ -1649,12 +1662,13 @@ function openVideoModal() {
 
 function closeVideoModal() {
     const videoModal = document.getElementById('videoModal');
-    const video = document.getElementById('borboletaVideo');
+    const video = document.getElementById('videoPlayer');
     
     if (videoModal && video) {
         // Pause the video
         video.pause();
         video.currentTime = 0; // Reset to beginning
+        video.src = ''; // Clear video source
         
         // Hide the modal
         videoModal.classList.remove('active');
@@ -1674,7 +1688,7 @@ document.addEventListener('keydown', function(e) {
 
 // Fullscreen toggle for video
 function toggleVideoFullscreen() {
-    const video = document.getElementById('borboletaVideo');
+    const video = document.getElementById('videoPlayer');
     
     if (video) {
         if (!document.fullscreenElement) {
