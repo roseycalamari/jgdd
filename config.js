@@ -19,8 +19,8 @@ const CONFIG = {
     
     // Contact Information
     contact: {
-        phone: '+31 6 12 34 56 78', // Replace with your actual phone number
-        email: 'info@jeanettegasseling.nl', // Replace with your actual email
+        phone: '+31 6 21525376', // Replace with your actual phone number
+        email: 'info@jgdecodesign.com', // Replace with your actual email
         whatsapp: '31621525376' // Replace with your actual WhatsApp number
     },
     
