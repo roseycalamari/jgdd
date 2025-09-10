@@ -262,7 +262,8 @@ const TRANSLATIONS = {
             before: 'Voor',
             after: 'Na',
             flipToBefore: 'Klik om de foto van voor de renovatie te zien',
-            flipToAfter: 'Klik om de foto van na de renovatie te zien'
+            flipToAfter: 'Klik om de foto van na de renovatie te zien',
+            youthLounge: 'Jongeren huiskamer'
         },
         
         // Social Media
@@ -317,9 +318,9 @@ const TRANSLATIONS = {
                 description: 'Een uniek interieurproject waarbij kleur en creativiteit centraal staan. Turquoise accenten en artistieke elementen maken dit een echt opvallend en persoonlijk interieur.'
             },
             'youth-lounge': {
-                title: 'Jongeren huiskamer en vergaderruimte',
+                title: 'Jongeren huiskamer',
                 subtitle: 'Een huiskamer voor jongeren waar je terecht kunt voor hulp bij het invullen van formulieren, maar ook gewoon voor een praatje.',
-                description: 'Een speciaal ontworpen ruimte voor jongeren in een correctie school setting. Modern, veilig en inspirerend - een omgeving die positieve verandering bevordert en comfort biedt.'
+                description: 'Een speciaal voor jongeren ingerichte huiskamer. Modern, veilig en inspirerend - een omgeving die positieve verandering bevordert en comfort biedt.'
             }
         }
     },
@@ -535,7 +536,8 @@ const TRANSLATIONS = {
             before: 'Before',
             after: 'After',
             flipToBefore: 'Click to see the before image',
-            flipToAfter: 'Click to see the after image'
+            flipToAfter: 'Click to see the after image',
+            youthLounge: 'Youth Lounge'
         },
         
         // Social Media
@@ -855,7 +857,8 @@ const TRANSLATIONS = {
             before: 'Vorher',
             after: 'Nachher',
             flipToBefore: 'Klicken Sie, um das Vorher-Bild zu sehen',
-            flipToAfter: 'Klicken Sie, um das Nachher-Bild zu sehen'
+            flipToAfter: 'Klicken Sie, um das Nachher-Bild zu sehen',
+            youthLounge: 'Jugend Lounge'
         },
         
         // Social Media
@@ -1175,7 +1178,8 @@ const TRANSLATIONS = {
             before: 'Antes',
             after: 'Depois',
             flipToBefore: 'Clique para ver a imagem de antes',
-            flipToAfter: 'Clique para ver a imagem de depois'
+            flipToAfter: 'Clique para ver a imagem de depois',
+            youthLounge: 'Lounge Juvenil'
         },
         
         // Social Media
